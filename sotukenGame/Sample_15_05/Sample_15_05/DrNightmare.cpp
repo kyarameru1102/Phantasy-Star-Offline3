@@ -11,6 +11,7 @@ DrNightmare::~DrNightmare()
 
 bool DrNightmare::Start()
 {
+	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
 	return true;
 }
 
