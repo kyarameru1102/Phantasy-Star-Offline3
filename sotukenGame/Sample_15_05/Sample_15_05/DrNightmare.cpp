@@ -13,6 +13,7 @@ bool DrNightmare::Start()
 {
 
 	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+	//ƒLƒƒƒ‰ƒRƒ“‰Šú‰»
 	return true;
 }
 
