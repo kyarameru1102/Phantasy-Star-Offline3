@@ -16,10 +16,12 @@ void IndexBuffer::Init(int size, int stride)
 		m_sizeInBytes = size * 2;
 	}
 	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
+	auto heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+	auto desc = CD3DX12_RESOURCE_DESC::Buffer(m_sizeInBytes);
 	auto hr = d3dDevice->CreateCommittedResource(
-		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
+		&heapProp,
 		D3D12_HEAP_FLAG_NONE,
-		&CD3DX12_RESOURCE_DESC::Buffer(m_sizeInBytes),
+		&desc,
 		D3D12_RESOURCE_STATE_GENERIC_READ,
 		nullptr,
 		IID_PPV_ARGS(&m_indexBuffer));
