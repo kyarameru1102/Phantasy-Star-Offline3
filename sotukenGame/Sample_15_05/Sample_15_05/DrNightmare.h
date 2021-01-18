@@ -26,6 +26,24 @@ class DrNightmare : public EnBase
 	/// </summary>
 	/// <returns></returns>
 	void Update();
+
+	/// <summary>
+	/// プレイヤーに向かっていく関数。
+	/// </summary>
+	void Move();
+	/// <summary>
+	/// プレイヤーの方向に体を向ける関数。
+	/// </summary>
+	void Turn();
+	/// <summary>
+	/// 攻撃関数。
+	/// </summary>
+	void Attack();
+	/// <summary>
+	/// 死。
+	/// </summary>
+	void Die();
+
 	void ReceiveDamage(int damage) override
 	{
 		m_hp -= damage;
