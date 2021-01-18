@@ -33,6 +33,23 @@ public:
 		return m_hp;
 	}
 	/// <summary>
+	/// 攻撃を受けたかの判定を返す。
+	/// </summary>
+	/// <returns></returns>
+	const bool& GetHit() const
+	{
+		return m_gethit;
+	}
+	/// <summary>
+	/// 攻撃を受けたら切り替える。
+	/// </summary>
+	/// <returns></returns>
+	bool SetHit()
+	{
+		m_gethit = true;
+	}
+
+	/// <summary>
 	/// ダメージを受けてHPを減らす関数。
 	/// </summary>
 	/// <param name="damage">int ダメージ量</param>
@@ -81,6 +98,7 @@ protected:
 	Player*				m_player = nullptr;						//プレイヤー。
 	Vector3				m_toPlayer = Vector3::Zero;				//プレイヤーまでのベクトル。
 	bool				m_death = false;
+	bool                m_gethit = false;                       //プレイヤーからの攻撃判定
 	Vector3				m_dir, m_ghostPos;
 };
 
