@@ -255,6 +255,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="TerrorBringerAnimation.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
@@ -354,6 +355,7 @@
     <ClInclude Include="Stage3.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="TerrorBringerAnimation.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Weapon.h" />
