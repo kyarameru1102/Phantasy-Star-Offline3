@@ -242,6 +242,7 @@
     <ClCompile Include="Shadow\IShadowMap.cpp" />
     <ClCompile Include="Shadow\ShadowMap.cpp" />
     <ClCompile Include="SkinModelRender.cpp" />
+    <ClCompile Include="SoulEaterAnimation.cpp" />
     <ClCompile Include="SpriteRender.cpp" />
     <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="Stage2.cpp" />
@@ -344,6 +345,7 @@
     <ClInclude Include="Shadow\IShadowMap.h" />
     <ClInclude Include="Shadow\ShadowMap.h" />
     <ClInclude Include="SkinModelRender.h" />
+    <ClInclude Include="SoulEaterAnimation.h" />
     <ClInclude Include="SpriteRender.h" />
     <ClInclude Include="Stage1.h" />
     <ClInclude Include="Stage2.h" />

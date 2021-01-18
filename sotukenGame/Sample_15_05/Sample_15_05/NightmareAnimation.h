@@ -19,7 +19,13 @@ const enum NightmAnim {
 };
 class NightmareAnimation : public IGameObject
 {
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	NightmareAnimation();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~NightmareAnimation();
 	/// <summary>
 	/// スタート関数。

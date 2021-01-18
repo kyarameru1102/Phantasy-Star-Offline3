@@ -262,6 +262,9 @@
     <ClCompile Include="NightmareAnimation.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="SoulEaterAnimation.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -553,6 +556,9 @@
       <Filter>ソースファイル\Game\Charactor\Player</Filter>
     </ClInclude>
     <ClInclude Include="NightmareAnimation.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SoulEaterAnimation.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
