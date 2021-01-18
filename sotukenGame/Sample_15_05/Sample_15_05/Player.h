@@ -342,5 +342,6 @@ private:
 	int m_attackXOrY = noAttack;
 	bool m_specialAttackFlag = false;
 	int m_specialAttackState = enNormalState;
+	int a = 0;
 };
 
