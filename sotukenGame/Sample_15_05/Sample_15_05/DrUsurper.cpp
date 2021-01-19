@@ -117,13 +117,13 @@ void DrUsurper::Update()
 	switch (m_status)
 	{
 	case Idle_state:
-		m_animState = enIdle01;
+		m_animState = enUs_Idle01;
 		break;
 	case Walk_state:
-		m_animState = enWalk;
+		m_animState = enUs_Walk;
 		break;
 	case Attack_state:
-		m_animState = enHandAttack;
+		m_animState = enUs_HandAttack;
 		m_count++;
 		m_isAttack = true;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
@@ -131,23 +131,23 @@ void DrUsurper::Update()
 			m_isAttack = false;
 			m_ATKoff = false;
 			m_count = 0;
-			m_animState = enIdle01;
+			m_animState = enUs_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case GetDamage_state:
-		m_animState = enGethit;
+		m_animState = enUs_Gethit;
 		m_isAttack = false;
 		m_ATKoff = false;
 		m_count = 0;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
 			m_status = Idle_state;
-			m_animState = enIdle01;
+			m_animState = enUs_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case Die_state:
-		m_animState = enDie;
+		m_animState = enUs_Die;
 		break;
 	default:
 		break;
