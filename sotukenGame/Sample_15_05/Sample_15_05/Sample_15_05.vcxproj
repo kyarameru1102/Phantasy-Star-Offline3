@@ -258,6 +258,7 @@
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="TerrorBringerAnimation.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="UsurperAnimation.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -359,6 +360,7 @@
     <ClInclude Include="system\system.h" />
     <ClInclude Include="TerrorBringerAnimation.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="UsurperAnimation.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="RenderMode.h" />
