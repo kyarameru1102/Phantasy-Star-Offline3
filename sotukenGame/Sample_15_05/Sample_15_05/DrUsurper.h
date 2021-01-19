@@ -63,7 +63,7 @@ private:
 	int					m_status = Idle_state;			//状態。
 	int					changeTimer = 0;				//アニメーション変更タイマー。
 	float				m_speedY = 0.0f;				//Y方向のスピード。
-	int					m_animState = enIdle01;			//アニメーションの状態。
+	int					m_animState = enUs_Idle01;			//アニメーションの状態。
 	int					m_appearcolor = 0;				//配色No
 	UsurperAnimation* m_usurperAnim = nullptr;        //アニメーションのロード。
 	std::vector<int>	boarcolor = { 1,2,3,4 };		//配色決定。

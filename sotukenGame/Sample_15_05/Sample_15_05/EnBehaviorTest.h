@@ -7,7 +7,9 @@
 #include "BackGround.h";
 #include "Player.h"
 #include "GameCamera.h"
-#include "BossBoar.h"
+//#include "BossBoar.h"
+//#include "DrSoulEater.h"
+#include "DrNightmare.h"
 
 class PlayerStatusUI;
 class EnBehaviorTest : public IGameObject
@@ -32,7 +34,9 @@ public:
 	void Update() override;
 	EnTest* m_entest[2] = { nullptr };
 	DrBoar* m_drBoar[4] = { nullptr };
-	BossBoar* m_boss = nullptr;
+	DrNightmare* m_drNight = nullptr;
+	//DrSoulEater* m_drSoul = nullptr;
+	//BossBoar* m_boss = nullptr;
 	BackGround* m_bg = nullptr;
 	Player* m_player = nullptr;
 	GameCamera* m_gameCam = nullptr;

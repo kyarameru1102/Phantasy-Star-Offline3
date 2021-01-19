@@ -22,6 +22,7 @@ const enum AttackAnimTime {
 };
 class Player;
 class PlayerAnimation;
+class EnBase;
 class PlayerAttackAnimation : public IGameObject
 {
 public:
@@ -31,6 +32,10 @@ public:
 	/// 攻撃アニメーションの時間を設定。
 	/// </summary>
 	void SetAttackAnimationTime();
+	/// <summary>
+	/// 敵を攻撃されていない状態にする。
+	/// </summary>
+	void MakeTheEnemyUnattacked();
 	/// <summary>
 	/// 通常攻撃。
 	/// </summary>
@@ -43,10 +48,7 @@ public:
 	/// ソード状態の特殊攻撃。
 	/// </summary>
 	void SpecialAttackStateSword();
-	/// <summary>
-	/// 特殊攻撃の終わり。
-	/// </summary>
-	void SpecialAttackEnd();
+
 	void AttackFlag(int attackTime01_blad, int* attackAnimNum, int attackTime01_sword);
 	/// 攻撃終了関数。
 	/// </summary>

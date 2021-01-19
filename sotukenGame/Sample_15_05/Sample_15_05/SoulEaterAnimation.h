@@ -1,21 +1,21 @@
 #pragma once
 const enum SoulEaterAnim {
-	enIdle,                  //‘Ò‹@01
-	enWalk,                    //•à‚«
-	enRun,                     //‘–‚è
-	enBasicAttack,             //UŒ‚
-	enTailAttack,              //K”öUŒ‚
-	enFireballShoot,           //‰Î‰ŠUŒ‚
-	enFlyFloat,                //•‚—V
-	enFlyForward,              //”òs‘Oi
-	enFlyGlide,                //‘Î‹ó
-	enFlyLand,                 //’…—¤
-	enTakeoff,                 //—£—¤
-	enDefend,                  //–hŒä
-	enSleep,                   //‡–°
-	enScream,                  //™ôšK
-	enGethit,                  //”íƒ_ƒ
-	enDie,                     //€–S
+	enSo_Idle,                  //‘Ò‹@01
+	enSo_Walk,                    //•à‚«
+	enSo_Run,                     //‘–‚è
+	enSo_BasicAttack,             //UŒ‚
+	enSo_TailAttack,              //K”öUŒ‚
+	enSo_FireballShoot,           //‰Î‰ŠUŒ‚
+	enSo_FlyFloat,                //•‚—V
+	enSo_FlyForward,              //”òs‘Oi
+	enSo_FlyGlide,                //‘Î‹ó
+	enSo_FlyLand,                 //’…—¤
+	enSo_Takeoff,                 //—£—¤
+	enSo_Defend,                  //–hŒä
+	enSo_Sleep,                   //‡–°
+	enSo_Scream,                  //™ôšK
+	enSo_Gethit,                  //”íƒ_ƒ
+	enSo_Die,                     //€–S
 	enSoulEAnimClip_num        //ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì”
 };
 class SoulEaterAnimation : public IGameObject

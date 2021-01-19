@@ -1,23 +1,23 @@
 #pragma once
 const enum TerrorBringerAnim {
-	enIdle01,                  //待機01
-	enIdle02,                  //待機02
-	enFlyIdle,                 //浮遊待機
-	enWalk,                    //歩き
-	enRun,                     //走り
-	enBasicAttack,             //攻撃
-	enFlyAttack,               //飛行攻撃
-	enWingClawAttack,          //爪攻撃
-	enFlameAttack,             //火炎攻撃
-	enFlyForward,              //飛行前進
-	enFlyGlide,                //対空
-	enLand,                    //着陸
-	enTakeoff,                 //離陸
-	enDefend,                  //防御
-	enSleep,                   //睡眠
-	enScream,                  //咆哮
-	enGethit,                  //被ダメ
-	enDie,                     //死亡
+	enTe_Idle01,                  //待機01
+	enTe_Idle02,                  //待機02
+	enTe_FlyIdle,                 //浮遊待機
+	enTe_Walk,                    //歩き
+	enTe_Run,                     //走り
+	enTe_BasicAttack,             //攻撃
+	enTe_FlyAttack,               //飛行攻撃
+	enTe_WingClawAttack,          //爪攻撃
+	enTe_FlameAttack,             //火炎攻撃
+	enTe_FlyForward,              //飛行前進
+	enTe_FlyGlide,                //対空
+	enTe_Land,                    //着陸
+	enTe_Takeoff,                 //離陸
+	enTe_Defend,                  //防御
+	enTe_Sleep,                   //睡眠
+	enTe_Scream,                  //咆哮
+	enTe_Gethit,                  //被ダメ
+	enTe_Die,                     //死亡
 	enTerrorBringerAnimClip_num      //アニメーションの数
 };
 class TerrorBringerAnimation : public IGameObject
