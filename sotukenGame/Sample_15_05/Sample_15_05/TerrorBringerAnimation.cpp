@@ -15,50 +15,50 @@ bool TerrorBringerAnimation::Start()
 {
 	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒ[ƒhB
 	//‘Ò‹@‚O‚P
-	animClip[enIdle01].Load("Assets/animData/DragonTerrorBringer/TeBr_idle01.tka");
-	animClip[enIdle01].SetLoopFlag(true);
+	animClip[enTe_Idle01].Load("Assets/animData/DragonTerrorBringer/TeBr_idle01.tka");
+	animClip[enTe_Idle01].SetLoopFlag(true);
 	//‘Ò‹@‚O‚Q
-	animClip[enIdle02].Load("Assets/animData/DragonTerrorBringer/TeBr_idle02.tka");
-	animClip[enIdle02].SetLoopFlag(true);
+	animClip[enTe_Idle02].Load("Assets/animData/DragonTerrorBringer/TeBr_idle02.tka");
+	animClip[enTe_Idle02].SetLoopFlag(true);
 	//•‚—V‘Ò‹@
-	animClip[enFlyIdle].Load("Assets/animData/DragonTerrorBringer/TeBr_flyidle.tka");
-	animClip[enFlyIdle].SetLoopFlag(true);
+	animClip[enTe_FlyIdle].Load("Assets/animData/DragonTerrorBringer/TeBr_flyidle.tka");
+	animClip[enTe_FlyIdle].SetLoopFlag(true);
 	//•à‚«
-	animClip[enWalk].Load("Assets/animData/DragonTerrorBringer/TeBr_walk.tka");
-	animClip[enWalk].SetLoopFlag(true);
+	animClip[enTe_Walk].Load("Assets/animData/DragonTerrorBringer/TeBr_walk.tka");
+	animClip[enTe_Walk].SetLoopFlag(true);
 	//‘–‚è
-	animClip[enRun].Load("Assets/animData/DragonTerrorBringer/TeBr_run.tka");
-	animClip[enRun].SetLoopFlag(true);
+	animClip[enTe_Run].Load("Assets/animData/DragonTerrorBringer/TeBr_run.tka");
+	animClip[enTe_Run].SetLoopFlag(true);
 
 	//UŒ‚
-	animClip[enBasicAttack].Load("Assets/animData/DragonTerrorBringer/TeBr_basicattack.tka");
+	animClip[enTe_BasicAttack].Load("Assets/animData/DragonTerrorBringer/TeBr_basicattack.tka");
 	//”òsUŒ‚
-	animClip[enFlyAttack].Load("Assets/animData/DragonTerrorBringer/TeBr_flyattack.tka");
+	animClip[enTe_FlyAttack].Load("Assets/animData/DragonTerrorBringer/TeBr_flyattack.tka");
 	//’ÜUŒ‚
-	animClip[enWingClawAttack].Load("Assets/animData/DragonTerrorBringer/TeBr_attackwingclaw.tka");
+	animClip[enTe_WingClawAttack].Load("Assets/animData/DragonTerrorBringer/TeBr_attackwingclaw.tka");
 	//‰Î‰ŠUŒ‚
-	animClip[enFlameAttack].Load("Assets/animData/DragonTerrorBringer/TeBr_flameattack.tka");
+	animClip[enTe_FlameAttack].Load("Assets/animData/DragonTerrorBringer/TeBr_flameattack.tka");
 	//”òs‘Oi
-	animClip[enFlyForward].Load("Assets/animData/DragonTerrorBringer/TeBr_flyforward.tka");
-	animClip[enFlyForward].SetLoopFlag(true);
+	animClip[enTe_FlyForward].Load("Assets/animData/DragonTerrorBringer/TeBr_flyforward.tka");
+	animClip[enTe_FlyForward].SetLoopFlag(true);
 	//‘Î‹ó
-	animClip[enFlyGlide].Load("Assets/animData/DragonTerrorBringer/TeBr_flyglide.tka");
-	animClip[enFlyGlide].SetLoopFlag(true);
+	animClip[enTe_FlyGlide].Load("Assets/animData/DragonTerrorBringer/TeBr_flyglide.tka");
+	animClip[enTe_FlyGlide].SetLoopFlag(true);
 
 	//’…—¤
-	animClip[enLand].Load("Assets/animData/DragonTerrorBringer/TeBr_landing.tka");
+	animClip[enTe_Land].Load("Assets/animData/DragonTerrorBringer/TeBr_landing.tka");
 	//—£—¤
-	animClip[enTakeoff].Load("Assets/animData/DragonTerrorBringer/TeBr_takeoff.tka");
+	animClip[enTe_Takeoff].Load("Assets/animData/DragonTerrorBringer/TeBr_takeoff.tka");
 	//–hŒä
-	animClip[enDefend].Load("Assets/animData/DragonTerrorBringer/TeBr_defend.tka");
+	animClip[enTe_Defend].Load("Assets/animData/DragonTerrorBringer/TeBr_defend.tka");
 	//‡–°
-	animClip[enSleep].Load("Assets/animData/DragonTerrorBringer/TeBr_sleep.tka");
+	animClip[enTe_Sleep].Load("Assets/animData/DragonTerrorBringer/TeBr_sleep.tka");
 	//™ôšK
-	animClip[enScream].Load("Assets/animData/DragonTerrorBringer/TeBr_scream.tka");
+	animClip[enTe_Scream].Load("Assets/animData/DragonTerrorBringer/TeBr_scream.tka");
 	//”íƒ_ƒ
-	animClip[enGethit].Load("Assets/animData/DragonTerrorBringer/TeBr_gethit.tka");
+	animClip[enTe_Gethit].Load("Assets/animData/DragonTerrorBringer/TeBr_gethit.tka");
 	//€–S
-	animClip[enDie].Load("Assets/animData/DragonTerrorBringer/TeBr_die.tka");
+	animClip[enTe_Die].Load("Assets/animData/DragonTerrorBringer/TeBr_die.tka");
 	return true;
 }
 

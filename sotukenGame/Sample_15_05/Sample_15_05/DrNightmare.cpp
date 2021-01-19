@@ -7,13 +7,40 @@ DrNightmare::DrNightmare()
 
 DrNightmare::~DrNightmare()
 {
+	DeleteGO(m_skinModelRender);
+	DeleteGO(m_nightmAnim);
 }
 
 bool DrNightmare::Start()
 {
-
+	//ドラゴンナイトメアのアニメーションをロード。
+	m_nightmAnim = NewGO<NightmareAnimation>(0);
+	//配色を決める。
+	m_appearcolor = boarcolor[rand() % boarcolor.size()];
 	//モデルの初期化
-	//キャラコン初期化
+	if (m_appearcolor == 1) {
+		m_skinModelRender = NewGO<SkinModelRender>(0);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonNightmare/blue/DrNmBl.tkm", m_nightmAnim->GetAnimationClip(), enNightmAnimClip_num);
+	}
+	else if (m_appearcolor == 2) {
+		m_skinModelRender = NewGO<SkinModelRender>(0);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonNightmare/albino/DrNmAl.tkm", m_nightmAnim->GetAnimationClip(), enNightmAnimClip_num);
+	}
+	else if (m_appearcolor == 3) {
+		m_skinModelRender = NewGO<SkinModelRender>(0);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonNightmare/darkblue/DrNmDp.tkm", m_nightmAnim->GetAnimationClip(), enNightmAnimClip_num);
+	}
+	else if (m_appearcolor == 4) {
+		m_skinModelRender = NewGO<SkinModelRender>(0);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonNightmare/green/DrNmGr.tkm", m_nightmAnim->GetAnimationClip(), enNightmAnimClip_num);
+	}
+	//キャラコン初期化。
+	m_charaCon.Init(145.0f, 200.0f, m_position);
+	Vector3 ghostPos = m_position;
+	m_ghostObj.CreateBox(ghostPos, m_rotation, Vector3(50.0f, 50.0f, 50.0f));
+
+	m_player = FindGO<Player>("player");
+	m_hp = 100;
 	return true;
 }
 
@@ -89,13 +116,13 @@ void DrNightmare::Update()
 	switch (m_status)
 	{
 	case Idle_state:
-		m_animState = enIdle01;
+		m_animState = enNi_Idle01;
 		break;
 	case Walk_state:
-		m_animState = enWalk;
+		m_animState = enNi_Walk;
 		break;
 	case Attack_state:
-		m_animState = enBasicAttack;
+		m_animState = enNi_BasicAttack;
 		m_count++;
 		m_isAttack = true;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
@@ -103,23 +130,23 @@ void DrNightmare::Update()
 			m_isAttack = false;
 			m_ATKoff = false;
 			m_count = 0;
-			m_animState = enIdle01;
+			m_animState = enNi_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case GetDamage_state:
-		m_animState = enGethit;
+		m_animState = enNi_Gethit;
 		m_isAttack = false;
 		m_ATKoff = false;
 		m_count = 0;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
 			m_status = Idle_state;
-			m_animState = enIdle01;
+			m_animState = enNi_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case Die_state:
-		m_animState = enDie;
+		m_animState = enNi_Die;
 		break;
 	default:
 		break;

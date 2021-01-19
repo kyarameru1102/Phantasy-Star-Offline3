@@ -1,23 +1,23 @@
 #pragma once
 const enum UsurperAnim {
-	enIdle01,                  //‘Ò‹@01
-	enIdle02,                  //‘Ò‹@02
-	enFlyIdle,                 //•‚—V‘Ò‹@
-	enWalk,                    //•à‚«
-	enRun,                     //‘–‚è
-	enHandAttack,              //˜rUŒ‚
-	enMouthAttack,             //Šš‚İ‚Â‚«UŒ‚
-	enFlameAttack,             //‰Î‰ŠUŒ‚
-	enFlyFlame,                //•‚—V‰Î‰ŠUŒ‚
-	enFlyForward,              //”òs‘Oi
-	enFlyGlide,                //‘Î‹ó
-	enLand,                    //’…—¤
-	enTakeoff,                 //—£—¤
-	enDefend,                  //–hŒä
-	enSleep,                   //‡–°
-	enScream,                  //™ôšK
-	enGethit,                  //”íƒ_ƒ
-	enDie,                     //€–S
+	enUs_Idle01,                  //‘Ò‹@01
+	enUs_Idle02,                  //‘Ò‹@02
+	enUs_FlyIdle,                 //•‚—V‘Ò‹@
+	enUs_Walk,                    //•à‚«
+	enUs_Run,                     //‘–‚è
+	enUs_HandAttack,              //˜rUŒ‚
+	enUs_MouthAttack,             //Šš‚İ‚Â‚«UŒ‚
+	enUs_FlameAttack,             //‰Î‰ŠUŒ‚
+	enUs_FlyFlame,                //•‚—V‰Î‰ŠUŒ‚
+	enUs_FlyForward,              //”òs‘Oi
+	enUs_FlyGlide,                //‘Î‹ó
+	enUs_Land,                    //’…—¤
+	enUs_Takeoff,                 //—£—¤
+	enUs_Defend,                  //–hŒä
+	enUs_Sleep,                   //‡–°
+	enUs_Scream,                  //™ôšK
+	enUs_Gethit,                  //”íƒ_ƒ
+	enUs_Die,                     //€–S
 	enUsurperAnimClip_num      //ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì”
 };
 class UsurperAnimation : public IGameObject

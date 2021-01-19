@@ -15,42 +15,42 @@ bool NightmareAnimation::Start()
 {
 	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒ[ƒhB
 	//‘Ò‹@‚O‚P
-	animClip[enIdle01].Load("Assets/animData/DragonNightmare/Nm_idle01.tka");
-	animClip[enIdle01].SetLoopFlag(true);
+	animClip[enNi_Idle01].Load("Assets/animData/DragonNightmare/Nm_idle01.tka");
+	animClip[enNi_Idle01].SetLoopFlag(true);
 	//‘Ò‹@‚O‚Q
-	animClip[enIdle02].Load("Assets/animData/DragonNightmare/Nm_idle02.tka");
-	animClip[enIdle02].SetLoopFlag(true);
+	animClip[enNi_Idle02].Load("Assets/animData/DragonNightmare/Nm_idle02.tka");
+	animClip[enNi_Idle02].SetLoopFlag(true);
 	//•à‚«
-	animClip[enWalk].Load("Assets/animData/DragonNightmare/Nm_walk.tka");
-	animClip[enWalk].SetLoopFlag(true);
+	animClip[enNi_Walk].Load("Assets/animData/DragonNightmare/Nm_walk.tka");
+	animClip[enNi_Walk].SetLoopFlag(true);
 	//Œã‚ë•à‚«
-	animClip[enWalkBack].Load("Assets/animData/DragonNightmare/Nm_walkback.tka");
-	animClip[enWalkBack].SetLoopFlag(true);
+	animClip[enNi_WalkBack].Load("Assets/animData/DragonNightmare/Nm_walkback.tka");
+	animClip[enNi_WalkBack].SetLoopFlag(true);
 	//¶•à‚«
-	animClip[enWalkLeft].Load("Assets/animData/DragonNightmare/Nm_walkleft.tka");
-	animClip[enWalkLeft].SetLoopFlag(true);
+	animClip[enNi_WalkLeft].Load("Assets/animData/DragonNightmare/Nm_walkleft.tka");
+	animClip[enNi_WalkLeft].SetLoopFlag(true);
 	//‰E•à‚«
-	animClip[enWalkRight].Load("Assets/animData/DragonNightmare/Nm_walkright.tka");
-	animClip[enWalkRight].SetLoopFlag(true);
+	animClip[enNi_WalkRight].Load("Assets/animData/DragonNightmare/Nm_walkright.tka");
+	animClip[enNi_WalkRight].SetLoopFlag(true);
 	//‘–‚è
-	animClip[enRun].Load("Assets/animData/DragonNightmare/Nm_run.tka");
-	animClip[enRun].SetLoopFlag(true);
+	animClip[enNi_Run].Load("Assets/animData/DragonNightmare/Nm_run.tka");
+	animClip[enNi_Run].SetLoopFlag(true);
 	//™ôšK
-	animClip[enScream].Load("Assets/animData/DragonNightmare/Nm_scream.tka");
+	animClip[enNi_Scream].Load("Assets/animData/DragonNightmare/Nm_scream.tka");
 	//UŒ‚
-	animClip[enBasicAttack].Load("Assets/animData/DragonNightmare/Nm_basicattack.tka");
+	animClip[enNi_BasicAttack].Load("Assets/animData/DragonNightmare/Nm_basicattack.tka");
 	//’ÜUŒ‚
-	animClip[enClawAttack].Load("Assets/animData/DragonNightmare/Nm_clawattack.tka");
+	animClip[enNi_ClawAttack].Load("Assets/animData/DragonNightmare/Nm_clawattack.tka");
 	//ŠpUŒ‚
-	animClip[enHornAttack].Load("Assets/animData/DragonNightmare/Nm_hornattack.tka");
+	animClip[enNi_HornAttack].Load("Assets/animData/DragonNightmare/Nm_hornattack.tka");
 	//–hŒä
-	animClip[enDefend].Load("Assets/animData/DragonNightmare/Nm_defend.tka");
+	animClip[enNi_Defend].Load("Assets/animData/DragonNightmare/Nm_defend.tka");
 	//–hŒä
-	animClip[enDefend].Load("Assets/animData/DragonNightmare/Nm_sleep.tka");
+	animClip[enNi_Defend].Load("Assets/animData/DragonNightmare/Nm_sleep.tka");
 	//”íƒ_ƒ
-	animClip[enGethit].Load("Assets/animData/DragonNightmare/Nm_gethit.tka");
+	animClip[enNi_Gethit].Load("Assets/animData/DragonNightmare/Nm_gethit.tka");
 	//€–S
-	animClip[enDie].Load("Assets/animData/DragonNightmare/Nm_die.tka");
+	animClip[enNi_Die].Load("Assets/animData/DragonNightmare/Nm_die.tka");
 	return true;
 }
 

@@ -2,6 +2,7 @@
 #include "Stage1.h"
 #include "DrBoar.h"
 #include "BackGround.h"
+#include "Player.h"
 
 Stage1::Stage1()
 {
@@ -26,6 +27,10 @@ bool Stage1::Start()
 	m_drBoar[1]->SetPosition({ 300.0f, 0.0f, 200.0f });
 	m_drBoar[2] = NewGO<DrBoar>(0, "drBoar");
 	m_drBoar[2]->SetPosition({ -300.0f, 0.0f, -200.0f });
+
+	//ゴーストオブジェクトの作成。
+	m_ghostObject.CreateBox(m_ghostPosition, m_ghostRotation, m_ghostScale);
+
 	return true;
 }
 
@@ -33,10 +38,7 @@ void Stage1::Update()
 {
 	if (m_downEnemy == ENEMY_NUM)
 	{
-		m_timer++;
-		if (m_timer > 150) {
-			m_sceanChangeOK = true;
-		}
+		GhostContactCharaCon();
 	}
 
 	for (int i = 0; i < ENEMY_NUM; i++) {

@@ -1,13 +1,13 @@
 #pragma once
 const enum BoarAnim {
-	enIdle,                    //‘Ò‹@
-	enWalk,                    //•à‚«
-	enRun,                     //‘–‚è
-	enScream,                  //™ôšK
-	enAttack,                  //UŒ‚
-	enHornattack,              //ŠpUŒ‚
-	enGethit,                  //”íƒ_ƒ
-	enDie,                     //€–S
+	enBo_Idle,                    //‘Ò‹@
+	enBo_Walk,                    //•à‚«
+	enBo_Run,                     //‘–‚è
+	enBo_Scream,                  //™ôšK
+	enBo_Attack,                  //UŒ‚
+	enBo_Hornattack,              //ŠpUŒ‚
+	enBo_Gethit,                  //”íƒ_ƒ
+	enBo_Die,                     //€–S
 	enBoarAnimClip_num        //ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv‚Ì”
 };
 

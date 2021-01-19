@@ -1,9 +1,9 @@
 #pragma once
 #include "GameObject.h"
+#include "Physics/GhostObject.h"
 
 class BackGround;
-class Player;
-class GameCamera;
+//class Player;
 class IStage : public IGameObject
 {
 public:
@@ -17,16 +17,31 @@ public:
 	/// 更新関数。
 	/// </summary>
 	virtual void Update()override {};
+
+	/// <summary>
+	/// シーンを切り替える。
+	/// </summary>
+	/// <returns>シーン切り替えのフラグ</returns>
 	bool GetsceanChangeOK() const
 	{
 		return m_sceanChangeOK;
 	}
 protected:
-	BackGround* m_backGround = nullptr;				//ステージのインスタンス。
-	//Player* m_player = nullptr;
-	//GameCamera* m_gameCam = nullptr;
+	/// <summary>
+	/// ゴーストオブジェクトとプレイヤーのキャラコンとの当たり判定処理。
+	/// </summary>
+	void GhostContactCharaCon();
+
+	BackGround* m_backGround = nullptr;		//ステージのインスタンス。
+
 	int m_downEnemy = 0;	//倒したエネミーの数。
 	int m_timer = 0;		//タイマー。
 	bool m_sceanChangeOK = false;	//シーンを切り替えていいかどうかのフラグ。
+
+	GhostObject m_ghostObject;		//ゴーストオブジェクト。
+
+	Vector3 m_ghostPosition = { -1400.0f, 0.0f, -2600.0f };		//ゴーストオブジェクトの座標。
+	Quaternion m_ghostRotation = Quaternion::Identity;			//ゴーストオブジェクトの回転。
+	Vector3 m_ghostScale = { 1200.0f, 50.0f, 900.0f };			//ゴーストオブジェクトの拡大率。
 };
 

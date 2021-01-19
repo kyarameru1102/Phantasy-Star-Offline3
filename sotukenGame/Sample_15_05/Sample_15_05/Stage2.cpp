@@ -24,6 +24,10 @@ bool Stage2::Start()
 	m_drBoar[0]->SetPosition({ 300.0f, 0.0f, -100.0f });
 	m_drBoar[1] = NewGO<DrBoar>(0, "drBoar2");
 	m_drBoar[1]->SetPosition({ -300.0f, 0.0f, 100.0f });
+
+	//ゴーストオブジェクトの作成。
+	m_ghostObject.CreateBox(m_ghostPosition, m_ghostRotation, m_ghostScale);
+
 	return true;
 }
 
@@ -31,10 +35,7 @@ void Stage2::Update()
 {
 	if (m_downEnemy == ENEMY_NUM)
 	{
-		m_timer++;
-		if (m_timer > 150) {
-			m_sceanChangeOK = true;
-		}
+		GhostContactCharaCon();
 	}
 
 	for (int i = 0; i < ENEMY_NUM; i++) {
