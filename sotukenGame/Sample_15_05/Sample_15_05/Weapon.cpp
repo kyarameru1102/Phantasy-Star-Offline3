@@ -18,12 +18,14 @@ void Weapon::AttackHit()
 	//敵との当たり判定をとる前に、敵がいるかどうかを調べる。
 	QueryGOs<EnBase>("drBoar", [&](EnBase * drBoar)->bool {
 		if (drBoar->GetHit() != true) {
+			//まだ攻撃を受けていない。
 			//敵のキャラコンを取得。
 			CharacterController& charaCon = *drBoar->GetCharaCon();
 			g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
 				if (m_ghostObj.IsSelf(collisionObject) == true) {
 					//当たっていたら、ダメージを与える。
 					drBoar->ReceiveDamage(m_player->GetmAtaackPow());
+					//攻撃を受けたフラグを立てる。
 					drBoar->SetHit(true);
 				}
 				});
@@ -32,12 +34,14 @@ void Weapon::AttackHit()
 		});
 	QueryGOs<EnBase>("drBoar2", [&](EnBase * drBoar)->bool {
 		if (drBoar->GetHit() != true) {
+			//まだ攻撃を受けていない。
 			//敵のキャラコンを取得。
 			CharacterController& charaCon = *drBoar->GetCharaCon();
 			g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
 				if (m_ghostObj.IsSelf(collisionObject) == true) {
 					//当たっていたら、ダメージを与える。
 					drBoar->ReceiveDamage(m_player->GetmAtaackPow());
+					//攻撃を受けたフラグを立てる。
 					drBoar->SetHit(true);
 				}
 				});
@@ -91,32 +95,8 @@ void Weapon::Update()
 	m_ghostObj.SetPosition(m_position);
 	m_ghostObj.SetRotation(weaponRot);
 
-	//if (m_player->GetAttackFlag() != false) {
-	//	//プレイヤーが攻撃している。
-	//	if (m_nextAttackNum == m_playerAttackAnim->GetAttackNum()) {
-	//		//攻撃フラグが立っている間、毎フレームダメージを与えないようにする。
-	//		AttackHit();
-	//		//m_nextAttackNum++;
-	//	}
-	//}
-	//else {
-	//	m_nextAttackNum = m_playerAttackAnim->GetAttackNum();
-	//}
-
-	//if (m_player->GetSpecialAttackFlag() != false) {
-	//	if (m_speAttackHit != true) {
-	//		AttackHit();
-	//	}
-	//}
-	//else {
-	//	m_speAttackHit = false;
-	//}
-	if (m_player->GetAttackFlag() != false) {
+	if (m_player->GetAttackFlag() != false || m_player->GetSpecialAttackFlag() != false) {
 		//プレイヤーが攻撃している。
-		AttackHit();
-	}
-
-	if (m_player->GetSpecialAttackFlag() != false) {
 		AttackHit();
 	}
 }

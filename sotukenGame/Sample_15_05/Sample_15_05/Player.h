@@ -53,6 +53,10 @@ public:
 	/// </summary>
 	void SetSpeed();
 	/// <summary>
+	/// 回転の計算。
+	/// </summary>
+	void RotationCalculation();
+	/// <summary>
 	/// 回転。
 	/// </summary>
 	void Rotation();
@@ -259,17 +263,17 @@ public:
 	/// なんの攻撃ボタンを押したかを設定する。
 	/// </summary>
 	/// <param name="AXY"></param>
-	void SetAttackXOrY(const int AXY)
+	void SetPressedAttackButton(const int AXY)
 	{
-		m_attackXOrY = AXY;
+		m_pressedAttackButton = AXY;
 	}
 	/// <summary>
 	/// なんの攻撃ボタンを押したかを返す。
 	/// </summary>
 	/// <returns></returns>
-	const int GetAttackXOrY() const
+	const int GetPressedAttackButton() const
 	{
-		return m_attackXOrY;
+		return m_pressedAttackButton;
 	}
 	/// <summary>
 	/// 特殊攻撃のフラグを設定する。
@@ -287,17 +291,21 @@ public:
 	{
 		return m_specialAttackFlag;
 	}
-	void SetSpecialAttackState(const int attackState)
+	/// <summary>
+	/// 攻撃の状態を設定する。
+	/// </summary>
+	/// <param name="attackState">状態。</param>
+	void SetAttackState(const int attackState)
 	{
-		m_specialAttackState = attackState;
+		m_attackState = attackState;
 	}
-	const int GetSpecialAttackState() const
+	/// <summary>
+	/// 攻撃の状態を返す。
+	/// </summary>
+	/// <returns></returns>
+	const int GetAttackState() const
 	{
-		return m_specialAttackState;
-	}
-	void SetmDoNothingFlag(bool flag)
-	{
-		m_doNothingFlag = flag;
+		return m_attackState;
 	}
 private:
 	PlayerAnimation* m_playerAnim = nullptr;
@@ -325,12 +333,13 @@ private:
 	Weapon* m_weapon[2] = { nullptr, nullptr };
 	bool m_attackAnimationFlag = false;
 	float m_angle = 0.0f;//回転角度。
-	bool m_attackAngleFlag = false;
+	bool m_attackAngleFlag = false; //攻撃から次の行動へうつす時にプレイヤーの向きを決めるフラグ。
 	Vector3 m_weaponMoveSpeed = Vector3::Zero; //武器のムーブスピード。
 	Vector3 m_oldPosition = Vector3::Zero; //前の座標。
 	bool m_kaihiFlag = false; //回避フラグ。
 	int m_kaihiTimer = 0;
 	int m_playerLevel = 1; //プレイヤーのレベル。
+	int m_levelToOpen = 1; //開放するレベル。
 	float m_experiencePoint = 0.0f;  //経験値。
 	float m_nextExperiencePoint = 10.0f; //次に必要な経験値。
 	Vector3 m_dir = Vector3::Zero; //向いている方向。
@@ -338,10 +347,9 @@ private:
 	int m_attackAnimNumY = 1;//Yボタンの攻撃アニメーションの数。
 	bool m_attackFlag = false; //攻撃しているフラグ。
 	bool m_doNothingFlag = false; //何もしていないフラグ。
-	bool m_deathFlag = false;
-	int m_attackXOrY = noAttack;
-	bool m_specialAttackFlag = false;
-	int m_specialAttackState = enNormalState;
-	int a = 0;
+	bool m_deathFlag = false; //死亡フラグ。
+	int m_pressedAttackButton = noAttack; //押した攻撃ボタン。
+	bool m_specialAttackFlag = false; //特殊攻撃フラグ。
+	int m_attackState = enNormalState; //攻撃の状態。
 };
 
