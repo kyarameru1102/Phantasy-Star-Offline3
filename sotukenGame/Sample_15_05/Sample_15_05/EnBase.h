@@ -44,7 +44,7 @@ public:
 	/// UŒ‚‚ğó‚¯‚½‚çØ‚è‘Ö‚¦‚éB
 	/// </summary>
 	/// <returns></returns>
-	bool SetHit(bool sethit)
+	void SetHit(bool sethit)
 	{
 		m_gethit = sethit;
 	}

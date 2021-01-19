@@ -22,6 +22,7 @@ const enum UsurperAnim {
 };
 class UsurperAnimation : public IGameObject
 {
+public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
