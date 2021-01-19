@@ -44,9 +44,11 @@ void Player::GetExperiencePoint(const float experiencePoint)
 		m_playerLevel++;
 		//次に必要なレベルを1.1倍に増やす。
 		m_nextExperiencePoint *= 1.1f;
-		if (m_playerLevel > 1) {
+		if (m_playerLevel > m_levelToOpen) {
 			m_attackAnimNumX = 4;
 			m_attackAnimNumY = 3;
+			m_ataackPow = 50;
+			m_levelToOpen = 99999;
 		}
 	}
 }
@@ -66,7 +68,7 @@ void Player::YDirMove()
 			//Yスピードを最大値にする。
 			m_speedY = MAX_SPEED_Y;
 			jumpStartTimer = 0;
-			m_doNothingFlag = true;
+			//m_doNothingFlag = true;
 		}
 		else {
 			//フラグを下す。
@@ -85,7 +87,7 @@ void Player::YDirMove()
 	if (m_charaCon.IsOnGround() != true) {
 		//ジャンプしているまたは、落下している。
 		m_speedY -= FLUCTUATION_VALUE_Y;
-		m_doNothingFlag = true;
+		//m_doNothingFlag = true;
 		if (jumpStartTimer >= 40) {
 			m_animState = enStayInTheAir_blad;
 		}
@@ -151,77 +153,89 @@ void Player::SetSpeed()
 		}
 	}
 }
+void Player::RotationCalculation()
+{
+	//スティックの向いている方向の角度を求める。
+	m_dir = m_moveSpeed;
+	m_dir.Normalize();
+	float sita = atan2f(m_moveSpeed.x, m_moveSpeed.z);
+	sita = sita * HALF_ANGLE / M_PI;
+	if (sita <= 0.0f) {
+		sita += MAX_ANGLE;
+	}
+
+	//今向いている方向の角度を求める。
+	Vector3 nowDir = Vector3::AxisZ;
+	nowDir.Normalize();
+	m_rotation.Apply(nowDir);
+	m_angle = atan2f(nowDir.x, nowDir.z);
+	m_angle = m_angle * HALF_ANGLE / M_PI;
+	if (m_angle <= 0.0f) {
+		m_angle += MAX_ANGLE;
+	}
+
+	//今向いている方向の角度からスティックの向いている方向の角度を引いて、
+	//差を求める。
+	float angleDifference = m_angle - sita;
+	//上で求めた角度の誤差が回転量以内または、攻撃アニメーション中なら
+	if (
+		angleDifference <= ROTATION_AMOUNT && angleDifference >= -ROTATION_AMOUNT ||
+		m_attackAnimationFlag != false ||
+		m_kaihiFlag != false
+		) {
+		//今向いている方向の角度にスティックの向いている方向の角度を代入する。
+		m_angle = sita;
+	}
+	else if (m_angle <= sita) {
+		//今向いている方向の角度がスティックの向いている方向の角度より、
+		//小さい。
+		if (angleDifference <= -HALF_ANGLE) {
+			//角度の差が-180以下。
+			//角度をマイナスする。
+			m_angle -= ROTATION_AMOUNT;
+		}
+		else {
+			//角度をプラスする。
+			m_angle += ROTATION_AMOUNT;
+		}
+	}
+	else if (m_angle >= sita) {
+		//今向いている方向の角度がスティックの向いている方向の角度より、
+		//大きい。
+		if (angleDifference >= HALF_ANGLE) {
+			//角度の差が180以上。
+			//角度をプラスする。
+			m_angle += ROTATION_AMOUNT;
+		}
+		else {
+			//角度をマイナスする。
+			m_angle -= ROTATION_AMOUNT;
+		}
+
+	}
+}
 void Player::Rotation()
 {
 	if (
 		fabsf(m_moveSpeed.z) > 0.0f ||
 		fabsf(m_moveSpeed.x) > 0.0f) {
+		//動いている。
 		if (
-			m_attackFlag != true &&
-			m_kaihiFlag != true &&
-			m_attackAngleFlag != true &&
-			m_changeAnimFlag != true &&
-			m_playerHP >= m_beforeHp &&
-			m_playerHP > 0.0f &&
-			m_specialAttackFlag != true
-			) {
-			//スティックの向いている方向の角度を求める。
-			m_dir = m_moveSpeed;
-			m_dir.Normalize();
-			float sita = atan2f(m_moveSpeed.x, m_moveSpeed.z);
-			sita = sita * HALF_ANGLE / M_PI;
-			if (sita <= 0.0f) {
-				sita += MAX_ANGLE;
-			}
-
-			//今向いている方向の角度を求める。
-			Vector3 nowDir = Vector3::AxisZ;
-			nowDir.Normalize();
-			m_rotation.Apply(nowDir);
-			m_angle = atan2f(nowDir.x, nowDir.z);
-			m_angle = m_angle * HALF_ANGLE / M_PI;
-			if (m_angle <= 0.0f) {
-				m_angle += MAX_ANGLE;
-			}
-
-			//今向いている方向の角度からスティックの向いている方向の角度を引いて、
-			//差を求める。
-			float angleDifference = m_angle - sita;
-			//上で求めた角度の誤差が回転量以内または、攻撃アニメーション中なら
-			if (
-				angleDifference <= ROTATION_AMOUNT && angleDifference >= -ROTATION_AMOUNT ||
-				m_attackAnimationFlag != false
-				) {
-				//今向いている方向の角度にスティックの向いている方向の角度を代入する。
-				m_angle = sita;
-			}
-			else if (m_angle <= sita) {
-				//今向いている方向の角度がスティックの向いている方向の角度より、
-				//小さい。
-				if (angleDifference <= -HALF_ANGLE) {
-					//角度の差が-180以下。
-					//角度をマイナスする。
-					m_angle -= ROTATION_AMOUNT;
-				}
-				else {
-					//角度をプラスする。
-					m_angle += ROTATION_AMOUNT;
-				}
-			}
-			else if (m_angle >= sita) {
-				//今向いている方向の角度がスティックの向いている方向の角度より、
-				//大きい。
-				if (angleDifference >= HALF_ANGLE) {
-					//角度の差が180以上。
-					//角度をプラスする。
-					m_angle += ROTATION_AMOUNT;
-				}
-				else {
-					//角度をマイナスする。
-					m_angle -= ROTATION_AMOUNT;
-				}
-
-			}
+			m_attackAnimationFlag != true &&//攻撃アニメーション中でない。
+			m_kaihiFlag != true &&//回避していない。
+			m_changeAnimFlag != true &&//武器変更していない。
+			m_playerHP >= m_beforeHp &&//攻撃を受けていない。
+			m_playerHP > 0.0f //死亡していない。
+			)
+		{
+			RotationCalculation();
+		}
+		else if (m_attackAngleFlag != true) {
+			//プレイヤーの行動が、攻撃から攻撃にうつす時や、
+			//攻撃から回避にうつす時とかにここに入る。
+			RotationCalculation();
+			//行動の間にやるのでフラグをさげる。
+			m_attackAngleFlag = true;
 		}
 		m_rotation.SetRotationDeg(Vector3::AxisY, m_angle);
 	}
@@ -279,6 +293,9 @@ void Player::Update()
 		) {
 		m_doNothingFlag = false;
 	}
+	else {
+		m_doNothingFlag = true;
+	}
 	//Y方向の移動。
 	YDirMove();
 
@@ -286,7 +303,7 @@ void Player::Update()
 	if (g_pad[0]->IsTrigger(enButtonLB1) && m_doNothingFlag != true) {
 		//武器変更のフラグを立てる。
 		m_changeAnimFlag = true;
-		m_doNothingFlag = true;
+		//m_doNothingFlag = true;
 		//攻撃アニメーションをしていたら、止める。
 		if (m_attackAnimationFlag != false) {
 			m_attackAnimationFlag = false;
@@ -294,56 +311,62 @@ void Player::Update()
 		}
 	}
 
-	if (m_doNothingFlag != true/*m_changeAnimFlag != true && m_kaihiFlag != true && m_charaCon.IsOnGround() != false*/) {
+	if (m_doNothingFlag != true) {
 		//何もしていない。
-		if (g_pad[0]->IsTrigger(enButtonX)/* && m_attackXOrY != attackY*/) {
+		if (g_pad[0]->IsTrigger(enButtonX)) {
 			//Xボタンを押した。
-			if (m_attackXOrY == attackX || m_attackXOrY == noAttack) {
+			if (m_pressedAttackButton == attackX || m_pressedAttackButton == noAttack) {
 				//Xボタンを押していたか、何も押していない。
-				m_doNothingFlag = true;
-				m_attackXOrY = attackX;
+				//m_doNothingFlag = true;
+				//押した攻撃ボタンをXボタンに設定。
+				m_pressedAttackButton = attackX;
 				m_playerAttackAnim->AttackFlag(enAttackTime01_blad, &m_attackAnimNumX, enAttackTime01_sword);
 			}
 		}
-		else if (g_pad[0]->IsTrigger(enButtonY)/* && m_attackXOrY != attackX*/) {
+		else if (g_pad[0]->IsTrigger(enButtonY)) {
 			//Yボタンを押した。
-			if (m_attackXOrY == attackY || m_attackXOrY == noAttack) {
+			if (m_pressedAttackButton == attackY || m_pressedAttackButton == noAttack) {
 				//Yボタンを押していたか、何も押していない。
-				m_doNothingFlag = true;
-				m_attackXOrY = attackY;
+				//m_doNothingFlag = true;
+				//押した攻撃ボタンをYボタンに設定。
+				m_pressedAttackButton = attackY;
 				m_playerAttackAnim->AttackFlag(enAttackTime06_blad, &m_attackAnimNumY, enAttackTime06_sword);
 			}
 		}
 		else if (g_pad[0]->IsTrigger(enButtonRB2)) {
-			if (m_attackXOrY == attackS || m_attackXOrY == noAttack) {
-				m_doNothingFlag = true;
-				m_attackXOrY = attackS;
+			//RB2ボタンを押した。
+			if (m_pressedAttackButton == attackS || m_pressedAttackButton == noAttack) {
+			//	m_doNothingFlag = true;
+				//押した攻撃ボタンをRB2ボタンに設定。
+				m_pressedAttackButton = attackS;
+				//特殊攻撃フラグを立てる。
 				m_attackAnimationFlag = true;
+				//攻撃状態を武器の状態に合わせる。
 				if (m_weaponState == enBladState) {
-					m_specialAttackState = enBladState;
+					m_attackState = enBladState;
 				}
 				else if (m_weaponState == enSwordState) {
-					m_specialAttackState = enSwordState;
+					m_attackState = enSwordState;
 				}
 			}
 		}
 
 	}
-	//プレイヤーを回転させる。
-	Rotation();
 
 	//回避のフラグ
 	if (g_pad[0]->IsTrigger(enButtonB) && m_doNothingFlag != true) {
 		//Bボタンを押した。
 		m_kaihiFlag = true;
 		m_animState = enKaihi_blad;
-		m_doNothingFlag = true;
+		//m_doNothingFlag = true;
 		//攻撃アニメーションをしていたら、止める。
 		if (m_attackAnimationFlag != false) {
 			m_attackAnimationFlag = false;
 			m_playerAttackAnim->AttackEnd();
 		}
 	}
+	//プレイヤーを回転させる。
+	Rotation();
 
 	//回避。
 	if (m_kaihiFlag != false) {
@@ -366,33 +389,40 @@ void Player::Update()
 	WeaponChange();
 	//攻撃。
 	if (m_attackAnimationFlag != false) {
+		//攻撃アニメーションのフラグが立った。
 		m_playerAttackAnim->Attack();
 	}
 
 	if (m_playerHP < m_beforeHp) {
 		//ダメージを受けた。
+		//アニメーション設定。
 		m_animState = enHit_blad;
+		//動かないようにする。
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
-		m_doNothingFlag = true;
+		//m_doNothingFlag = true;
 		if (!m_playerSkinModel->GetisAnimationPlaing()) {
+			//アニメーションが終わった。
 			m_beforeHp = m_playerHP;
 		}
 	}
 
 	if (m_playerHP <= 0.0f) {
 		//HPが0になったので、死亡。
+		//アニメーション設定。
 		m_animState = enDeath_blad;
+		//動かないようにする。
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
-		m_doNothingFlag = true;
+		//m_doNothingFlag = true;
 		if (!m_playerSkinModel->GetisAnimationPlaing()) {
+			//アニメーションが終わった。
 			m_deathFlag = true;
 		}
 	}
 
 
-	if (m_weaponState == enSwordState && m_attackXOrY != attackS) {
+	if (m_weaponState == enSwordState && m_pressedAttackButton != attackS) {
 		//ソード状態なら1足してソード状態のアニメーションを流す。
 		m_animState++;
 	}

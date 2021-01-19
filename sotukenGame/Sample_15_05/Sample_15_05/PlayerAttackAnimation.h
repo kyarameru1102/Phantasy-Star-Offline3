@@ -73,7 +73,7 @@ public:
 private:
 	Player* m_player = nullptr;
 	PlayerAnimation* m_playerAnim = nullptr;
-	int attackTimer = 0;
+	int attackTimer = 0; //攻撃タイマー。
 	int m_attackAnimNum = 0; //XボタンかYボタンの攻撃アニメーションの数。
 	int m_attackAnimationTimeNum = 0; //攻撃アニメーションの時間を入れた配列の番号。
 	int m_totalAttackAnimationTime = 0; //攻撃アニメーションの合計の時間。
