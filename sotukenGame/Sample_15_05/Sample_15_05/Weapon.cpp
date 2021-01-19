@@ -17,30 +17,32 @@ void Weapon::AttackHit()
 {
 	//敵との当たり判定をとる前に、敵がいるかどうかを調べる。
 	QueryGOs<EnBase>("drBoar", [&](EnBase * drBoar)->bool {
-		//敵のキャラコンを取得。
-		CharacterController& charaCon = *drBoar->GetCharaCon();
-		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
-			if (m_ghostObj.IsSelf(collisionObject) == true) {
-				//当たっていたら、ダメージを与える。
-				drBoar->ReceiveDamage(m_player->GetmAtaackPow());
-				m_nextAttackNum++;
-				m_speAttackHit = true;
-			}
-			});
-		return true;
+		if (drBoar->GetHit() != true) {
+			//敵のキャラコンを取得。
+			CharacterController& charaCon = *drBoar->GetCharaCon();
+			g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
+				if (m_ghostObj.IsSelf(collisionObject) == true) {
+					//当たっていたら、ダメージを与える。
+					drBoar->ReceiveDamage(m_player->GetmAtaackPow());
+					drBoar->SetHit(true);
+				}
+				});
+			return true;
+		}
 		});
 	QueryGOs<EnBase>("drBoar2", [&](EnBase * drBoar)->bool {
-		//敵のキャラコンを取得。
-		CharacterController& charaCon = *drBoar->GetCharaCon();
-		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
-			if (m_ghostObj.IsSelf(collisionObject) == true) {
-				//当たっていたら、ダメージを与える。
-				drBoar->ReceiveDamage(m_player->GetmAtaackPow());
-				m_nextAttackNum++;
-				m_speAttackHit = true;
-			}
-			});
-		return true;
+		if (drBoar->GetHit() != true) {
+			//敵のキャラコンを取得。
+			CharacterController& charaCon = *drBoar->GetCharaCon();
+			g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
+				if (m_ghostObj.IsSelf(collisionObject) == true) {
+					//当たっていたら、ダメージを与える。
+					drBoar->ReceiveDamage(m_player->GetmAtaackPow());
+					drBoar->SetHit(true);
+				}
+				});
+			return true;
+		}
 		});
 }
 bool Weapon::Start()
@@ -89,24 +91,32 @@ void Weapon::Update()
 	m_ghostObj.SetPosition(m_position);
 	m_ghostObj.SetRotation(weaponRot);
 
+	//if (m_player->GetAttackFlag() != false) {
+	//	//プレイヤーが攻撃している。
+	//	if (m_nextAttackNum == m_playerAttackAnim->GetAttackNum()) {
+	//		//攻撃フラグが立っている間、毎フレームダメージを与えないようにする。
+	//		AttackHit();
+	//		//m_nextAttackNum++;
+	//	}
+	//}
+	//else {
+	//	m_nextAttackNum = m_playerAttackAnim->GetAttackNum();
+	//}
+
+	//if (m_player->GetSpecialAttackFlag() != false) {
+	//	if (m_speAttackHit != true) {
+	//		AttackHit();
+	//	}
+	//}
+	//else {
+	//	m_speAttackHit = false;
+	//}
 	if (m_player->GetAttackFlag() != false) {
 		//プレイヤーが攻撃している。
-		if (m_nextAttackNum == m_playerAttackAnim->GetAttackNum()) {
-			//攻撃フラグが立っている間、毎フレームダメージを与えないようにする。
-			AttackHit();
-			//m_nextAttackNum++;
-		}
-	}
-	else {
-		m_nextAttackNum = m_playerAttackAnim->GetAttackNum();
+		AttackHit();
 	}
 
 	if (m_player->GetSpecialAttackFlag() != false) {
-		if (m_speAttackHit != true) {
-			AttackHit();
-		}
-	}
-	else {
-		m_speAttackHit = false;
+		AttackHit();
 	}
 }

@@ -2,6 +2,7 @@
 #include "PlayerAttackAnimation.h"
 #include "Player.h"
 #include "PlayerAnimation.h"
+#include "EnBase.h"
 PlayerAttackAnimation::PlayerAttackAnimation()
 {
 }
@@ -49,6 +50,18 @@ void PlayerAttackAnimation::SetAttackAnimationTime()
 	m_switchAttackTime[enAttackTime07_sword] = 20;
 	m_switchAttackTime[enAttackTime08_sword] = 40;
 	m_switchAttackTime[enAttackTime09_sword] = 30;
+}
+void PlayerAttackAnimation::MakeTheEnemyUnattacked()
+{
+	//敵との当たり判定をとる前に、敵がいるかどうかを調べる。
+	QueryGOs<EnBase>("drBoar", [&](EnBase * drBoar)->bool {
+		drBoar->SetHit(false);
+		return true;
+	});
+	QueryGOs<EnBase>("drBoar2", [&](EnBase * drBoar)->bool {
+		drBoar->SetHit(false);
+		return true;
+	});
 }
 void PlayerAttackAnimation::NormalAttack()
 {
@@ -187,7 +200,7 @@ void PlayerAttackAnimation::AttackFlag(int attackTime01_blad, int* attackAnimNum
 		//フラグを立てて、この時は攻撃中でも方向を変えれるようにする。
 		//m_attackAngleFlag = false;
 		m_player->SetAttackAngleFlag(false);
-
+		MakeTheEnemyUnattacked();
 	}
 }
 void PlayerAttackAnimation::AttackEnd()
@@ -215,6 +228,7 @@ void PlayerAttackAnimation::AttackEnd()
 	//m_attackAngleFlag = false;
 	m_player->SetAttackXOrY(noAttack);
 	m_player->SetAttackAngleFlag(false);
+	MakeTheEnemyUnattacked();
 
 }
 void PlayerAttackAnimation::Attack()
@@ -228,50 +242,6 @@ void PlayerAttackAnimation::Attack()
 	else {
 		NormalAttack();
 	}
-	//if (m_player->GetAttackAnimationFlag() != false) {
-		//m_attackAngleFlag = true;
-		//m_player->SetAttackAngleFlag(true);
-		//if (attackTimer >= m_continuousAttackTime) {
-		//	//m_moveSpeed = Vector3::Zero;
-		//	m_player->SetMoveSpeed(Vector3::Zero);
-
-		//	//m_attackFlag = false;
-		//	m_player->SetAttackFlag(false);
-		//}
-		//else {
-		//	Vector3 moveSpeed = m_player->GetDir() * 5.0f;
-		//	m_player->SetMoveSpeed(moveSpeed);
-		//	//m_moveSpeed = m_dir * 5.0f;
-		//	//m_attackFlag = true;
-		//	m_player->SetAttackFlag(true);
-
-
-		//}
-		////攻撃タイマーを加算。
-		//attackTimer++;
-		////XボタンかYボタンで初期攻撃アニメーションを決める。
-		//if (m_player->GetAttackXOrY() == attackX) {
-		//	//m_animState = enAttack01_blad;
-		//	m_player->SetAnimState(enAttack01_blad);
-		//}
-		//else if (m_player->GetAttackXOrY() == attackY) {
-		//	//m_animState = enAttack06_blad;
-		//	m_player->SetAnimState(enAttack06_blad);
-		//}
-		////m_attackNum×2を加算した番号のアニメーションを流す。
-		//int animState = m_player->GetAnimState();
-		//animState += m_attackNum * 2;
-		//m_player->SetAnimState(animState);
-		////m_animState += m_attackNum * 2;
-		//if (attackTimer > m_totalAttackAnimationTime) {
-		//	//攻撃アニメーション終了。
-		//	AttackEnd();
-		//}
-	//}
-}
-void PlayerAttackAnimation::SpecialAttackEnd()
-{
-
 }
 bool PlayerAttackAnimation::Start()
 {
