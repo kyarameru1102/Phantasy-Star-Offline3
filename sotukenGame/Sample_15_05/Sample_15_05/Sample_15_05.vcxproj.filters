@@ -271,6 +271,15 @@
     <ClCompile Include="TerrorBringerAnimation.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="DrTerrorBringer.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="UsurperAnimation.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="DrUsurper.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -571,6 +580,15 @@
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="TerrorBringerAnimation.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DrTerrorBringer.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="UsurperAnimation.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DrUsurper.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

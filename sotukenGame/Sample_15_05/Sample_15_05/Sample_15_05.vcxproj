@@ -208,6 +208,8 @@
     <ClCompile Include="DrBoar.cpp" />
     <ClCompile Include="DrNightmare.cpp" />
     <ClCompile Include="DrSoulEater.cpp" />
+    <ClCompile Include="DrTerrorBringer.cpp" />
+    <ClCompile Include="DrUsurper.cpp" />
     <ClCompile Include="EnArmyGenerator.cpp" />
     <ClCompile Include="EnBase.cpp" />
     <ClCompile Include="EnBehaviorTest.cpp" />
@@ -257,6 +259,7 @@
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="TerrorBringerAnimation.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="UsurperAnimation.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +314,8 @@
     <ClInclude Include="DrBoar.h" />
     <ClInclude Include="DrNightmare.h" />
     <ClInclude Include="DrSoulEater.h" />
+    <ClInclude Include="DrTerrorBringer.h" />
+    <ClInclude Include="DrUsurper.h" />
     <ClInclude Include="EnArmyGenerator.h" />
     <ClInclude Include="EnBase.h" />
     <ClInclude Include="EnBehaviorTest.h" />
@@ -357,6 +362,7 @@
     <ClInclude Include="system\system.h" />
     <ClInclude Include="TerrorBringerAnimation.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="UsurperAnimation.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="RenderMode.h" />
