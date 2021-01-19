@@ -208,6 +208,7 @@
     <ClCompile Include="DrBoar.cpp" />
     <ClCompile Include="DrNightmare.cpp" />
     <ClCompile Include="DrSoulEater.cpp" />
+    <ClCompile Include="DrTerrorBringer.cpp" />
     <ClCompile Include="EnArmyGenerator.cpp" />
     <ClCompile Include="EnBase.cpp" />
     <ClCompile Include="EnBehaviorTest.cpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="DrBoar.h" />
     <ClInclude Include="DrNightmare.h" />
     <ClInclude Include="DrSoulEater.h" />
+    <ClInclude Include="DrTerrorBringer.h" />
     <ClInclude Include="EnArmyGenerator.h" />
     <ClInclude Include="EnBase.h" />
     <ClInclude Include="EnBehaviorTest.h" />
