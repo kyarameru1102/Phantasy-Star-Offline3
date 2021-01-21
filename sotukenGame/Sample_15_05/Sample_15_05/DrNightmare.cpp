@@ -46,10 +46,20 @@ bool DrNightmare::Start()
 
 void DrNightmare::Move()
 {
-	m_status = Walk_state;
 	Vector3 playerLen = m_toPlayer;
 	playerLen.Normalize();
-	m_movespeed = playerLen * 1.2f;
+	if (m_toPlayer.Length() <= 500.0f)
+	{
+		m_status = Run_state;
+		
+		m_movespeed = playerLen * 1.4f;
+	}
+	else {
+		m_status = Walk_state;
+		m_movespeed = playerLen * 1.2f;
+	}
+	
+	
 	m_movespeed.y = m_speedY;
 	m_position = m_charaCon.Execute(1.0f, m_movespeed);
 }
@@ -63,7 +73,7 @@ void DrNightmare::Turn()
 
 void DrNightmare::Attack()
 {
-	if (m_toPlayer.Length() <= 200.0f)
+	if (m_toPlayer.Length() <= 200.0f && m_isBasicATK == true)
 	{
 		m_status = Attack_state;
 		CharacterController& charaCon = *m_player->GetCharacterController();
@@ -72,6 +82,28 @@ void DrNightmare::Attack()
 				if (m_isAttack && !m_ATKoff) {
 					if (m_count >= 60 && m_count <= 70) {
 						m_player->ReceiveDamage(10);
+						m_isATKcount += 1 ;
+						m_ATKoff = true;
+						printf_s("Enemy_KOUGEKI\n");
+					}
+				}
+			}
+		});
+		
+	}
+}
+
+void DrNightmare::ClawAttack()
+{
+	if (m_toPlayer.Length() <= 200.0f && m_isClawATK ==true)
+	{
+		m_status = ClawAttack_state;
+		CharacterController& charaCon = *m_player->GetCharacterController();
+		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+			if (m_ghostObj.IsSelf(collisionObject) == true) {
+				if (m_isAttack && !m_ATKoff) {
+					if (m_count >= 60 && m_count <= 70) {
+						m_player->ReceiveDamage(12);
 						m_ATKoff = true;
 						printf_s("Enemy_KOUGEKI\n");
 					}
@@ -102,13 +134,19 @@ void DrNightmare::Update()
 
 	//プレイヤーに近づく。
 	if (m_status != GetDamage_state) {
-		if (m_status != Attack_state && m_status != Die_state) {
+		if (m_status != Attack_state && m_status != ClawAttack_state && m_status != Die_state) {
 			Move();
 			Turn();
 		}
 
 		//距離が近づくと。
 		Attack();
+		if (m_isATKcount == 2)
+		{
+			m_isBasicATK = false;
+			m_isClawATK = true;
+		}
+		ClawAttack();
 	}
 	//体力がゼロになると
 	Die();
@@ -120,6 +158,9 @@ void DrNightmare::Update()
 		break;
 	case Walk_state:
 		m_animState = enNi_Walk;
+		break;
+	case Run_state:
+		m_animState = enNi_Run;
 		break;
 	case Attack_state:
 		m_animState = enNi_BasicAttack;
@@ -133,6 +174,20 @@ void DrNightmare::Update()
 			m_animState = enNi_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
+		break;
+	case ClawAttack_state:
+		m_animState = enNi_ClawAttack;
+		m_count++;
+		m_isAttack = true;
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_status = Idle_state;
+			m_isAttack = false;
+			m_ATKoff = false;
+			m_count = 0;
+			m_animState = enNi_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		break;
 		break;
 	case GetDamage_state:
 		m_animState = enNi_Gethit;
@@ -161,7 +216,7 @@ void DrNightmare::Update()
 
 	m_ghostObj.SetPosition(m_ghostPos);
 	m_ghostObj.SetRotation(m_rotation);
-	m_skinModelRender->SetScale({ 40.0, 40.0, 40.0 });
+	m_skinModelRender->SetScale({ 50.0, 50.0, 50.0 });
 	m_skinModelRender->SetRotation(m_rotation);
 	m_skinModelRender->SetPosition(m_position);
 	m_skinModelRender->PlayAnimation(m_animState, 1.0f / 60.0f);

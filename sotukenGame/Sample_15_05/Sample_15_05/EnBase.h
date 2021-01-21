@@ -74,9 +74,21 @@ public:
 	{
 		return &m_charaCon;
 	}
+	/// <summary>
+	/// À•W‚ğİ’è
+	/// </summary>
+	/// <param name="pos"></param>
 	void SetPosition(Vector3 pos)
 	{
 		m_position = pos;
+	}
+	/// <summary>
+	/// Šg‘å—¦‚ğİ’è
+	/// </summary>
+	/// <param name="scale"></param>
+	void SetScale(Vector3 scale)
+	{
+		m_scale = scale;
 	}
 	bool GetDeath()const
 	{

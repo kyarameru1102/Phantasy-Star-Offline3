@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Stage3.h"
 #include "BackGround.h"
-#include "BossBoar.h"
+#include "DrNightmare.h"
 
 Stage3::Stage3()
 {
@@ -10,14 +10,15 @@ Stage3::Stage3()
 Stage3::~Stage3()
 {
 	DeleteGO(m_backGround);
-	DeleteGO(m_bossBoar);
+	DeleteGO(m_drNight);
 }
 
 bool Stage3::Start()
 {
 	m_backGround = NewGO<BackGround>(0);
-	m_bossBoar = NewGO<BossBoar>(0,"drBoar");
-	m_bossBoar->SetPosition({ 1000.0f, 0.0f, -500.0f });
+	m_drNight = NewGO<DrNightmare>(0, "drNightmare");
+	m_drNight->SetPosition({ 1000.0f, 0.0f, 500.0f });
+	
     return true;
 }
 
@@ -31,10 +32,10 @@ void Stage3::Update()
 		}
 	}
 
-	if (m_bossBoar != nullptr) {
-		if (m_bossBoar->GetDeath()) {
+	if (m_drNight != nullptr) {
+		if (m_drNight->GetDeath()) {
 			m_downEnemy++;
-			m_bossBoar = nullptr;
+			m_drNight = nullptr;
 		}
 	}
 

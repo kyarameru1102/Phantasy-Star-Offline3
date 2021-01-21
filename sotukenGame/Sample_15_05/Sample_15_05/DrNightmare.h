@@ -41,6 +41,10 @@ public:
 	/// </summary>
 	void Attack();
 	/// <summary>
+	/// 爪攻撃関数。
+	/// </summary>
+	void ClawAttack();
+	/// <summary>
 	/// 死。
 	/// </summary>
 	void Die();
@@ -64,6 +68,8 @@ private:
 		Walk_state,
 		Run_state,
 		Attack_state,
+		ClawAttack_state,
+		HornAttack_state,
 		GetDamage_state,
 		Die_state
 	};
@@ -76,8 +82,14 @@ private:
 	std::vector<int>	boarcolor = { 1,2,3,4 };		//配色決定。
 	bool				m_isAttack = false;				//攻撃しているか。
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
+	bool                m_isBasicATK = true;            //噛みつき攻撃の判定
+	bool                m_isClawATK = false;            //爪攻撃の判定
+	bool                m_isHornATK = false;            //角攻撃
+	int                 m_isATKcount = 0;               //攻撃した回数のカウント
 	int					m_count = 0;					//攻撃が入るまでのカウント。
 	GhostObject			m_ghostObj;						//ゴースト。
 	int					m_deathCount = 0;				//死んだときのカウント。
+	
+
 };
 
