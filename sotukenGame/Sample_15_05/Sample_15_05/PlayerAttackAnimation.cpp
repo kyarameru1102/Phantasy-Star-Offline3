@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "PlayerAnimation.h"
 #include "EnBase.h"
+
 PlayerAttackAnimation::PlayerAttackAnimation()
 {
 }
@@ -103,40 +104,50 @@ void PlayerAttackAnimation::NormalAttack()
 }
 void PlayerAttackAnimation::SpecialAttackStateBlad()
 {
-	if (m_specialAttackStartFlag != true) {
-		m_player->SetMoveSpeed(Vector3::Zero);
-		//特殊攻撃のはじめのアニメーションを流す。
-		m_player->SetAnimState(enSpecialAttack_01_blad);
-		if (!m_player->GetPlayerSkinModelRemder().GetisAnimationPlaing()) {
-			//アニメーションが終わった。
-			m_specialAttackStartFlag = true;
-		}
-	}
-	else {
-		if (g_pad[0]->IsPress(enButtonRB2)) {
-			//ボタン長押し。
-			m_player->SetAnimState(enSpecialAttack_02_blad);
-			//移動しない。
+	if (m_player->GetSpecialAttackFlag() != true) {
+		if (m_specialAttackStartFlag != true) {
 			m_player->SetMoveSpeed(Vector3::Zero);
-			m_accumulateTimer++;
-			if (m_accumulateTimer >= m_accumulateTime) {
-				m_magnification += 0.5f;
-				m_accumulateTime += 60;
-				m_speed += 20.0f;
-				if (m_magnification >= 3.0f) {
-					m_magnification = 3.0f;
-					m_speed = 100.0f;
-				}
+			//特殊攻撃のはじめのアニメーションを流す。
+			m_player->SetAnimState(enSpecialAttack_01_blad);
+			if (!m_player->GetPlayerSkinModelRemder().GetisAnimationPlaing()) {
+				//アニメーションが終わった。
+				m_specialAttackStartFlag = true;
 			}
 		}
 		else {
-			//離した。
-			m_player->SetSpecialAttackFlag(true);
-			m_accumulateTimer = 0;
-			m_accumulateTime = 60;
+			if (g_pad[0]->IsPress(enButtonRB2)) {
+				//ボタン長押し。
+				m_player->SetAnimState(enSpecialAttack_02_blad);
+				//移動しない。
+				m_player->SetMoveSpeed(Vector3::Zero);
+				//タイマー加算。
+				m_accumulateTimer++;
+				if (m_accumulateTimer >= m_accumulateTime) {
+					//一定時間ためると段階的に攻撃力と移動距離が上がる。
+					m_magnification++;
+					m_accumulateTime += 60;
+					m_speed += 30.0f;
+					if (m_magnification >= 3) {
+						m_magnification = 3;
+						m_speed = 100.0f;
+					}
+				}
+			}
+			else {
+				//離した。
+				m_player->SetSpecialAttackFlag(true);
+				//攻撃力に倍率をかける。
+				m_baseAttackPow = m_player->GetmAtaackPow();
+				int attackPower = m_baseAttackPow;
+				attackPower *= m_magnification;
+				m_player->SetAtaackPow(attackPower);
+				//タイマーとためる時間をリセット。
+				m_accumulateTimer = 0;
+				m_accumulateTime = 60;
+			}
 		}
 	}
-	if (m_player->GetSpecialAttackFlag() != false) {
+	else {
 		//攻撃モーション。
 		m_player->SetAnimState(enSpecialAttack_03_blad);
 		m_timer++;
@@ -147,23 +158,66 @@ void PlayerAttackAnimation::SpecialAttackStateBlad()
 			m_speed -= 50.0f / 40.0f;
 			if (m_speed <= 0.0f) {
 				m_speed = 0.0f;
-				//m_player->SetSpecialAttackFlag(false);
 			}
 		}
 		if (!m_player->GetPlayerSkinModelRemder().GetisAnimationPlaing()) {
-			m_player->SetSpecialAttackFlag(false);
-			m_player->SetAttackState(enNormalState);
-			m_specialAttackStartFlag = false;
-			m_speed = 50.0f;
-			m_timer = 0;
-			m_magnification = 1.0f;
 			AttackEnd();
 		}
 	}
 }
 void PlayerAttackAnimation::SpecialAttackStateSword()
 {
-
+	if (m_setPowerFlag != true) {
+		m_baseAttackPow = m_player->GetmAtaackPow();
+		int attackPower = m_baseAttackPow;
+		attackPower /= 10;
+		m_player->SetAtaackPow(attackPower);
+		m_setPowerFlag = true;
+	}
+	m_player->SetMoveSpeed(Vector3::Zero);
+	if (g_pad[0]->IsPress(enButtonRB2)) {
+		m_player->SetSpecialAttackFlag(true);
+		if (m_specialAttackStartFlag != true) {
+			//特殊攻撃のはじめのアニメーションを流す。
+			m_player->SetAnimState(enSpecialAttack_01_sword);
+			if (!m_player->GetPlayerSkinModelRemder().GetisAnimationPlaing()) {
+				//アニメーションが終わった。
+				m_specialAttackStartFlag = true;
+				//アニメーション設定。
+				m_player->SetAnimState(enSpecialAttack_02_sword);
+			}
+		}//ボタン長押ししている間は2つの攻撃アニメーションを交互に繰り返す。
+		else if (m_swordSpecialAttackAnim2Or3 != true) {
+			//フラグがfalseなら
+			m_player->SetAnimState(enSpecialAttack_02_sword);
+			if (!m_player->GetPlayerSkinModelRemder().GetisAnimationPlaing()) {
+				//アニメーションが終わった。
+				m_player->SetAnimState(enSpecialAttack_03_sword);
+				m_swordSpecialAttackAnim2Or3 = true;
+				//敵の攻撃当たり判定リセット。
+				MakeTheEnemyUnattacked();
+			}
+		}
+		else if (m_swordSpecialAttackAnim2Or3 != false) {
+			//フラグがtrueなら
+			m_player->SetAnimState(enSpecialAttack_03_sword);
+			if (!m_player->GetPlayerSkinModelRemder().GetisAnimationPlaing()) {
+				//アニメーションが終わった。
+				m_player->SetAnimState(enSpecialAttack_02_sword);
+				m_swordSpecialAttackAnim2Or3 = false;
+				//敵の攻撃当たり判定リセット。
+				MakeTheEnemyUnattacked();
+			}
+		}
+	}
+	else {//ボタンを離した。
+		//アニメーション設定。
+		m_player->SetAnimState(enSpecialAttack_04_sword);
+		if (!m_player->GetPlayerSkinModelRemder().GetisAnimationPlaing()) {
+			//アニメーションが終わった。
+			AttackEnd();
+		}
+	}
 }
 void PlayerAttackAnimation::AttackFlag(int attackTime01_blad, int* attackAnimNum, int attackTime01_sword)
 {
@@ -194,8 +248,8 @@ void PlayerAttackAnimation::AttackFlag(int attackTime01_blad, int* attackAnimNum
 		m_totalAttackAnimationTime = attackTimer + m_attackAnimationTime[m_attackAnimationTimeNum];
 		m_continuousAttackTime = attackTimer + m_switchAttackTime[m_attackAnimationTimeNum];;
 		//フラグを立てて、この時は攻撃中でも方向を変えれるようにする。
-		//m_attackAngleFlag = false;
 		m_player->SetAttackAngleFlag(false);
+		//敵の攻撃当たり判定リセット。
 		MakeTheEnemyUnattacked();
 	}
 }
@@ -206,15 +260,30 @@ void PlayerAttackAnimation::AttackEnd()
 		//武器チェンジの攻撃アニメーションだった。
 		//武器の状態を変更する。
 		if (m_player->GetWeaponState() == enBladState) {
-			//m_weaponState = enSwordState;
 			m_player->SetWeaponState(true);
 		}
 		else if (m_player->GetWeaponState() == enSwordState) {
-			//m_weaponState = enBladState;
 			m_player->SetWeaponState(false);
 		}
 	}
-	//m_attackAnimationFlag = false;
+	//特殊攻撃だった場合、いろいろリセットする。
+	if (m_player->GetAttackState() == enBladState) {
+		m_player->SetSpecialAttackFlag(false);
+		m_player->SetAttackState(enNormalState);
+		m_specialAttackStartFlag = false;
+		m_speed = 50.0f;
+		m_timer = 0;
+		m_player->SetAtaackPow(m_baseAttackPow);
+		m_magnification = 1;
+	}
+	else if (m_player->GetAttackState() == enSwordState) {
+		m_swordSpecialAttackAnim2Or3 = false;
+		m_player->SetSpecialAttackFlag(false);
+		m_player->SetAttackState(enNormalState);
+		m_specialAttackStartFlag = false;
+		m_player->SetAtaackPow(m_baseAttackPow);
+		m_setPowerFlag = false;
+	}
 	//攻撃アニメーションフラグをさげる。
 	m_player->SetAttackAnimationFlag(false);
 	m_attackAnimationTimeNum = enAttackTime01_blad;
@@ -223,6 +292,7 @@ void PlayerAttackAnimation::AttackEnd()
 	m_totalAttackAnimationTime = 0;
 	m_player->SetPressedAttackButton(noAttack);
 	m_player->SetAttackAngleFlag(false);
+	//敵の攻撃当たり判定リセット。
 	MakeTheEnemyUnattacked();
 
 }

@@ -70,6 +70,14 @@ public:
 	{
 		return m_attackNum;
 	}
+	/// <summary>
+	/// 元になる攻撃力を設定する。
+	/// </summary>
+	/// <param name="power"></param>
+	void SetBaseAttackPow(const int power)
+	{
+		m_baseAttackPow = power;
+	}
 private:
 	Player* m_player = nullptr;
 	PlayerAnimation* m_playerAnim = nullptr;
@@ -86,6 +94,11 @@ private:
 	int m_timer = 0;
 	int m_accumulateTimer = 0; //溜めるタイマー。
 	int m_accumulateTime = 60; //溜める時間。
-	float m_magnification = 1.0f; //倍率。
+	int m_magnification = 1; //倍率。
+	int m_baseAttackPow = 0;//元になる攻撃力。
+	bool m_setPowerFlag = false;//攻撃力設定するとき使うフラグ。
+	bool m_swordSpecialAttackAnim2Or3 = false;//ソード状態の特殊攻撃で、
+	                                           //2のアニメーションならfalse,
+	                                           //3のアニメーションならtrueを返す。
 };
 

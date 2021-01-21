@@ -38,12 +38,14 @@ const enum PlayerAnim {
 	enAttack08_sword,         //ソード状態の攻撃8
 	enAttack09_blad,         //ブレイド状態の攻撃9
 	enAttack09_sword,         //ソード状態の攻撃9
+	//特殊攻撃。
 	enSpecialAttack_01_blad, //ブレイド状態の特殊攻撃1/3
-	enSpecialAttack_01_sword,
 	enSpecialAttack_02_blad,//ブレイド状態の特殊攻撃2/3
-	enSpecialAttack_02_sword,
 	enSpecialAttack_03_blad,//ブレイド状態の特殊攻撃3/3
+	enSpecialAttack_01_sword,
+	enSpecialAttack_02_sword,
 	enSpecialAttack_03_sword,
+	enSpecialAttack_04_sword,
 	enAnimationClipNum, //アニメーションクリップの数。
 };
 class PlayerAnimation : public IGameObject

@@ -42,12 +42,12 @@ void Player::GetExperiencePoint(const float experiencePoint)
 	{
 		//レベルを加算。
 		m_playerLevel++;
+		m_ataackPow++;
 		//次に必要なレベルを1.1倍に増やす。
 		m_nextExperiencePoint *= 1.1f;
 		if (m_playerLevel > m_levelToOpen) {
 			m_attackAnimNumX = 4;
 			m_attackAnimNumY = 3;
-			m_ataackPow = 50;
 			m_levelToOpen = 99999;
 		}
 	}
@@ -336,7 +336,6 @@ void Player::Update()
 		else if (g_pad[0]->IsTrigger(enButtonRB2)) {
 			//RB2ボタンを押した。
 			if (m_pressedAttackButton == attackS || m_pressedAttackButton == noAttack) {
-			//	m_doNothingFlag = true;
 				//押した攻撃ボタンをRB2ボタンに設定。
 				m_pressedAttackButton = attackS;
 				//特殊攻撃フラグを立てる。
@@ -401,6 +400,10 @@ void Player::Update()
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
 		//m_doNothingFlag = true;
+		if (m_attackAnimationFlag != false) {
+			//攻撃中なら、攻撃をやめる。
+			m_playerAttackAnim->AttackEnd();
+		}
 		if (!m_playerSkinModel->GetisAnimationPlaing()) {
 			//アニメーションが終わった。
 			m_beforeHp = m_playerHP;
@@ -414,7 +417,10 @@ void Player::Update()
 		//動かないようにする。
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
-		//m_doNothingFlag = true;
+		if (m_attackAnimationFlag != false) {
+			//攻撃中なら、攻撃をやめる。
+			m_playerAttackAnim->AttackEnd();
+		}
 		if (!m_playerSkinModel->GetisAnimationPlaing()) {
 			//アニメーションが終わった。
 			m_deathFlag = true;

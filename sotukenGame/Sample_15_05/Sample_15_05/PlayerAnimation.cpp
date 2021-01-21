@@ -96,11 +96,16 @@ void PlayerAnimation::InitAnimation()
 	animClip[enAttack09_sword].Load("Assets/animData/player/sword/attack_sword_09.tka");
 	animClip[enAttack09_sword].SetLoopFlag(true);
 
-	//特殊攻撃
+	//特殊攻撃(ブレイド状態)
 	animClip[enSpecialAttack_01_blad].Load("Assets/animData/player/blad/attack_blad_special_1.tka");
 	animClip[enSpecialAttack_02_blad].Load("Assets/animData/player/blad/attack_blad_special_2.tka");
 	animClip[enSpecialAttack_02_blad].SetLoopFlag(true);
 	animClip[enSpecialAttack_03_blad].Load("Assets/animData/player/blad/attack_blad_special_3.tka");
+	//特殊攻撃(ソード状態)
+	animClip[enSpecialAttack_01_sword].Load("Assets/animData/player/sword/attack_sword_special_1.tka");
+	animClip[enSpecialAttack_02_sword].Load("Assets/animData/player/sword/attack_sword_special_2.tka");
+	animClip[enSpecialAttack_03_sword].Load("Assets/animData/player/sword/attack_sword_special_3.tka");
+	animClip[enSpecialAttack_04_sword].Load("Assets/animData/player/sword/attack_sword_special_4.tka");
 }
 bool PlayerAnimation::Start()
 {

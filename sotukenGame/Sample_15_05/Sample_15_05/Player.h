@@ -117,6 +117,14 @@ public:
 		return m_playerHP;
 	}
 	/// <summary>
+	/// 攻撃力を設定する。
+	/// </summary>
+	/// <param name="power">攻撃力。</param>
+	void SetAtaackPow(const int power)
+	{
+		m_ataackPow = power;
+	}
+	/// <summary>
 	/// 攻撃力を返す。
 	/// </summary>
 	/// <returns></returns>
@@ -340,7 +348,7 @@ private:
 	int m_kaihiTimer = 0;
 	int m_playerLevel = 1; //プレイヤーのレベル。
 	int m_levelToOpen = 1; //開放するレベル。
-	float m_experiencePoint = 0.0f;  //経験値。
+	float m_experiencePoint = 10.0f;  //経験値。
 	float m_nextExperiencePoint = 10.0f; //次に必要な経験値。
 	Vector3 m_dir = Vector3::Zero; //向いている方向。
 	int m_attackAnimNumX = 1;//Xボタンの攻撃アニメーションの数。
