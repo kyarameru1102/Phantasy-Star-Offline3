@@ -64,6 +64,10 @@ void PlayerAttackAnimation::MakeTheEnemyUnattacked()
 		drBoar->SetHit(false);
 		return true;
 	});
+	QueryGOs<EnBase>("drNightmare", [&](EnBase * drBoar)->bool {
+		drBoar->SetHit(false);
+		return true;
+	});
 }
 void PlayerAttackAnimation::NormalAttack()
 {

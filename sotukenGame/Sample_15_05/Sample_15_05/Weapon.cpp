@@ -48,6 +48,22 @@ void Weapon::AttackHit()
 			return true;
 		}
 		});
+	QueryGOs<EnBase>("drNightmare", [&](EnBase * drBoar)->bool {
+		if (drBoar->GetHit() != true) {
+			//まだ攻撃を受けていない。
+			//敵のキャラコンを取得。
+			CharacterController& charaCon = *drBoar->GetCharaCon();
+			g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
+				if (m_ghostObj.IsSelf(collisionObject) == true) {
+					//当たっていたら、ダメージを与える。
+					drBoar->ReceiveDamage(m_player->GetmAtaackPow());
+					//攻撃を受けたフラグを立てる。
+					drBoar->SetHit(true);
+				}
+				});
+			return true;
+		}
+		});
 }
 bool Weapon::Start()
 {
