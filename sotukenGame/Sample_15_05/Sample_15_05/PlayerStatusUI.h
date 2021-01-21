@@ -5,7 +5,13 @@
 class PlayerStatusUI : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	PlayerStatusUI();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~PlayerStatusUI();
 
 	/// <summary>
@@ -37,30 +43,38 @@ public:
 		return m_currentPlayerHP;
 	}
 
+	/// <summary>
+	/// 現在のプレイヤーSPを取得。
+	/// </summary>
+	/// <param name="currentSP">現在のプレイヤーのSP</param>
+	void SetCurrentPlayerSP(const float& currentSP)
+	{
+		m_currentPlayerSP = currentSP;
+	}
 private:
 
 	const enum {
 		en_playerUIHP,			//プレイヤーHPのUI。
-		en_playerUIPP,			//プレイヤーPPのUI。
+		en_playerUISP,			//プレイヤーSPのUI。
 		en_playerUIHPBer,		//HPBerのUI。
-		en_playerUIPPBer,		//PPBerのUI。
+		en_playerUISPBer,		//SPBerのUI。
 		en_playerUIStatus,		//ステータスのUI。
 		en_playerUINum			//プレイヤーUIの数。
 	};
 
 	SpriteRender* m_statusSprite = nullptr;		//プレイヤーステータスのスプライトレンダー。
 	SpriteRender* m_hpSprite =  nullptr;		//プレイヤーHPのスプライトレンダー。
-	SpriteRender* m_ppSprite = nullptr;			//プレイヤーPPのスプライトレンダー。
+	SpriteRender* m_spSprite = nullptr;			//プレイヤーPPのスプライトレンダー。
 	SpriteRender* m_hpBerSprite = nullptr;		//HPBerのスプライトレンダー。
-	SpriteRender* m_ppBerSprite = nullptr;		//PPBerのスプライトレンダー。
+	SpriteRender* m_spBerSprite = nullptr;		//PPBerのスプライトレンダー。
 
 	Vector3 m_spritePosition[en_playerUINum] = { Vector3::Zero };	//スプライトの座標。
-	Vector3 m_spriteScale[en_playerUINum] = { Vector3::One };		//スプライトの拡大率。
+	Vector3 m_spriteScale[en_playerUINum] = { Vector3::One, Vector3::One };		//スプライトの拡大率。
 	Vector2 m_spritePivot[en_playerUINum] = { { 0.5f, 0.5f } };		//スプライトのピボット。
 
 	float m_currentPlayerHP = 0.0f;		//プレイヤーの現在のHP。
 	float m_hp = 0.0f;					//プレイヤーの現在のHPを保存する変数。
-
-	int c = 0;
+	float m_currentPlayerSP = 0.0f;		//プレイヤーの現在のSP。
+	float m_sp = 0.0f;					//プレイヤーの現在のSPを保存する変数。
 };
 

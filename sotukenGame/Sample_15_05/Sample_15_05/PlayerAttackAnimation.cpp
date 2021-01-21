@@ -150,6 +150,21 @@ void PlayerAttackAnimation::SpecialAttackStateBlad()
 				m_accumulateTime = 60;
 			}
 		}
+		if (m_player->GetSP() <= 0.0f) {
+			m_player->SetSpecialAttackFlag(true);
+			//攻撃力に倍率をかける。
+			m_baseAttackPow = m_player->GetmAtaackPow();
+			int attackPower = m_baseAttackPow;
+			attackPower *= m_magnification;
+			m_player->SetAtaackPow(attackPower);
+			//タイマーとためる時間をリセット。
+			m_accumulateTimer = 0;
+			m_accumulateTime = 60;
+		}
+		//SP消費。
+		float sp = m_player->GetSP();
+		sp -= 0.5f;
+		m_player->SetSP(sp);
 	}
 	else {
 		//攻撃モーション。
@@ -180,6 +195,10 @@ void PlayerAttackAnimation::SpecialAttackStateSword()
 	}
 	m_player->SetMoveSpeed(Vector3::Zero);
 	if (g_pad[0]->IsPress(enButtonRB2)) {
+		//SP消費。
+		float sp = m_player->GetSP();
+		sp -= 0.5f;
+		m_player->SetSP(sp);
 		m_player->SetSpecialAttackFlag(true);
 		if (m_specialAttackStartFlag != true) {
 			//特殊攻撃のはじめのアニメーションを流す。
@@ -215,6 +234,14 @@ void PlayerAttackAnimation::SpecialAttackStateSword()
 		}
 	}
 	else {//ボタンを離した。
+		//アニメーション設定。
+		m_player->SetAnimState(enSpecialAttack_04_sword);
+		if (!m_player->GetPlayerSkinModelRemder().GetisAnimationPlaing()) {
+			//アニメーションが終わった。
+			AttackEnd();
+		}
+	}
+	if (m_player->GetSP() <= 0.0f) {
 		//アニメーション設定。
 		m_player->SetAnimState(enSpecialAttack_04_sword);
 		if (!m_player->GetPlayerSkinModelRemder().GetisAnimationPlaing()) {

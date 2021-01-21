@@ -12,6 +12,7 @@ const float FLUCTUATION_VALUE_Y = MAX_SPEED_Y / FLAME_NUM; //Y方向のスピードの変
 const float MAX_ANGLE = 360.0f;//最大の角度。
 const float HALF_ANGLE = 180.0f;//半分の角度。
 const float ROTATION_AMOUNT = 10.0f;//回転量。
+const float NATURAL_RECOVERY_SP = 0.5f;//SP自然回復量。
 Player::Player()
 {
 }
@@ -56,7 +57,7 @@ void Player::YDirMove()
 {
 	if (m_charaCon.IsOnGround() != false) {
 		//地面の上にいる。
-		if (g_pad[0]->IsTrigger(enButtonA) && m_doNothingFlag != true) {
+		if (g_pad[0]->IsTrigger(enButtonA) && m_doNothingFlag != true && m_playerSP >= 20.0f) {
 			//Aボタンを押した。
 			//攻撃アニメーションをしていたら、止める。
 			if (m_attackAnimationFlag != false) {
@@ -65,6 +66,8 @@ void Player::YDirMove()
 			}
 			//ジャンプフラグを立てる。
 			m_jumpFlag = true;
+			//SP消費。
+			m_playerSP -= 20.0f;
 			//Yスピードを最大値にする。
 			m_speedY = MAX_SPEED_Y;
 			jumpStartTimer = 0;
@@ -143,9 +146,26 @@ void Player::SetSpeed()
 
 	if (fabs(m_moveSpeed.x) > 0.0f || fabs(m_moveSpeed.z) > 0.0f) {
 		//移動している。
-		if (g_pad[0]->IsPress(enButtonRB1)) {
-			m_magnificationSpeed = 10.0f;
-			m_animState = enRun_blad;
+		if (g_pad[0]->IsPress(enButtonRB1) &&
+			m_changeAnimFlag != true &&//武器変更していない
+			m_kaihiFlag != true &&//回避していない。
+			m_playerHP == m_beforeHp &&
+			m_playerHP > 0.0f &&
+			m_attackAnimationFlag != true
+			) {
+			if (m_playerSP <= 0.0f) {
+				m_magnificationSpeed = 5.0f;
+				m_animState = enWalk_blad;
+			}
+			else {
+				//ダッシュ。
+				m_magnificationSpeed = 10.0f;
+				m_animState = enRun_blad;
+			}
+			//SP消費。
+			if (m_charaCon.IsOnGround() != false) {
+				m_playerSP--;
+			}
 		}
 		else {
 			m_magnificationSpeed = 5.0f;
@@ -333,7 +353,7 @@ void Player::Update()
 				m_playerAttackAnim->AttackFlag(enAttackTime06_blad, &m_attackAnimNumY, enAttackTime06_sword);
 			}
 		}
-		else if (g_pad[0]->IsTrigger(enButtonRB2)) {
+		else if (g_pad[0]->IsTrigger(enButtonRB2) && m_playerSP >= 30.0f) {
 			//RB2ボタンを押した。
 			if (m_pressedAttackButton == attackS || m_pressedAttackButton == noAttack) {
 				//押した攻撃ボタンをRB2ボタンに設定。
@@ -353,11 +373,12 @@ void Player::Update()
 	}
 
 	//回避のフラグ
-	if (g_pad[0]->IsTrigger(enButtonB) && m_doNothingFlag != true) {
+	if (g_pad[0]->IsTrigger(enButtonB) && m_doNothingFlag != true && m_playerSP >= 30.0f) {
 		//Bボタンを押した。
 		m_kaihiFlag = true;
 		m_animState = enKaihi_blad;
-		//m_doNothingFlag = true;
+		
+		m_playerSP -= 30.0f;
 		//攻撃アニメーションをしていたら、止める。
 		if (m_attackAnimationFlag != false) {
 			m_attackAnimationFlag = false;
@@ -456,4 +477,20 @@ void Player::Update()
 	m_oldPosition = m_position;
 	//HPを設定。
 	m_playerStatusUI->SetCurrentPlayerHP(m_playerHP);
+	if (m_kaihiFlag != true &&//回避していない。
+		m_attackFlag != true &&//攻撃中でない。
+		m_pressedAttackButton != attackS) {
+		//SPを自然回復させる。
+		m_playerSP += NATURAL_RECOVERY_SP;
+	}
+	//SPが最大値を超えないようにする。
+	if (m_playerSP >= 100.0f) {
+		m_playerSP = 100.0f;
+	}
+	//SPが最小値を超えないようにする。
+	if (m_playerSP <= 0.0f) {
+		m_playerSP = 0.0f;
+	}
+	//SPを設定。
+	m_playerStatusUI->SetCurrentPlayerSP(m_playerSP);
 }

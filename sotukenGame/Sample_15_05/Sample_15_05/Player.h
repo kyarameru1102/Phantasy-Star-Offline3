@@ -117,6 +117,22 @@ public:
 		return m_playerHP;
 	}
 	/// <summary>
+	/// SPを設定する。
+	/// </summary>
+	/// <param name="sp"></param>
+	void SetSP(const float sp)
+	{
+		m_playerSP = sp;
+	}
+	/// <summary>
+	/// SPを返す。
+	/// </summary>
+	/// <returns></returns>
+	const float GetSP() const
+	{
+		return m_playerSP;
+	}
+	/// <summary>
 	/// 攻撃力を設定する。
 	/// </summary>
 	/// <param name="power">攻撃力。</param>
@@ -336,6 +352,7 @@ private:
 	float m_complementaryFlame = 10.0f;//アニメーション補完時間。フレーム数。
 	int jumpStartTimer = 40;
 	float m_playerHP = 100.0f;      //HP。
+	float m_playerSP = 100.0f;      //SP。
 	float m_beforeHp = 0.0f;
 	int m_ataackPow = 10; //攻撃力。
 	Weapon* m_weapon[2] = { nullptr, nullptr };
