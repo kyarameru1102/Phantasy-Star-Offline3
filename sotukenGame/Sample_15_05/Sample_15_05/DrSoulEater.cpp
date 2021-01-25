@@ -20,19 +20,19 @@ bool DrSoulEater::Start()
 	//モデルの初期化
 	if (m_appearcolor == 1) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonSoulEater/blue/DrSoEaBl.tkm", m_souleAnim->GetAnimationClip(), enSoulEAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonSoulEater/blue/DrSoEaBl.tkm", m_souleAnim->GetAnimationClip(), SoulEaterAnimInfo::enSoulEAnimClip_num);
 	}
 	else if (m_appearcolor == 2) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonSoulEater/green/DrSoEaGr.tkm", m_souleAnim->GetAnimationClip(), enSoulEAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonSoulEater/green/DrSoEaGr.tkm", m_souleAnim->GetAnimationClip(), SoulEaterAnimInfo::enSoulEAnimClip_num);
 	}
 	else if (m_appearcolor == 3) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonSoulEater/purple/DrSoEaPu.tkm", m_souleAnim->GetAnimationClip(), enSoulEAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonSoulEater/purple/DrSoEaPu.tkm", m_souleAnim->GetAnimationClip(), SoulEaterAnimInfo::enSoulEAnimClip_num);
 	}
 	else if (m_appearcolor == 4) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonSoulEater/red/DrSoEaRe.tkm", m_souleAnim->GetAnimationClip(), enSoulEAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonSoulEater/red/DrSoEaRe.tkm", m_souleAnim->GetAnimationClip(), SoulEaterAnimInfo::enSoulEAnimClip_num);
 	}
 	//キャラコン初期化。
 	m_charaCon.Init(145.0f, 200.0f, m_position);
@@ -156,13 +156,13 @@ void DrSoulEater::Update()
 	switch (m_status)
 	{
 	case Idle_state:
-		m_animState = enSo_Idle;
+		m_animState = SoulEaterAnimInfo::enSo_Idle;
 		break;
 	case Walk_state:
-		m_animState = enSo_Walk;
+		m_animState = SoulEaterAnimInfo::enSo_Walk;
 		break;
 	case Attack_state:
-		m_animState = enSo_BasicAttack;
+		m_animState = SoulEaterAnimInfo::enSo_BasicAttack;
 		m_count++;
 		m_isAttack = true;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
@@ -170,23 +170,23 @@ void DrSoulEater::Update()
 			m_isAttack = false;
 			m_ATKoff = false;
 			m_count = 0;
-			m_animState = enSo_Idle;
+			m_animState = SoulEaterAnimInfo::enSo_Idle;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case GetDamage_state:
-		m_animState = enSo_Gethit;
+		m_animState = SoulEaterAnimInfo::enSo_Gethit;
 		m_isAttack = false;
 		m_ATKoff = false;
 		m_count = 0;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
 			m_status = Idle_state;
-			m_animState = enSo_Idle;
+			m_animState = SoulEaterAnimInfo::enSo_Idle;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case Die_state:
-		m_animState = enSo_Die;
+		m_animState = SoulEaterAnimInfo::enSo_Die;
 		break;
 	default:
 		break;

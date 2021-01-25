@@ -14,49 +14,49 @@ UsurperAnimation::~UsurperAnimation()
 bool UsurperAnimation::Start()
 {
 	//ë“ã@ÇOÇP
-	animClip[enUs_Idle01].Load("Assets/animData/DragonUsurper/Us_idle01.tka");
-	animClip[enUs_Idle01].SetLoopFlag(true);
+	animClip[UsurperAnimInfo::enUs_Idle01].Load("Assets/animData/DragonUsurper/Us_idle01.tka");
+	animClip[UsurperAnimInfo::enUs_Idle01].SetLoopFlag(true);
 	//ë“ã@ÇOÇQ
-	animClip[enUs_Idle02].Load("Assets/animData/DragonUsurper/Us_idle02.tka");
-	animClip[enUs_Idle02].SetLoopFlag(true);
+	animClip[UsurperAnimInfo::enUs_Idle02].Load("Assets/animData/DragonUsurper/Us_idle02.tka");
+	animClip[UsurperAnimInfo::enUs_Idle02].SetLoopFlag(true);
 
 	//ïÇóVë“ã@
-	animClip[enUs_FlyIdle].Load("Assets/animData/DragonUsurper/Us_flyidle.tka");
-	animClip[enUs_FlyIdle].SetLoopFlag(true);
+	animClip[UsurperAnimInfo::enUs_FlyIdle].Load("Assets/animData/DragonUsurper/Us_flyidle.tka");
+	animClip[UsurperAnimInfo::enUs_FlyIdle].SetLoopFlag(true);
 	//ï‡Ç´
-	animClip[enUs_Walk].Load("Assets/animData/DragonUsurper/Us_walk.tka");
-	animClip[enUs_Walk].SetLoopFlag(true);
+	animClip[UsurperAnimInfo::enUs_Walk].Load("Assets/animData/DragonUsurper/Us_walk.tka");
+	animClip[UsurperAnimInfo::enUs_Walk].SetLoopFlag(true);
 	//ëñÇË
-	animClip[enUs_Run].Load("Assets/animData/DragonUsurper/Us_run.tka");
-	animClip[enUs_Run].SetLoopFlag(true);
+	animClip[UsurperAnimInfo::enUs_Run].Load("Assets/animData/DragonUsurper/Us_run.tka");
+	animClip[UsurperAnimInfo::enUs_Run].SetLoopFlag(true);
 
 	//òrçUåÇ
-	animClip[enUs_HandAttack].Load("Assets/animData/DragonUsurper/Us_attackhand.tka");
+	animClip[UsurperAnimInfo::enUs_HandAttack].Load("Assets/animData/DragonUsurper/Us_attackhand.tka");
 	//äöÇ›Ç¬Ç´çUåÇ
-	animClip[enUs_MouthAttack].Load("Assets/animData/DragonUsurper/Us_attackmouth.tka");
+	animClip[UsurperAnimInfo::enUs_MouthAttack].Load("Assets/animData/DragonUsurper/Us_attackmouth.tka");
 	//âŒâäçUåÇ
-	animClip[enUs_FlameAttack].Load("Assets/animData/DragonUsurper/Us_attackflame.tka");
+	animClip[UsurperAnimInfo::enUs_FlameAttack].Load("Assets/animData/DragonUsurper/Us_attackflame.tka");
 	//ïÇóVâŒâäçUåÇ
-	animClip[enUs_FlyFlame].Load("Assets/animData/DragonUsurper/Us_flyflame.tka");
+	animClip[UsurperAnimInfo::enUs_FlyFlame].Load("Assets/animData/DragonUsurper/Us_flyflame.tka");
 
 	//îÚçsëOêi
-	animClip[enUs_FlyForward].Load("Assets/animData/DragonUsurper/Us_flyforward.tka");
+	animClip[UsurperAnimInfo::enUs_FlyForward].Load("Assets/animData/DragonUsurper/Us_flyforward.tka");
 	//ëŒãÛ
-	animClip[enUs_FlyGlide].Load("Assets/animData/DragonUsurper/Us_flyglide.tka");
+	animClip[UsurperAnimInfo::enUs_FlyGlide].Load("Assets/animData/DragonUsurper/Us_flyglide.tka");
 	//íÖó§
-	animClip[enUs_Land].Load("Assets/animData/DragonUsurper/Us_land.tka");
+	animClip[UsurperAnimInfo::enUs_Land].Load("Assets/animData/DragonUsurper/Us_land.tka");
 	//ó£ó§
-	animClip[enUs_Takeoff].Load("Assets/animData/DragonUsurper/Us_takeoff.tka");
+	animClip[UsurperAnimInfo::enUs_Takeoff].Load("Assets/animData/DragonUsurper/Us_takeoff.tka");
 	//ñhå‰
-	animClip[enUs_Defend].Load("Assets/animData/DragonUsurper/Us_defend.tka");
+	animClip[UsurperAnimInfo::enUs_Defend].Load("Assets/animData/DragonUsurper/Us_defend.tka");
 	//êáñ∞
-	animClip[enUs_Sleep].Load("Assets/animData/DragonUsurper/Us_sleep.tka");
+	animClip[UsurperAnimInfo::enUs_Sleep].Load("Assets/animData/DragonUsurper/Us_sleep.tka");
 	//ôÙöK
-	animClip[enUs_Scream].Load("Assets/animData/DragonUsurper/Us_scream.tka");
+	animClip[UsurperAnimInfo::enUs_Scream].Load("Assets/animData/DragonUsurper/Us_scream.tka");
 	//îÌÉ_ÉÅ
-	animClip[enUs_Gethit].Load("Assets/animData/DragonUsurper/Us_gethit.tka");
+	animClip[UsurperAnimInfo::enUs_Gethit].Load("Assets/animData/DragonUsurper/Us_gethit.tka");
 	//éÄñS
-	animClip[enUs_Die].Load("Assets/animData/DragonUsurper/Us_die.tka");
+	animClip[UsurperAnimInfo::enUs_Die].Load("Assets/animData/DragonUsurper/Us_die.tka");
 	return true;
 }
 

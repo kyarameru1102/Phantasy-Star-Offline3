@@ -22,19 +22,19 @@ bool DrUsurper::Start()
 	//モデルの初期化
 	if (m_appearcolor == 1) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonUsurper/blue/DrUsBl.tkm", m_usurperAnim->GetAnimationClip(), enUsurperAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonUsurper/blue/DrUsBl.tkm", m_usurperAnim->GetAnimationClip(), UsurperAnimInfo::enUsurperAnimClip_num);
 	}
 	else if (m_appearcolor == 2) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonUsurper/green/DrUsGr.tkm", m_usurperAnim->GetAnimationClip(), enUsurperAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonUsurper/green/DrUsGr.tkm", m_usurperAnim->GetAnimationClip(), UsurperAnimInfo::enUsurperAnimClip_num);
 	}
 	else if (m_appearcolor == 3) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonUsurper/purple/DrUsPu.tkm", m_usurperAnim->GetAnimationClip(), enUsurperAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonUsurper/purple/DrUsPu.tkm", m_usurperAnim->GetAnimationClip(), UsurperAnimInfo::enUsurperAnimClip_num);
 	}
 	else if (m_appearcolor == 4) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonUsurper/red/DrUsRe.tkm", m_usurperAnim->GetAnimationClip(), enUsurperAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonUsurper/red/DrUsRe.tkm", m_usurperAnim->GetAnimationClip(), UsurperAnimInfo::enUsurperAnimClip_num);
 	}
 	//キャラコン初期化。
 	m_charaCon.Init(145.0f, 200.0f, m_position);
@@ -177,13 +177,13 @@ void DrUsurper::Update()
 	switch (m_status)
 	{
 	case Idle_state:
-		m_animState = enUs_Idle01;
+		m_animState = UsurperAnimInfo::enUs_Idle01;
 		break;
 	case Walk_state:
-		m_animState = enUs_Walk;
+		m_animState = UsurperAnimInfo::enUs_Walk;
 		break;
 	case HandAttack_state:
-		m_animState = enUs_HandAttack;
+		m_animState = UsurperAnimInfo::enUs_HandAttack;
 		m_count++;
 		m_isAttack = true;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
@@ -191,23 +191,23 @@ void DrUsurper::Update()
 			m_isAttack = false;
 			m_ATKoff = false;
 			m_count = 0;
-			m_animState = enUs_Idle01;
+			m_animState = UsurperAnimInfo::enUs_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case GetDamage_state:
-		m_animState = enUs_Gethit;
+		m_animState = UsurperAnimInfo::enUs_Gethit;
 		m_isAttack = false;
 		m_ATKoff = false;
 		m_count = 0;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
 			m_status = Idle_state;
-			m_animState = enUs_Idle01;
+			m_animState = UsurperAnimInfo::enUs_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case Die_state:
-		m_animState = enUs_Die;
+		m_animState = UsurperAnimInfo::enUs_Die;
 		break;
 	default:
 		break;

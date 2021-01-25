@@ -86,7 +86,7 @@ private:
 	int					m_status = Idle_state;			//状態。
 	int					changeTimer = 0;				//アニメーション変更タイマー。
 	float				m_speedY = 0.0f;				//Y方向のスピード。
-	int					m_animState = enTe_Idle01;			//アニメーションの状態。
+	int					m_animState = TerrorBringerAnimInfo::enTe_Idle01;			//アニメーションの状態。
 	int					m_appearcolor = 0;				//配色No
 	TerrorBringerAnimation* m_terrorbAnim = nullptr;    //アニメーションのロード。
 	std::vector<int>	terrorcolor = { 1,2,3,4 };		//配色決定。

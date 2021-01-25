@@ -20,25 +20,25 @@ bool DrBoar::Start()
 	//ÉÇÉfÉãÇÃèâä˙âª
 	if (m_appearcolor == 1) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Blue/DrBoarBl.tkm", m_boarAnim->GetAnimationClip(), enBoarAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Blue/DrBoarBl.tkm", m_boarAnim->GetAnimationClip(), BoarAnimInfo::enBoarAnimClip_num);
 		//m_position = { 300.0f, 0.0f, -100.0f };
 	}
 	else if (m_appearcolor == 2)
 	{
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_boarAnim->GetAnimationClip(), enBoarAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_boarAnim->GetAnimationClip(), BoarAnimInfo::enBoarAnimClip_num);
 		//m_position = { 300.0f, 0.0f, 100.0f };
 	}
 	else if (m_appearcolor == 3)
 	{
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Green/DrBoarGr.tkm", m_boarAnim->GetAnimationClip(), enBoarAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Green/DrBoarGr.tkm", m_boarAnim->GetAnimationClip(), BoarAnimInfo::enBoarAnimClip_num);
 		//m_position = { -300.0f, 0.0f, -100.0f };
 	}
 	else if (m_appearcolor == 4)
 	{
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Red/DrBoarRe.tkm", m_boarAnim->GetAnimationClip(), enBoarAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Red/DrBoarRe.tkm", m_boarAnim->GetAnimationClip(), BoarAnimInfo::enBoarAnimClip_num);
 		//m_position = { -300.0f, 0.0f, 100.0f };
 	}
 	
@@ -146,13 +146,13 @@ void DrBoar::Update()
 	switch (m_status)
 	{
 	case Idle_state:
-		m_animState = enBo_Idle;
+		m_animState = BoarAnimInfo::enBo_Idle;
 		break;
 	case Walk_state:
-		m_animState = enBo_Walk;
+		m_animState = BoarAnimInfo::enBo_Walk;
 		break;
 	case Attack_state:
-		m_animState = enBo_Attack;
+		m_animState = BoarAnimInfo::enBo_Attack;
 		m_count++;
 		m_isAttack = true;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
@@ -160,12 +160,12 @@ void DrBoar::Update()
 			m_isAttack = false;
 			m_ATKoff = false;
 			m_count = 0;
-			m_animState = enBo_Idle;
+			m_animState = BoarAnimInfo::enBo_Idle;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case HornAttack_state:
-		m_animState = enBo_Hornattack;
+		m_animState = BoarAnimInfo::enBo_Hornattack;
 		m_count++;
 		m_isAttack = true;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
@@ -173,23 +173,23 @@ void DrBoar::Update()
 			m_isAttack = false;
 			m_ATKoff = false;
 			m_count = 0;
-			m_animState = enBo_Idle;
+			m_animState = BoarAnimInfo::enBo_Idle;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case GetDamage_state:
-		m_animState = enBo_Gethit;
+		m_animState = BoarAnimInfo::enBo_Gethit;
 		m_isAttack = false;
 		m_ATKoff = false;
 		m_count = 0;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
 			m_status = Idle_state;
-			m_animState = enBo_Idle;
+			m_animState = BoarAnimInfo::enBo_Idle;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case Die_state:
-		m_animState = enBo_Die;
+		m_animState = BoarAnimInfo::enBo_Die;
 		break;
 	default:
 		break;
