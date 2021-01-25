@@ -4,7 +4,8 @@
 /// <summary>
 /// ステージ2。
 /// </summary>
-class DrBoar;
+
+class DrUsurper;
 class Stage2 : public IStage
 {
 public:
@@ -25,6 +26,7 @@ private:
 	enum {
 		ENEMY_NUM = 2		//エネミーの数。
 	};
-	DrBoar* m_drBoar[ENEMY_NUM] = { nullptr };		//ドラゴンボア(敵)のインスタンス。
+	
+	DrUsurper* m_drUsurper[ENEMY_NUM] = { nullptr }; 
 };
 

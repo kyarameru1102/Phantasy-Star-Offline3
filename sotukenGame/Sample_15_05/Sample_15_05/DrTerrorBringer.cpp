@@ -17,23 +17,23 @@ bool DrTerrorBringer::Start()
 	//ドラゴンテラーブリンガー
 	m_terrorbAnim = NewGO<TerrorBringerAnimation>(0);
 	//配色を決める。
-	m_appearcolor = boarcolor[rand() % boarcolor.size()];
+	m_appearcolor = terrorcolor[rand() % terrorcolor.size()];
 	//モデルの初期化
 	if (m_appearcolor == 1) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonTerrorBringer/blue/DrTeBrBl.tkm", m_terrorbAnim->GetAnimationClip(), enTerrorBringerAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonTerrorBringer/blue/DrTeBrBl.tkm", m_terrorbAnim->GetAnimationClip(), TerrorBringerAnimInfo::enTerrorBringerAnimClip_num);
 	}
 	else if (m_appearcolor == 2) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonTerrorBringer/green/DrTeBrGr.tkm", m_terrorbAnim->GetAnimationClip(), enTerrorBringerAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonTerrorBringer/green/DrTeBrGr.tkm", m_terrorbAnim->GetAnimationClip(), TerrorBringerAnimInfo::enTerrorBringerAnimClip_num);
 	}
 	else if (m_appearcolor == 3) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonTerrorBringer/purple/DrTeBrPu.tkm", m_terrorbAnim->GetAnimationClip(), enTerrorBringerAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonTerrorBringer/purple/DrTeBrPu.tkm", m_terrorbAnim->GetAnimationClip(), TerrorBringerAnimInfo::enTerrorBringerAnimClip_num);
 	}
 	else if (m_appearcolor == 4) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
-		m_skinModelRender->Init("Assets/modelData/enemy/DragonTerrorBringer/red/DrTeBrRe.tkm", m_terrorbAnim->GetAnimationClip(), enTerrorBringerAnimClip_num);
+		m_skinModelRender->Init("Assets/modelData/enemy/DragonTerrorBringer/red/DrTeBrRe.tkm", m_terrorbAnim->GetAnimationClip(), TerrorBringerAnimInfo::enTerrorBringerAnimClip_num);
 	}
 	//キャラコン初期化。
 	m_charaCon.Init(145.0f, 200.0f, m_position);
@@ -76,8 +76,59 @@ void DrTerrorBringer::Attack()
 					}
 				}
 			}
-			});
+		});
 	}
+}
+
+void DrTerrorBringer::FlyAttack()
+{
+	m_status = FlyAttack_state;
+	CharacterController& charaCon = *m_player->GetCharacterController();
+	g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+		if (m_ghostObj.IsSelf(collisionObject) == true) {
+			if (m_isAttack && !m_ATKoff) {
+				if (m_count >= 60 && m_count <= 70) {
+					m_player->ReceiveDamage(15);
+					m_ATKoff = true;
+					printf_s("Enemy_KOUGEKI\n");
+				}
+			}
+		}
+		});
+}
+
+void DrTerrorBringer::WingClawAttack()
+{
+	m_status = WingClawAttack_state;
+	CharacterController& charaCon = *m_player->GetCharacterController();
+	g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+		if (m_ghostObj.IsSelf(collisionObject) == true) {
+			if (m_isAttack && !m_ATKoff) {
+				if (m_count >= 60 && m_count <= 70) {
+					m_player->ReceiveDamage(15);
+					m_ATKoff = true;
+					printf_s("Enemy_KOUGEKI\n");
+				}
+			}
+		}
+		});
+}
+
+void DrTerrorBringer::FlameAttack()
+{
+	m_status = FlameAttack_state;
+	CharacterController& charaCon = *m_player->GetCharacterController();
+	g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+		if (m_ghostObj.IsSelf(collisionObject) == true) {
+			if (m_isAttack && !m_ATKoff) {
+				if (m_count >= 60 && m_count <= 70) {
+					m_player->ReceiveDamage(15);
+					m_ATKoff = true;
+					printf_s("Enemy_KOUGEKI\n");
+				}
+			}
+		}
+		});
 }
 void DrTerrorBringer::Die()
 {
@@ -114,13 +165,13 @@ void DrTerrorBringer::Update()
 	switch (m_status)
 	{
 	case Idle_state:
-		m_animState = enTe_Idle01;
+		m_animState = TerrorBringerAnimInfo::enTe_Idle01;
 		break;
 	case Walk_state:
-		m_animState = enTe_Walk;
+		m_animState = TerrorBringerAnimInfo::enTe_Walk;
 		break;
 	case Attack_state:
-		m_animState = enTe_BasicAttack;
+		m_animState = TerrorBringerAnimInfo::enTe_BasicAttack;
 		m_count++;
 		m_isAttack = true;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
@@ -128,23 +179,36 @@ void DrTerrorBringer::Update()
 			m_isAttack = false;
 			m_ATKoff = false;
 			m_count = 0;
-			m_animState = enTe_Idle01;
+			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		break;
+	case FlyAttack_state:
+		m_animState = TerrorBringerAnimInfo::enTe_FlyAttack;
+		m_count++;
+		m_isAttack = true;
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_status = Idle_state;
+			m_isAttack = false;
+			m_ATKoff = false;
+			m_count = 0;
+			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case GetDamage_state:
-		m_animState = enTe_Gethit;
+		m_animState = TerrorBringerAnimInfo::enTe_Gethit;
 		m_isAttack = false;
 		m_ATKoff = false;
 		m_count = 0;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
 			m_status = Idle_state;
-			m_animState = enTe_Idle01;
+			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
 	case Die_state:
-		m_animState = enTe_Die;
+		m_animState = TerrorBringerAnimInfo::enTe_Die;
 		break;
 	default:
 		break;

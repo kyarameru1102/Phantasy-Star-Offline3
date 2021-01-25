@@ -1,15 +1,17 @@
 #pragma once
-const enum BoarAnim {
-	enBo_Idle,                    //待機
-	enBo_Walk,                    //歩き
-	enBo_Run,                     //走り
-	enBo_Scream,                  //咆哮
-	enBo_Attack,                  //攻撃
-	enBo_Hornattack,              //角攻撃
-	enBo_Gethit,                  //被ダメ
-	enBo_Die,                     //死亡
-	enBoarAnimClip_num        //アニメーションクリップの数
-};
+namespace BoarAnimInfo {
+	const enum  BoarAnim {
+		enBo_Idle,                    //待機
+		enBo_Walk,                    //歩き
+		enBo_Run,                     //走り
+		enBo_Scream,                  //咆哮
+		enBo_Attack,                  //攻撃
+		enBo_Hornattack,              //角攻撃
+		enBo_Gethit,                  //被ダメ
+		enBo_Die,                     //死亡
+		enBoarAnimClip_num        //アニメーションクリップの数
+	};
+}
 
 class BoarAnimation : public IGameObject
 {
@@ -40,7 +42,7 @@ public:
 		return animClip;
 	}
 private:
-	AnimationClip animClip[enBoarAnimClip_num];//アニメーションクリップ。
+	AnimationClip animClip[BoarAnimInfo::enBoarAnimClip_num];//アニメーションクリップ。
 };
 
 

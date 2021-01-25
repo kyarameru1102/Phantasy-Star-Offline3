@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Stage2.h"
-#include "DrBoar.h"
 #include "BackGround.h"
+#include "DrUsurper.h"
 
 Stage2::Stage2()
 {
@@ -10,9 +10,9 @@ Stage2::Stage2()
 Stage2::~Stage2()
 {
 	DeleteGO(m_backGround);
-	QueryGOs<DrBoar>("drBoar2", [](DrBoar* drBoar)->bool
+	QueryGOs<DrUsurper>("drUsurper", [](DrUsurper* drUsurper)->bool
 	{
-		DeleteGO(drBoar);
+		DeleteGO(drUsurper);
 		return true;
 	});
 }
@@ -20,10 +20,10 @@ Stage2::~Stage2()
 bool Stage2::Start()
 {
 	m_backGround = NewGO<BackGround>(0);
-	m_drBoar[0] = NewGO<DrBoar>(0, "drBoar2");
-	m_drBoar[0]->SetPosition({ 300.0f, 0.0f, -100.0f });
-	m_drBoar[1] = NewGO<DrBoar>(0, "drBoar2");
-	m_drBoar[1]->SetPosition({ -300.0f, 0.0f, 100.0f });
+	m_drUsurper[0] = NewGO<DrUsurper>(0, "drUsurper");
+	m_drUsurper[0]->SetPosition({ 300.0f, 0.0f, -100.0f });
+	m_drUsurper[1] = NewGO<DrUsurper>(0, "drUsurper");
+	m_drUsurper[1]->SetPosition({ -300.0f, 0.0f, 100.0f });
 
 	//ゴーストオブジェクトの作成。
 	m_ghostObject.CreateBox(m_ghostPosition, m_ghostRotation, m_ghostScale);
@@ -39,10 +39,10 @@ void Stage2::Update()
 	}
 
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (m_drBoar[i] != nullptr) {
-			if (m_drBoar[i]->GetDeath()) {
+		if (m_drUsurper[i] != nullptr) {
+			if (m_drUsurper[i]->GetDeath()) {
 				m_downEnemy++;
-				m_drBoar[i] = nullptr;
+				m_drUsurper[i] = nullptr;
 			}
 		}
 	}

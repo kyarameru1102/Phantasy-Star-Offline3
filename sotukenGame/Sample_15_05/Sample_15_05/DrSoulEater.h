@@ -43,6 +43,14 @@ public:
 	/// </summary>
 	void Attack();
 	/// <summary>
+	/// 尻尾攻撃関数
+	/// </summary>
+	void TailAttack();
+	/// <summary>
+	/// 火炎弾攻撃関数。
+	/// </summary>
+	void FireballShoot();
+	/// <summary>
 	/// 死。
 	/// </summary>
 	void Die();
@@ -65,6 +73,8 @@ private:
 		Walk_state,
 		Run_state,
 		Attack_state,
+		TailAttack_state,
+		FireballShoot_state,
 		GetDamage_state,
 		Die_state
 	};
@@ -72,10 +82,10 @@ private:
 	int					m_status = Idle_state;			//状態。
 	int					changeTimer = 0;				//アニメーション変更タイマー。
 	float				m_speedY = 0.0f;				//Y方向のスピード。
-	int					m_animState = enSo_Idle;			//アニメーションの状態。
+	int					m_animState = SoulEaterAnimInfo::enSo_Idle;			//アニメーションの状態。
 	int					m_appearcolor = 0;				//配色No
 	SoulEaterAnimation* m_souleAnim = nullptr;           //アニメーションのロード。
-	std::vector<int>	boarcolor = { 1,2,3,4 };		//配色決定。
+	std::vector<int>	soulcolor = { 1,2,3,4 };		//配色決定。
 	bool				m_isAttack = false;				//攻撃しているか。
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。
