@@ -42,6 +42,18 @@ public:
 	/// </summary>
 	void Attack();
 	/// <summary>
+	/// 飛行攻撃関数
+	/// </summary>
+	void FlyAttack();
+	/// <summary>
+	/// 爪攻撃関数
+	/// </summary>
+	void WingClawAttack();
+	/// <summary>
+	/// 火炎攻撃
+	/// </summary>
+	void FlameAttack();
+	/// <summary>
 	/// 死。
 	/// </summary>
 	void Die();
@@ -64,6 +76,9 @@ private:
 		Walk_state,
 		Run_state,
 		Attack_state,
+		FlyAttack_state,
+		WingClawAttack_state,
+		FlameAttack_state,
 		GetDamage_state,
 		Die_state
 	};
@@ -74,7 +89,7 @@ private:
 	int					m_animState = enTe_Idle01;			//アニメーションの状態。
 	int					m_appearcolor = 0;				//配色No
 	TerrorBringerAnimation* m_terrorbAnim = nullptr;    //アニメーションのロード。
-	std::vector<int>	boarcolor = { 1,2,3,4 };		//配色決定。
+	std::vector<int>	terrorcolor = { 1,2,3,4 };		//配色決定。
 	bool				m_isAttack = false;				//攻撃しているか。
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。

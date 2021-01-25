@@ -16,8 +16,10 @@ bool EnBehaviorTest::Start()
 	m_gameCam = NewGO<GameCamera>(0, "gameCamera");
 	m_bg = NewGO<BackGround>(0, "backGround");
 	m_drNight = NewGO<DrNightmare>(0, "drnight");
-	//m_boss = NewGO<BossBoar>(0, "drBoar");
 	m_drNight->SetPosition({ 1000.0f, 0.0f, -500.0f });
+	m_drBoar = NewGO<DrBoar>(0, "drboar");
+	m_drBoar->SetPosition({ 1000.0f, 0.0f, 500.0f });
+
 	
 	//m_drSoul = NewGO<DrSoulEater>(0, "drsoul");
 	//m_drSoul ->SetPosition({ 1000.0f, 0.0f, 500.0f });

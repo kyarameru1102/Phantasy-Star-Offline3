@@ -45,6 +45,10 @@ public:
 	/// </summary>
 	void ClawAttack();
 	/// <summary>
+	/// 角攻撃
+	/// </summary>
+	void HornAttack();
+	/// <summary>
 	/// 死。
 	/// </summary>
 	void Die();
@@ -70,6 +74,7 @@ private:
 		Attack_state,
 		ClawAttack_state,
 		HornAttack_state,
+		ClowAttack_state,
 		GetDamage_state,
 		Die_state
 	};
@@ -79,7 +84,7 @@ private:
 	int					m_animState = enNi_Idle01;			//アニメーションの状態。
 	int					m_appearcolor = 0;				//配色No
 	NightmareAnimation* m_nightmAnim = nullptr;           //アニメーションのロード。
-	std::vector<int>	boarcolor = { 1,2,3,4 };		//配色決定。
+	std::vector<int>	nightcolor = { 1,2,3,4 };		//配色決定。
 	bool				m_isAttack = false;				//攻撃しているか。
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	bool                m_isBasicATK = true;            //噛みつき攻撃の判定

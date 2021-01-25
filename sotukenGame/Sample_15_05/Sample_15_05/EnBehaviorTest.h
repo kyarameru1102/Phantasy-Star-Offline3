@@ -33,7 +33,7 @@ public:
 	/// </summary>
 	void Update() override;
 	EnTest* m_entest[2] = { nullptr };
-	DrBoar* m_drBoar[4] = { nullptr };
+	DrBoar* m_drBoar =  nullptr;
 	DrNightmare* m_drNight = nullptr;
 	//DrSoulEater* m_drSoul = nullptr;
 	//BossBoar* m_boss = nullptr;

@@ -39,9 +39,21 @@ public:
 	/// </summary>
 	void Turn();
 	/// <summary>
-	/// 攻撃関数。
+	/// 腕攻撃関数。
 	/// </summary>
-	void Attack();
+	void HandAttack();
+	/// <summary>
+	/// 噛みつき攻撃関数。
+	/// </summary>
+	void MouthAttack();
+	/// <summary>
+	/// 火炎攻撃関数。
+	/// </summary>
+	void FlameAttack();
+	/// <summary>
+	/// 浮遊火炎攻撃
+	/// </summary>
+	void FlyFlame();
 	/// <summary>
 	/// 死。
 	/// </summary>
@@ -55,7 +67,10 @@ private:
 		Idle_state,
 		Walk_state,
 		Run_state,
-		Attack_state,
+		HandAttack_state,
+		MouthAttack_state,
+		FlameAttack_state,
+		FlyFlame_state,
 		GetDamage_state,
 		Die_state
 	};
@@ -66,7 +81,7 @@ private:
 	int					m_animState = enUs_Idle01;			//アニメーションの状態。
 	int					m_appearcolor = 0;				//配色No
 	UsurperAnimation* m_usurperAnim = nullptr;        //アニメーションのロード。
-	std::vector<int>	boarcolor = { 1,2,3,4 };		//配色決定。
+	std::vector<int>	usurpercolor = { 1,2,3,4 };		//配色決定。
 	bool				m_isAttack = false;				//攻撃しているか。
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。

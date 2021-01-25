@@ -18,7 +18,7 @@ bool DrUsurper::Start()
 	//ドラゴンユーサープ
 	m_usurperAnim = NewGO<UsurperAnimation>(0);
 	//配色を決める。
-	m_appearcolor = boarcolor[rand() % boarcolor.size()];
+	m_appearcolor = usurpercolor[rand() % usurpercolor.size()];
 	//モデルの初期化
 	if (m_appearcolor == 1) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
@@ -62,11 +62,71 @@ void DrUsurper::Turn()
 	float angle = atan2(playerLen.x, playerLen.z);
 	m_rotation.SetRotation(Vector3::AxisY, angle);
 }
-void DrUsurper::Attack()
+void DrUsurper::HandAttack()
 {
 	if (m_toPlayer.Length() <= 200.0f)
 	{
-		m_status = Attack_state;
+		m_status = HandAttack_state;
+		CharacterController& charaCon = *m_player->GetCharacterController();
+		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+			if (m_ghostObj.IsSelf(collisionObject) == true) {
+				if (m_isAttack && !m_ATKoff) {
+					if (m_count >= 60 && m_count <= 70) {
+						m_player->ReceiveDamage(10);
+						m_ATKoff = true;
+						printf_s("Enemy_KOUGEKI\n");
+					}
+				}
+			}
+			});
+	}
+}
+
+void DrUsurper::MouthAttack()
+{
+	if (m_toPlayer.Length() <= 200.0f)
+	{
+		m_status = MouthAttack_state;
+		CharacterController& charaCon = *m_player->GetCharacterController();
+		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+			if (m_ghostObj.IsSelf(collisionObject) == true) {
+				if (m_isAttack && !m_ATKoff) {
+					if (m_count >= 60 && m_count <= 70) {
+						m_player->ReceiveDamage(10);
+						m_ATKoff = true;
+						printf_s("Enemy_KOUGEKI\n");
+					}
+				}
+			}
+			});
+	}
+}
+
+void DrUsurper::FlameAttack()
+{
+	if (m_toPlayer.Length() <= 200.0f)
+	{
+		m_status = FlameAttack_state;
+		CharacterController& charaCon = *m_player->GetCharacterController();
+		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+			if (m_ghostObj.IsSelf(collisionObject) == true) {
+				if (m_isAttack && !m_ATKoff) {
+					if (m_count >= 60 && m_count <= 70) {
+						m_player->ReceiveDamage(10);
+						m_ATKoff = true;
+						printf_s("Enemy_KOUGEKI\n");
+					}
+				}
+			}
+			});
+	}
+}
+
+void DrUsurper::FlyFlame()
+{
+	if (m_toPlayer.Length() <= 200.0f)
+	{
+		m_status = FlyFlame_state;
 		CharacterController& charaCon = *m_player->GetCharacterController();
 		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
 			if (m_ghostObj.IsSelf(collisionObject) == true) {
@@ -103,13 +163,13 @@ void DrUsurper::Update()
 
 	//プレイヤーに近づく。
 	if (m_status != GetDamage_state) {
-		if (m_status != Attack_state && m_status != Die_state) {
+		if (m_status != HandAttack_state && m_status != Die_state) {
 			Move();
 			Turn();
 		}
 
 		//距離が近づくと。
-		Attack();
+		HandAttack();
 	}
 	//体力がゼロになると
 	Die();
@@ -122,7 +182,7 @@ void DrUsurper::Update()
 	case Walk_state:
 		m_animState = enUs_Walk;
 		break;
-	case Attack_state:
+	case HandAttack_state:
 		m_animState = enUs_HandAttack;
 		m_count++;
 		m_isAttack = true;

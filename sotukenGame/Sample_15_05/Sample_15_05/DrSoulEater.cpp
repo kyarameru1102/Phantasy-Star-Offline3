@@ -16,7 +16,7 @@ bool DrSoulEater::Start()
 	//ドラゴンソウルイーター
 	m_souleAnim = NewGO<SoulEaterAnimation>(0);
 	//配色を決める。
-	m_appearcolor = boarcolor[rand() % boarcolor.size()];
+	m_appearcolor = soulcolor[rand() % soulcolor.size()];
 	//モデルの初期化
 	if (m_appearcolor == 1) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
@@ -81,6 +81,45 @@ void DrSoulEater::Attack()
 	}
 }
 
+void DrSoulEater::TailAttack()
+{
+	if (m_toPlayer.Length() <= 200.0f)
+	{
+		m_status = TailAttack_state;
+		CharacterController& charaCon = *m_player->GetCharacterController();
+		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+			if (m_ghostObj.IsSelf(collisionObject) == true) {
+				if (m_isAttack && !m_ATKoff) {
+					if (m_count >= 60 && m_count <= 70) {
+						m_player->ReceiveDamage(10);
+						m_ATKoff = true;
+						printf_s("Enemy_KOUGEKI\n");
+					}
+				}
+			}
+			});
+	}
+}
+
+void DrSoulEater::FireballShoot()
+{
+	if (m_toPlayer.Length() <= 200.0f)
+	{
+		m_status = FireballShoot_state;
+		CharacterController& charaCon = *m_player->GetCharacterController();
+		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+			if (m_ghostObj.IsSelf(collisionObject) == true) {
+				if (m_isAttack && !m_ATKoff) {
+					if (m_count >= 60 && m_count <= 70) {
+						m_player->ReceiveDamage(10);
+						m_ATKoff = true;
+						printf_s("Enemy_KOUGEKI\n");
+					}
+				}
+			}
+			});
+	}
+}
 void DrSoulEater::Die()
 {
 	if (m_hp <= 0)

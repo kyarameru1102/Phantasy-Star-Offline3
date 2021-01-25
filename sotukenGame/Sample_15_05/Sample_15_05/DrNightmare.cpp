@@ -16,7 +16,7 @@ bool DrNightmare::Start()
 	//ドラゴンナイトメアのアニメーションをロード。
 	m_nightmAnim = NewGO<NightmareAnimation>(0);
 	//配色を決める。
-	m_appearcolor = boarcolor[rand() % boarcolor.size()];
+	m_appearcolor = nightcolor[rand() % nightcolor.size()];
 	//モデルの初期化
 	if (m_appearcolor == 1) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
@@ -98,6 +98,26 @@ void DrNightmare::ClawAttack()
 	if (m_toPlayer.Length() <= 200.0f && m_isClawATK ==true)
 	{
 		m_status = ClawAttack_state;
+		CharacterController& charaCon = *m_player->GetCharacterController();
+		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+			if (m_ghostObj.IsSelf(collisionObject) == true) {
+				if (m_isAttack && !m_ATKoff) {
+					if (m_count >= 60 && m_count <= 70) {
+						m_player->ReceiveDamage(12);
+						m_ATKoff = true;
+						printf_s("Enemy_KOUGEKI\n");
+					}
+				}
+			}
+			});
+	}
+}
+
+void DrNightmare::HornAttack()
+{
+	if (m_toPlayer.Length() <= 200.0f && m_isClawATK == true)
+	{
+		m_status = HornAttack_state;
 		CharacterController& charaCon = *m_player->GetCharacterController();
 		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
 			if (m_ghostObj.IsSelf(collisionObject) == true) {

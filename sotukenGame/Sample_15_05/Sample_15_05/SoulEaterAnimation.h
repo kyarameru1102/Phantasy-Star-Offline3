@@ -5,7 +5,7 @@ const enum SoulEaterAnim {
 	enSo_Run,                     //‘–‚è
 	enSo_BasicAttack,             //UŒ‚
 	enSo_TailAttack,              //K”öUŒ‚
-	enSo_FireballShoot,           //‰Î‰ŠUŒ‚
+	enSo_FireballShoot,           //‰Î‰Š’eUŒ‚
 	enSo_FlyFloat,                //•‚—V
 	enSo_FlyForward,              //”òs‘Oi
 	enSo_FlyGlide,                //‘Î‹ó
