@@ -206,7 +206,7 @@ void Player::RotationCalculation()
 		//今向いている方向の角度にスティックの向いている方向の角度を代入する。
 		m_angle = sita;
 	}
-	else if (m_angle <= sita) {
+	else if (m_angle < sita) {
 		//今向いている方向の角度がスティックの向いている方向の角度より、
 		//小さい。
 		if (angleDifference <= -HALF_ANGLE) {
@@ -219,7 +219,7 @@ void Player::RotationCalculation()
 			m_angle += ROTATION_AMOUNT;
 		}
 	}
-	else if (m_angle >= sita) {
+	else if (m_angle > sita) {
 		//今向いている方向の角度がスティックの向いている方向の角度より、
 		//大きい。
 		if (angleDifference >= HALF_ANGLE) {
@@ -377,7 +377,7 @@ void Player::Update()
 		//Bボタンを押した。
 		m_kaihiFlag = true;
 		m_animState = enKaihi_blad;
-		
+		m_attackAngleFlag = false;
 		m_playerSP -= 30.0f;
 		//攻撃アニメーションをしていたら、止める。
 		if (m_attackAnimationFlag != false) {
@@ -403,6 +403,7 @@ void Player::Update()
 			//タイマーが60以上になったら回避終了。
 			m_kaihiTimer = 0;
 			m_kaihiFlag = false;
+			m_animState = enStay_blad;
 		}
 	}
 	//武器変更。

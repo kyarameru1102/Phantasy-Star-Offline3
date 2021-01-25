@@ -269,7 +269,8 @@ void PlayerAttackAnimation::AttackFlag(int attackTime01_blad, int* attackAnimNum
 		m_continuousAttackTime = m_switchAttackTime[m_attackAnimationTimeNum];
 
 		m_player->SetAttackFlag(true);
-		//m_attackFlag = true;
+		//フラグを立てて、この時は攻撃中でも方向を変えれるようにする。
+		m_player->SetAttackAngleFlag(false);
 	}
 	if (attackTimer >= m_continuousAttackTime && m_attackNum < *attackAnimNum) {
 		//連撃タイム以降
