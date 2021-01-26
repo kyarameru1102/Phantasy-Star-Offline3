@@ -195,6 +195,45 @@ void DrUsurper::Update()
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
+	case MouthAttack_state:
+		m_animState = UsurperAnimInfo::enUs_MouthAttack;
+		m_count++;
+		m_isAttack = true;
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_status = Idle_state;
+			m_isAttack = false;
+			m_ATKoff = false;
+			m_count = 0;
+			m_animState = UsurperAnimInfo::enUs_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		break;
+	case FlameAttack_state:
+		m_animState = UsurperAnimInfo::enUs_FlameAttack;
+		m_count++;
+		m_isAttack = true;
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_status = Idle_state;
+			m_isAttack = false;
+			m_ATKoff = false;
+			m_count = 0;
+			m_animState = UsurperAnimInfo::enUs_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		break;
+	case FlyFlame_state:
+		m_animState = UsurperAnimInfo::enUs_FlyFlame;
+		m_count++;
+		m_isAttack = true;
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_status = Idle_state;
+			m_isAttack = false;
+			m_ATKoff = false;
+			m_count = 0;
+			m_animState = UsurperAnimInfo::enUs_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		break;
 	case GetDamage_state:
 		m_animState = UsurperAnimInfo::enUs_Gethit;
 		m_isAttack = false;

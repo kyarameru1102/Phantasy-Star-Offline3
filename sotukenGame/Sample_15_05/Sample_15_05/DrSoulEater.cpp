@@ -174,6 +174,32 @@ void DrSoulEater::Update()
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
+	case TailAttack_state:
+		m_animState = SoulEaterAnimInfo::enSo_TailAttack;
+		m_count++;
+		m_isAttack = true;
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_status = Idle_state;
+			m_isAttack = false;
+			m_ATKoff = false;
+			m_count = 0;
+			m_animState = SoulEaterAnimInfo::enSo_Idle;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		break;
+	case FireballShoot_state:
+		m_animState = SoulEaterAnimInfo::enSo_FireballShoot;
+		m_count++;
+		m_isAttack = true;
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_status = Idle_state;
+			m_isAttack = false;
+			m_ATKoff = false;
+			m_count = 0;
+			m_animState = SoulEaterAnimInfo::enSo_Idle;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		break;
 	case GetDamage_state:
 		m_animState = SoulEaterAnimInfo::enSo_Gethit;
 		m_isAttack = false;

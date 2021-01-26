@@ -208,6 +208,18 @@ void DrNightmare::Update()
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
 		break;
+	case HornAttack_state:
+		m_animState = NightmAnimInfo::enNi_HornAttack;
+		m_count++;
+		m_isAttack = true;
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_status = Idle_state;
+			m_isAttack = false;
+			m_ATKoff = false;
+			m_count = 0;
+			m_animState = NightmAnimInfo::enNi_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
 		break;
 	case GetDamage_state:
 		m_animState = NightmAnimInfo::enNi_Gethit;
