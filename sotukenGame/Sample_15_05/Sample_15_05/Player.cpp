@@ -71,7 +71,6 @@ void Player::YDirMove()
 			//Yスピードを最大値にする。
 			m_speedY = MAX_SPEED_Y;
 			jumpStartTimer = 0;
-			//m_doNothingFlag = true;
 		}
 		else {
 			//フラグを下す。
@@ -90,7 +89,6 @@ void Player::YDirMove()
 	if (m_charaCon.IsOnGround() != true) {
 		//ジャンプしているまたは、落下している。
 		m_speedY -= FLUCTUATION_VALUE_Y;
-		//m_doNothingFlag = true;
 		if (jumpStartTimer >= 40) {
 			m_animState = enStayInTheAir_blad;
 		}
@@ -172,6 +170,25 @@ void Player::SetSpeed()
 			m_animState = enWalk_blad;
 		}
 	}
+}void Player::Avoidance()
+{
+	if (m_kaihiFlag != false) {
+		//タイマーを加算。
+		m_kaihiTimer++;
+		m_animState = enKaihi_blad;
+		//回避中は進行方向に進む。
+		m_moveSpeed = m_dir * 10.0f;
+		if (m_kaihiTimer >= 50) {
+			//タイマーが50以上になったら止まる。
+			m_moveSpeed = Vector3::Zero;
+		}
+		if (m_kaihiTimer >= 60) {
+			//タイマーが60以上になったら回避終了。
+			m_kaihiTimer = 0;
+			m_kaihiFlag = false;
+			m_animState = enStay_blad;
+		}
+	}
 }
 void Player::RotationCalculation()
 {
@@ -200,6 +217,8 @@ void Player::RotationCalculation()
 	//上で求めた角度の誤差が回転量以内または、攻撃アニメーション中なら
 	if (
 		angleDifference <= ROTATION_AMOUNT && angleDifference >= -ROTATION_AMOUNT ||
+		angleDifference >= 360.0f ||
+		angleDifference <= -360.0f ||
 		m_attackAnimationFlag != false ||
 		m_kaihiFlag != false
 		) {
@@ -260,6 +279,45 @@ void Player::Rotation()
 		m_rotation.SetRotationDeg(Vector3::AxisY, m_angle);
 	}
 	m_playerSkinModel->SetRotation(m_rotation);
+}
+void Player::ReceiveDamage()
+{
+	if (m_playerHP < m_beforeHp) {
+		//ダメージを受けた。
+		//アニメーション設定。
+		m_animState = enHit_blad;
+		//動かないようにする。
+		m_moveSpeed.x = 0.0f;
+		m_moveSpeed.z = 0.0f;
+		//m_doNothingFlag = true;
+		if (m_attackAnimationFlag != false) {
+			//攻撃中なら、攻撃をやめる。
+			m_playerAttackAnim->AttackEnd();
+		}
+		if (!m_playerSkinModel->GetisAnimationPlaing()) {
+			//アニメーションが終わった。
+			m_beforeHp = m_playerHP;
+		}
+	}
+}
+void Player::Death()
+{
+	if (m_playerHP <= 0.0f) {
+		//HPが0になったので、死亡。
+		//アニメーション設定。
+		m_animState = enDeath_blad;
+		//動かないようにする。
+		m_moveSpeed.x = 0.0f;
+		m_moveSpeed.z = 0.0f;
+		if (m_attackAnimationFlag != false) {
+			//攻撃中なら、攻撃をやめる。
+			m_playerAttackAnim->AttackEnd();
+		}
+		if (!m_playerSkinModel->GetisAnimationPlaing()) {
+			//アニメーションが終わった。
+			m_deathFlag = true;
+		}
+	}
 }
 bool Player::Start()
 {
@@ -389,66 +447,21 @@ void Player::Update()
 	Rotation();
 
 	//回避。
-	if (m_kaihiFlag != false) {
-		//タイマーを加算。
-		m_kaihiTimer++;
-		m_animState = enKaihi_blad;
-		//回避中は進行方向に進む。
-		m_moveSpeed = m_dir * 10.0f;
-		if (m_kaihiTimer >= 50) {
-			//タイマーが50以上になったら止まる。
-			m_moveSpeed = Vector3::Zero;
-		}
-		if (m_kaihiTimer >= 60) {
-			//タイマーが60以上になったら回避終了。
-			m_kaihiTimer = 0;
-			m_kaihiFlag = false;
-			m_animState = enStay_blad;
-		}
-	}
+	Avoidance();
+	
 	//武器変更。
 	WeaponChange();
+
 	//攻撃。
 	if (m_attackAnimationFlag != false) {
 		//攻撃アニメーションのフラグが立った。
 		m_playerAttackAnim->Attack();
 	}
-
-	if (m_playerHP < m_beforeHp) {
-		//ダメージを受けた。
-		//アニメーション設定。
-		m_animState = enHit_blad;
-		//動かないようにする。
-		m_moveSpeed.x = 0.0f;
-		m_moveSpeed.z = 0.0f;
-		//m_doNothingFlag = true;
-		if (m_attackAnimationFlag != false) {
-			//攻撃中なら、攻撃をやめる。
-			m_playerAttackAnim->AttackEnd();
-		}
-		if (!m_playerSkinModel->GetisAnimationPlaing()) {
-			//アニメーションが終わった。
-			m_beforeHp = m_playerHP;
-		}
-	}
-
-	if (m_playerHP <= 0.0f) {
-		//HPが0になったので、死亡。
-		//アニメーション設定。
-		m_animState = enDeath_blad;
-		//動かないようにする。
-		m_moveSpeed.x = 0.0f;
-		m_moveSpeed.z = 0.0f;
-		if (m_attackAnimationFlag != false) {
-			//攻撃中なら、攻撃をやめる。
-			m_playerAttackAnim->AttackEnd();
-		}
-		if (!m_playerSkinModel->GetisAnimationPlaing()) {
-			//アニメーションが終わった。
-			m_deathFlag = true;
-		}
-	}
-
+	//ダメージを受ける。
+	ReceiveDamage();
+	
+	//死亡。
+	Death();
 
 	if (m_weaponState == enSwordState && m_pressedAttackButton != attackS) {
 		//ソード状態なら1足してソード状態のアニメーションを流す。

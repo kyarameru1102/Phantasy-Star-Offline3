@@ -187,6 +187,7 @@ void PlayerAttackAnimation::SpecialAttackStateBlad()
 void PlayerAttackAnimation::SpecialAttackStateSword()
 {
 	if (m_setPowerFlag != true) {
+		//攻撃力をさげる。
 		m_baseAttackPow = m_player->GetmAtaackPow();
 		int attackPower = m_baseAttackPow;
 		attackPower /= 10;
@@ -263,9 +264,7 @@ void PlayerAttackAnimation::AttackFlag(int attackTime01_blad, int* attackAnimNum
 		}
 		//タイムに最初の攻撃時間を入れる。
 		m_totalAttackAnimationTime = m_attackAnimationTime[m_attackAnimationTimeNum];
-		////連撃タイムにタイムを入れる。
-		//m_continuousAttackTime = m_totalAttackAnimationTime;
-		////連撃タイムから50引く。
+		//連撃タイムにタイムを入れる。
 		m_continuousAttackTime = m_switchAttackTime[m_attackAnimationTimeNum];
 
 		m_player->SetAttackFlag(true);
@@ -331,12 +330,15 @@ void PlayerAttackAnimation::AttackEnd()
 void PlayerAttackAnimation::Attack()
 {
 	if (m_player->GetAttackState() == enBladState) {
+		//ブレイド状態の特殊攻撃。
 		SpecialAttackStateBlad();
 	}
 	else if (m_player->GetAttackState() == enSwordState) {
+		//ソード状態の特殊攻撃。
 		SpecialAttackStateSword();
 	}
 	else {
+		//通常攻撃。
 		NormalAttack();
 	}
 }

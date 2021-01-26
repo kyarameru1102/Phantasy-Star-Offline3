@@ -53,6 +53,10 @@ public:
 	/// </summary>
 	void SetSpeed();
 	/// <summary>
+	/// 回避。
+	/// </summary>
+	void Avoidance();
+	/// <summary>
 	/// 回転の計算。
 	/// </summary>
 	void RotationCalculation();
@@ -60,6 +64,14 @@ public:
 	/// 回転。
 	/// </summary>
 	void Rotation();
+	/// <summary>
+	/// ダメージを受ける。
+	/// </summary>
+	void ReceiveDamage();
+	/// <summary>
+	/// 死亡。
+	/// </summary>
+	void Death();
 	/// <summary>
 	/// スタート関数。
 	/// </summary>
