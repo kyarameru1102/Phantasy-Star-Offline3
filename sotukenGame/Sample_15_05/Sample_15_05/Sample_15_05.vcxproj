@@ -216,6 +216,8 @@
     <ClCompile Include="EnemyAnimation.cpp" />
     <ClCompile Include="EnTest.cpp" />
     <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="FontNumber.cpp" />
+    <ClCompile Include="FontSpriteRender.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="IStage.cpp" />
     <ClCompile Include="NightmareAnimation.cpp" />
@@ -322,6 +324,8 @@
     <ClInclude Include="EnemyAnimation.h" />
     <ClInclude Include="EnTest.h" />
     <ClInclude Include="Fade.h" />
+    <ClInclude Include="FontNumber.h" />
+    <ClInclude Include="FontSpriteRender.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="IStage.h" />
     <ClInclude Include="NightmareAnimation.h" />
