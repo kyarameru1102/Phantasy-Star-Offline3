@@ -43,7 +43,13 @@ void Player::GetExperiencePoint(const float experiencePoint)
 	{
 		//レベルを加算。
 		m_playerLevel++;
+		//攻撃力増加。
 		m_ataackPow++;
+		//HPを最大まで回復。
+		m_playerHP = m_maxPlayerHP;
+		m_beforeHp = m_playerHP;
+		//SPを最大まで回復。
+		m_playerSP = m_maxPlayerSP;
 		//次に必要なレベルを1.1倍に増やす。
 		m_nextExperiencePoint *= 1.1f;
 		if (m_playerLevel > m_levelToOpen) {
@@ -217,8 +223,8 @@ void Player::RotationCalculation()
 	//上で求めた角度の誤差が回転量以内または、攻撃アニメーション中なら
 	if (
 		angleDifference <= ROTATION_AMOUNT && angleDifference >= -ROTATION_AMOUNT ||
-		angleDifference >= 360.0f ||
-		angleDifference <= -360.0f ||
+		angleDifference >= MAX_ANGLE ||
+		angleDifference <= -MAX_ANGLE ||
 		m_attackAnimationFlag != false ||
 		m_kaihiFlag != false
 		) {
@@ -475,7 +481,7 @@ void Player::Update()
 	//とりあえずプレイヤーのY座標が-500以下になったら戻るようにする。
 	if (m_charaCon.GetPosition().y <= -500.0f || m_deathFlag != false) {
 		m_charaCon.SetPosition({ 0.0f, 500.0f, 0.0f });
-		m_playerHP = 100.0f;
+		m_playerHP = m_maxPlayerHP;
 		m_beforeHp = m_playerHP;
 		m_gameCam->ResetToPlayerVec();
 		m_deathFlag = false;
