@@ -280,6 +280,12 @@
     <ClCompile Include="DrUsurper.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="FontNumber.cpp">
+      <Filter>Engine\Graphics\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="FontSpriteRender.cpp">
+      <Filter>Engine\Graphics\Font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -591,6 +597,12 @@
     <ClInclude Include="DrUsurper.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="FontNumber.h">
+      <Filter>Engine\Graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="FontSpriteRender.h">
+      <Filter>Engine\Graphics\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
@@ -679,6 +691,9 @@
     </Filter>
     <Filter Include="Engine\Graphics\Shadow">
       <UniqueIdentifier>{065ede68-2f31-4c89-9885-0c162e00be97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Font">
+      <UniqueIdentifier>{0767c767-0b32-4e0f-adf9-ed2006698ac1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

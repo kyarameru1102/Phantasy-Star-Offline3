@@ -4,6 +4,8 @@
 #include "BackGround.h"
 #include "Menu.h"
 #include "DrBoar.h"
+#include "FontNumber.h"
+
 
 
 /// <summary>
@@ -46,5 +48,6 @@ private:
 	Stage1* m_stage1 = nullptr;
 	Stage2* m_stage2 = nullptr;
 	Stage3* m_stage3 = nullptr;
+	FontNumber* m_test = nullptr;
 };
 
