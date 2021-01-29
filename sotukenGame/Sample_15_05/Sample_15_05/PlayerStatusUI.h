@@ -1,4 +1,7 @@
 #pragma once
+#include "Player.h"
+#include "FontNumber.h"
+
 /// <summary>
 /// プレイヤーステータスのUIクラス。
 /// </summary>
@@ -51,26 +54,57 @@ public:
 	{
 		m_currentPlayerSP = currentSP;
 	}
+
+	/// <summary>
+	/// プレイヤーの最大HPを取得。
+	/// </summary>
+	/// <returns>最大HP</returns>
+	const float& GetMaxPlayerHP()const
+	{
+		return PLAYER_MAX_HP;
+	}
+
+	/// <summary>
+	/// プレイヤーの最大SPを取得。
+	/// </summary>
+	/// <returns>最大SP</returns>
+	const float& GetMaxPlayerSP()const
+	{
+		return PLAYER_MAX_SP;
+	}
 private:
 
+	//UI。
 	const enum {
 		en_playerUIHP,			//プレイヤーHPのUI。
 		en_playerUISP,			//プレイヤーSPのUI。
 		en_playerUIHPBer,		//HPBerのUI。
 		en_playerUISPBer,		//SPBerのUI。
 		en_playerUIStatus,		//ステータスのUI。
+		en_playerUIHPSlash,		//現在のHPと最大HPを分けるためのスラッシュ。
+		en_playerUILevelText,	//Levelテキスト。
 		en_playerUINum			//プレイヤーUIの数。
 	};
 
-	SpriteRender* m_statusSprite = nullptr;		//プレイヤーステータスのスプライトレンダー。
-	SpriteRender* m_hpSprite =  nullptr;		//プレイヤーHPのスプライトレンダー。
-	SpriteRender* m_spSprite = nullptr;			//プレイヤーPPのスプライトレンダー。
-	SpriteRender* m_hpBerSprite = nullptr;		//HPBerのスプライトレンダー。
-	SpriteRender* m_spBerSprite = nullptr;		//PPBerのスプライトレンダー。
+	//フォントナンバー。
+	const enum {
+		en_playerStatusLevel,	//プレイヤーのレベル。
+		en_playerStatusHP,		//プレイヤーのHP。
+		en_playerStatusMaxHP,	//プレイヤーの最大HP。
+		en_playerStatusNum		//プレイヤーステータスの数。
+	};
 
-	Vector3 m_spritePosition[en_playerUINum] = { Vector3::Zero };	//スプライトの座標。
+	const float PLAYER_MAX_HP = 100.0f;  //プレイヤーの最大HP。
+	const float PLAYER_MAX_SP = 100.0f;  //プレイヤーの最大SP。
+
+	Player* m_player = nullptr;		//プレイヤーのインスタンス。
+
+	FontNumber* m_fontNumber[en_playerStatusNum] = { nullptr };		//フォントナンバー。
+
+	SpriteRender* m_spriteRender[en_playerUINum] = { nullptr };					//スプライトレンダー。
+	Vector3 m_spritePosition[en_playerUINum] = { Vector3::Zero };				//スプライトの座標。
 	Vector3 m_spriteScale[en_playerUINum] = { Vector3::One, Vector3::One };		//スプライトの拡大率。
-	Vector2 m_spritePivot[en_playerUINum] = { { 0.5f, 0.5f } };		//スプライトのピボット。
+	Vector2 m_spritePivot[en_playerUINum] = { { 0.5f, 0.5f } };					//スプライトのピボット。
 
 	float m_currentPlayerHP = 0.0f;		//プレイヤーの現在のHP。
 	float m_hp = 0.0f;					//プレイヤーの現在のHPを保存する変数。
