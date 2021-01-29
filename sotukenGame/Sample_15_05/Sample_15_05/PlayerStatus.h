@@ -1,5 +1,7 @@
 #pragma once
 #include "Player.h"
+#include "FontNumber.h"
+#include "PlayerStatusUI.h"
 
 /// <summary>
 /// プレイヤーのステータスクラス。
@@ -22,6 +24,16 @@ public:
 	void Update()override;
 
 private:
-	Player* m_player = nullptr;					//プレイヤーのインスタンス。
-	SpriteRender* m_spriteRender = nullptr;		//スプライトレンダー。
+	const enum {
+		en_playerStatusUI,		//プレイヤーステータスのUI。
+		en_playerStatusLevel,	//プレイヤーのレベル。
+		en_playerStatusHP,		//プレイヤーのHP。
+		en_playerStatusAttack,	//プレイヤーの攻撃力の数値。
+		en_playerStatusNum,		//プレイヤーステータスUIの数。
+	};
+
+	Player* m_player = nullptr;											//プレイヤーのインスタンス。
+	PlayerStatusUI* m_playerStatusUI = nullptr;							//プレイヤーステータスUIのインスタンス。
+	SpriteRender* m_spriteRender[en_playerStatusNum] = { nullptr };		//スプライトレンダー。
+	FontNumber* m_fontNumber[en_playerStatusNum] = { nullptr };			//フォントナンバー。
 };
