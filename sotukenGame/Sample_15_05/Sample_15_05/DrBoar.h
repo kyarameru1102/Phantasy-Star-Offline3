@@ -34,6 +34,10 @@ public:
 	/// </summary>
 	void Move();
 	/// <summary>
+	/// 攻撃状態の移動関数
+	/// </summary>
+	void AttackMove();
+	/// <summary>
 	/// プレイヤーの方向に体を向ける関数。
 	/// </summary>
 	void Turn();
@@ -81,6 +85,12 @@ private:
 	std::vector<int>	boarcolor = { 1,2,3,4 };		//配色決定。
 	bool				m_isAttack = false;				//攻撃しているか。
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
+	bool                m_isATK = true;                 //噛みつき攻撃を行う判定
+	bool                m_isHornATK = false;            //角攻撃を行う判定
+	bool                m_isMotion = false;             //攻撃アニメーションを行った判定
+	int                 m_isATKcount = 0;               //攻撃した回数のカウント
+	int                 m_backtimer = 0;                //後ろに下がるタイマー
+
 	int					m_count = 0;					//攻撃が入るまでのカウント。
 	GhostObject			m_ghostObj;						//ゴースト。
 	int					m_deathCount = 0;				//死んだときのカウント。
