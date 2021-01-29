@@ -364,8 +364,10 @@ private:
 	float m_complementaryFlame = 10.0f;//アニメーション補完時間。フレーム数。
 	int jumpStartTimer = 40;
 	float m_playerHP = 100.0f;      //HP。
+	float m_maxPlayerHP = 100.0f; //プレイヤーの最大HP。
 	float m_playerSP = 100.0f;      //SP。
-	float m_beforeHp = 0.0f;
+	float m_maxPlayerSP = 100.0f; //プレイヤーの最大SP。
+	float m_beforeHp = 0.0f; //ダメージを受ける前のHP。
 	int m_ataackPow = 10; //攻撃力。
 	Weapon* m_weapon[2] = { nullptr, nullptr };
 	bool m_attackAnimationFlag = false;
