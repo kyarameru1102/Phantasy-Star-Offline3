@@ -56,18 +56,18 @@ void PlayerAttackAnimation::SetAttackAnimationTime()
 void PlayerAttackAnimation::MakeTheEnemyUnattacked()
 {
 	//“G‚Æ‚Ì“–‚½‚è”»’è‚ğ‚Æ‚é‘O‚ÉA“G‚ª‚¢‚é‚©‚Ç‚¤‚©‚ğ’²‚×‚éB
-	QueryGOs<EnBase>("drBoar", [&](EnBase * drBoar)->bool {
+	QueryGOs<EnBase>("dragon", [&](EnBase * drBoar)->bool {
 		drBoar->SetHit(false);
 		return true;
 	});
-	QueryGOs<EnBase>("drBoar2", [&](EnBase * drBoar)->bool {
+	/*QueryGOs<EnBase>("drBoar2", [&](EnBase * drBoar)->bool {
 		drBoar->SetHit(false);
 		return true;
 	});
 	QueryGOs<EnBase>("drNightmare", [&](EnBase * drBoar)->bool {
 		drBoar->SetHit(false);
 		return true;
-	});
+	});*/
 }
 void PlayerAttackAnimation::NormalAttack()
 {
