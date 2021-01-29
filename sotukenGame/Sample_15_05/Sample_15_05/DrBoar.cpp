@@ -61,8 +61,31 @@ void DrBoar::Move()
 	m_movespeed = playerLen * 1.2f;
 	m_movespeed.y = m_speedY;
 	m_position = m_charaCon.Execute(1.0f, m_movespeed);
+	
 }
+void DrBoar::AttackMove()
+{
+	Vector3 playerLen = m_toPlayer;
+	playerLen.Normalize();
 
+	if (m_isATKcount == 2)
+	{
+		m_backtimer++;
+		m_movespeed = playerLen * -1.4f;
+		if (m_backtimer >= 100)
+		{
+			m_movespeed = playerLen * 1.5f;
+			
+		}
+
+	}
+	else {
+		m_movespeed = playerLen * 1.2f;
+	}
+	
+	m_movespeed.y = m_speedY;
+	m_position = m_charaCon.Execute(1.0f, m_movespeed);
+}
 void DrBoar::Turn()
 {
 	Vector3 playerLen = m_player->GetPosition() - m_position;
@@ -72,7 +95,7 @@ void DrBoar::Turn()
 
 void DrBoar::Attack()
 {
-	if (m_toPlayer.Length() <= 200.0f)
+	if (m_toPlayer.Length() <= 200.0f && m_isATK == true)
 	{
 		m_status = Attack_state;
 		CharacterController& charaCon = *m_player->GetCharacterController();
@@ -87,12 +110,13 @@ void DrBoar::Attack()
 				}
 			}
 		});
+
 	}
 }
 
 void DrBoar::HornAttack()
 {
-	if (m_toPlayer.Length() <= 200.0f)
+	if ( m_isHornATK == true)
 	{
 		m_status = HornAttack_state;
 		CharacterController& charaCon = *m_player->GetCharacterController();
@@ -132,13 +156,23 @@ void DrBoar::Update()
 
 	//プレイヤーに近づく。
 	if (m_status != GetDamage_state) {
-		if (m_status != Attack_state && m_status != Die_state) {
+		if (m_status != Attack_state && m_status != HornAttack_state && m_status != Die_state) {
 			Move();
 			Turn();
 		}
 
 		//距離が近づくと。
+		if (m_status == Attack_state || m_status == HornAttack_state)
+		{
+			AttackMove();
+		}
 		Attack();
+		if (m_isATKcount == 2)
+		{
+			m_isATK = false;
+			m_isHornATK = true;
+		}
+		HornAttack();
 	}
 	//体力がゼロになると
 	Die();
@@ -159,6 +193,7 @@ void DrBoar::Update()
 			m_status = Idle_state;
 			m_isAttack = false;
 			m_ATKoff = false;
+			m_isATKcount += 1;
 			m_count = 0;
 			m_animState = BoarAnimInfo::enBo_Idle;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
