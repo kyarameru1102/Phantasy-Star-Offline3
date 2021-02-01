@@ -286,6 +286,9 @@
     <ClCompile Include="FontSpriteRender.cpp">
       <Filter>Engine\Graphics\Font</Filter>
     </ClCompile>
+    <ClCompile Include="RecoveryItem.cpp">
+      <Filter>ソースファイル\Game\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -603,6 +606,9 @@
     <ClInclude Include="FontSpriteRender.h">
       <Filter>Engine\Graphics\Font</Filter>
     </ClInclude>
+    <ClInclude Include="RecoveryItem.h">
+      <Filter>ソースファイル\Game\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
@@ -694,6 +700,9 @@
     </Filter>
     <Filter Include="Engine\Graphics\Font">
       <UniqueIdentifier>{0767c767-0b32-4e0f-adf9-ed2006698ac1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Game\Item">
+      <UniqueIdentifier>{b47c0b32-2c2b-4898-85b7-8baa765ef2b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
