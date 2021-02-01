@@ -58,7 +58,8 @@ void DrBoar::Move()
 	m_status = Walk_state;
 	Vector3 playerLen = m_toPlayer;
 	playerLen.Normalize();
-	m_movespeed = playerLen * 1.2f;
+	m_movespeed = playerLen * 1.4f;
+	
 	m_movespeed.y = m_speedY;
 	m_position = m_charaCon.Execute(1.0f, m_movespeed);
 	
@@ -68,19 +69,20 @@ void DrBoar::AttackMove()
 	Vector3 playerLen = m_toPlayer;
 	playerLen.Normalize();
 
-	if (m_isATKcount == 2)
+	if (m_isATKcount == 2 && m_backtimer <= 100)
 	{
 		m_backtimer++;
+		
 		m_movespeed = playerLen * -1.4f;
-		if (m_backtimer >= 100)
-		{
-			m_movespeed = playerLen * 1.5f;
-			
-		}
-
 	}
+	if (m_backtimer >= 100)
+	{
+		m_movespeed = playerLen * 1.5f;
+		m_jyosoufin = true;
+	}
+	
 	else {
-		m_movespeed = playerLen * 1.2f;
+		m_movespeed = playerLen * 1.3f;
 	}
 	
 	m_movespeed.y = m_speedY;
@@ -116,7 +118,8 @@ void DrBoar::Attack()
 
 void DrBoar::HornAttack()
 {
-	if ( m_isHornATK == true)
+
+	if (m_jyosoufin == true && m_isHornATK == true && m_ishornATKFlag == false)
 	{
 		m_status = HornAttack_state;
 		CharacterController& charaCon = *m_player->GetCharacterController();
@@ -162,15 +165,27 @@ void DrBoar::Update()
 		}
 
 		//‹——£‚ª‹ß‚Ã‚­‚ÆB
-		if (m_status == Attack_state || m_status == HornAttack_state)
+		if ( m_isHornATK ==true )
 		{
 			AttackMove();
 		}
-		Attack();
+		if (m_isATKcount != 2)
+		{
+			Attack();
+		}
+
+		//Attack();
 		if (m_isATKcount == 2)
 		{
 			m_isATK = false;
 			m_isHornATK = true;
+		}
+		if (m_ishornATKFlag == true)
+		{
+			m_isATKcount = 0;
+			m_isATK = true;
+			m_isHornATK = false;
+			m_ishornATKFlag = false;
 		}
 		HornAttack();
 	}
@@ -207,6 +222,7 @@ void DrBoar::Update()
 			m_status = Idle_state;
 			m_isAttack = false;
 			m_ATKoff = false;
+			m_ishornATKFlag = true;
 			m_count = 0;
 			m_animState = BoarAnimInfo::enBo_Idle;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
