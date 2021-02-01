@@ -27,6 +27,6 @@ private:
 		ENEMY_NUM = 3		//エネミーの数。
 	};
 	DrBoar* m_drBoar[ENEMY_NUM] = { nullptr };		//ドラゴンボア(敵)のインスタンス。
-	RecoveryItem* m_recoveryItem = nullptr;
+	RecoveryItem* m_recoveryItem = nullptr;			//回復アイテムのインスタンス。
 };
 

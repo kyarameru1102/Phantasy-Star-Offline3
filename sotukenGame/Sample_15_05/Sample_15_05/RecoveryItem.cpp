@@ -2,6 +2,8 @@
 #include "RecoveryItem.h"
 #include "Player.h"
 
+const float RECOVERY_HP = 100.0f;		//HPの回復量。
+
 RecoveryItem::RecoveryItem()
 {
 }
@@ -15,21 +17,21 @@ RecoveryItem::~RecoveryItem()
 
 bool RecoveryItem::Start()
 {
-	m_player = FindGO<Player>("player");
-
 	m_recoveryItemModel = NewGO<SkinModelRender>(0);
 	m_recoveryItemModel->Init("Assets/modelData/Item/RecoveryItem.tkm", 0, 0, "Assets/shader/model.fx", SkinModelRender::YUp);
 	m_recoveryItemModel->SetPosition(m_position);
 
-	m_ghostObject.CreateBox(m_position, m_rotation, {50.0f, 50.0f, 50.0f});
+	m_ghostObject.CreateBox(m_position, m_rotation, m_ghostScale);
 	
 	return true;
 }
 
 void RecoveryItem::Update()
 {
-	m_ghostObject.SetPosition(m_position);
 	RecoveryPlayerHP();
+
+	//ゴーストオブジェクトの座標を設定。
+	m_ghostObject.SetPosition(m_position);
 }
 
 void RecoveryItem::RecoveryPlayerHP()
@@ -39,7 +41,9 @@ void RecoveryItem::RecoveryPlayerHP()
 		CharacterController& charaCon = *player->GetCharacterController();
 		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
 			if (m_ghostObject.IsSelf(collisionObject) == true) {
-				//m_player->SetHP(100);
+				//当たったらプレイヤーのHPを回復する。
+				player->SetHP(RECOVERY_HP);
+				player->SetBeforeHp(player->GetHP());
 				DeleteGO(this);
 			}
 			});
