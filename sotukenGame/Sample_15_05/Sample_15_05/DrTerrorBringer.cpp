@@ -169,7 +169,28 @@ void DrTerrorBringer::Update()
 		//‹——£‚ª‹ß‚Ã‚­‚ÆB
 		if (m_screamflag == false)
 		{
-			FlameAttack();
+			if (m_isFangATk == true)
+			{
+				Attack();
+				
+			}
+			if (m_FangATKCount == 1)
+			{
+				m_isClawATK = true;
+			}
+			if (m_isClawATK == true)
+			{
+				WingClawAttack();
+			}
+			if (m_ClawATKCont == 1)
+			{
+				m_isFlameATK = true;
+			}
+			if (m_isFlameATK == true)
+			{
+				FlameAttack();
+				m_isClawATK = true;
+			}
 		}
 		
 	}
@@ -207,8 +228,10 @@ void DrTerrorBringer::Update()
 			m_isAttack = false;
 			m_ATKoff = false;
 			m_count = 0;
+			m_FangATKCount++;
 			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+			m_isFangATk = false;
 		}
 		break;
 	case FlyAttack_state:
@@ -235,6 +258,7 @@ void DrTerrorBringer::Update()
 			m_count = 0;
 			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+			m_isClawATK = false;
 		}
 		break;
 	case FlameAttack_state:
@@ -248,6 +272,7 @@ void DrTerrorBringer::Update()
 			m_count = 0;
 			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+			m_isFlameATK = false;
 		}
 		break;
 	case GetDamage_state:
