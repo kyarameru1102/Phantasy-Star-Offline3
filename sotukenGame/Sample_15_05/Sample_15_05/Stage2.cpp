@@ -22,9 +22,10 @@ bool Stage2::Start()
 	m_backGround = NewGO<BackGround>(0);
 	m_drUsurper[0] = NewGO<DrUsurper>(0, "dragon");
 	m_drUsurper[0]->SetPosition({ 300.0f, 0.0f, -100.0f });
+	m_drUsurper[0]->SetHp(300);
 	m_drUsurper[1] = NewGO<DrUsurper>(0, "dragon");
 	m_drUsurper[1]->SetPosition({ -300.0f, 0.0f, 100.0f });
-
+	m_drUsurper[1]->SetHp(300);
 	//ゴーストオブジェクトの作成。
 	m_ghostObject.CreateBox(m_ghostPosition, m_ghostRotation, m_ghostScale);
 

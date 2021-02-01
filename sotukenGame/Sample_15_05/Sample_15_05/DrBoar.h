@@ -89,7 +89,9 @@ private:
 	bool                m_isHornATK = false;            //角攻撃を行う判定
 	bool                m_isMotion = false;             //攻撃アニメーションを行った判定
 	int                 m_isATKcount = 0;               //攻撃した回数のカウント
+	bool                m_ishornATKFlag = false;        //角攻撃をしたかのフラグ
 	int                 m_backtimer = 0;                //後ろに下がるタイマー
+	bool                m_jyosoufin = false;            //助走が終わったかのフラグ
 
 	int					m_count = 0;					//攻撃が入るまでのカウント。
 	GhostObject			m_ghostObj;						//ゴースト。
