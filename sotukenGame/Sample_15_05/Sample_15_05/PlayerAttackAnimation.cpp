@@ -60,14 +60,6 @@ void PlayerAttackAnimation::MakeTheEnemyUnattacked()
 		drBoar->SetHit(false);
 		return true;
 	});
-	/*QueryGOs<EnBase>("drBoar2", [&](EnBase * drBoar)->bool {
-		drBoar->SetHit(false);
-		return true;
-	});
-	QueryGOs<EnBase>("drNightmare", [&](EnBase * drBoar)->bool {
-		drBoar->SetHit(false);
-		return true;
-	});*/
 }
 void PlayerAttackAnimation::NormalAttack()
 {
@@ -317,6 +309,7 @@ void PlayerAttackAnimation::AttackEnd()
 	}
 	//攻撃アニメーションフラグをさげる。
 	m_player->SetAttackAnimationFlag(false);
+	m_player->SetAttackFlag(false);
 	m_attackAnimationTimeNum = enAttackTime01_blad;
 	attackTimer = 0;
 	m_attackNum = 0;

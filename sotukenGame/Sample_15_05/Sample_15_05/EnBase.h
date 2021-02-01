@@ -90,6 +90,14 @@ public:
 	{
 		m_scale = scale;
 	}
+	/// <summary>
+	/// HP‚ğİ’è
+	/// </summary>
+	/// <param name="hp"></param>
+	void SetHp(int hp)
+	{
+		m_hp = hp;
+	}
 	bool GetDeath()const
 	{
 		return m_death;
