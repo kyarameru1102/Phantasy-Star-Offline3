@@ -189,7 +189,7 @@ void DrTerrorBringer::Update()
 		break;
 	case Scream_state:
 		m_animState = TerrorBringerAnimInfo::enTe_Scream;
-		m_count++;
+		
 		if (!m_skinModelRender->GetisAnimationPlaing())
 		{
 			m_screamflag = false;

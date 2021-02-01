@@ -37,7 +37,10 @@ public:
 	/// プレイヤーの方向に体を向ける関数。
 	/// </summary>
 	void Turn();
-
+	/// <summary>
+	/// 咆哮関数
+	/// </summary>
+	void Scream();
 	/// <summary>
 	/// 攻撃関数。
 	/// </summary>
@@ -72,6 +75,7 @@ private:
 		Idle_state,
 		Walk_state,
 		Run_state,
+		Scream_state,
 		Attack_state,
 		TailAttack_state,
 		FireballShoot_state,
@@ -90,6 +94,7 @@ private:
 
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。
+	bool                m_screamflag = true;            //咆哮フラグ
 	GhostObject			m_ghostObj;						//ゴースト。
 	int					m_deathCount = 0;				//死んだときのカウント。
 };

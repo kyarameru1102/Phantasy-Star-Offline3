@@ -70,7 +70,13 @@ void DrNightmare::Turn()
 	float angle = atan2(playerLen.x, playerLen.z);
 	m_rotation.SetRotation(Vector3::AxisY, angle);
 }
-
+void DrNightmare::Scream()
+{
+	if (m_screamflag == true)
+	{
+		m_status = Scream_state;
+	}
+}
 void DrNightmare::Attack()
 {
 	if (m_toPlayer.Length() <= 200.0f && m_isBasicATK == true)
@@ -154,6 +160,7 @@ void DrNightmare::Update()
 
 	//プレイヤーに近づく。
 	if (m_status != GetDamage_state) {
+		Scream();
 		if (m_status != Attack_state && m_status != ClawAttack_state && m_status != Die_state) {
 			Move();
 			Turn();
@@ -181,6 +188,16 @@ void DrNightmare::Update()
 		break;
 	case Run_state:
 		m_animState = NightmAnimInfo::enNi_Run;
+		break;
+	case Scream_state:
+		m_animState = NightmAnimInfo::enNi_Scream;
+		
+		if (!m_skinModelRender->GetisAnimationPlaing())
+		{
+			m_screamflag = false;
+			m_animState = NightmAnimInfo::enNi_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
 		break;
 	case Attack_state:
 		m_animState = NightmAnimInfo::enNi_BasicAttack;
