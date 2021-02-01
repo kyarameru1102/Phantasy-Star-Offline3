@@ -129,6 +129,22 @@ public:
 		return m_playerHP;
 	}
 	/// <summary>
+	/// ダメージを受ける前のHPを設定する。
+	/// </summary>
+	/// <param name="beforeHp"></param>
+	void SetBeforeHp(const float beforeHp)
+	{
+		m_beforeHp = beforeHp;
+	}
+	/// <summary>
+	/// ダメージを受ける前のHPを返す。
+	/// </summary>
+	/// <returns></returns>
+	const float GetBeforeHp() const
+	{
+		return m_beforeHp;
+	}
+	/// <summary>
 	/// SPを設定する。
 	/// </summary>
 	/// <param name="sp"></param>
@@ -365,9 +381,9 @@ private:
 	int jumpStartTimer = 40;
 	float m_playerHP = 100.0f;      //HP。
 	float m_maxPlayerHP = 100.0f; //プレイヤーの最大HP。
+	float m_beforeHp = 0.0f; //ダメージを受ける前のHP。
 	float m_playerSP = 100.0f;      //SP。
 	float m_maxPlayerSP = 100.0f; //プレイヤーの最大SP。
-	float m_beforeHp = 0.0f; //ダメージを受ける前のHP。
 	int m_ataackPow = 10; //攻撃力。
 	Weapon* m_weapon[2] = { nullptr, nullptr };
 	bool m_attackAnimationFlag = false;

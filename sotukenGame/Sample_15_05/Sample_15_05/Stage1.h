@@ -4,6 +4,7 @@
 /// <summary>
 /// ステージ1クラス
 /// </summary>
+class RecoveryItem;
 class DrBoar;
 class Stage1 : public IStage
 {
@@ -26,5 +27,6 @@ private:
 		ENEMY_NUM = 3		//エネミーの数。
 	};
 	DrBoar* m_drBoar[ENEMY_NUM] = { nullptr };		//ドラゴンボア(敵)のインスタンス。
+	RecoveryItem* m_recoveryItem = nullptr;
 };
 
