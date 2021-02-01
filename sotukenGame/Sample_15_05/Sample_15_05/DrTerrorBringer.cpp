@@ -47,7 +47,7 @@ bool DrTerrorBringer::Start()
 
 void DrTerrorBringer::Move()
 {
-	m_status = Walk_state;
+	m_status = Run_state;
 	Vector3 playerLen = m_toPlayer;
 	playerLen.Normalize();
 	m_movespeed = playerLen * 1.2f;
@@ -59,6 +59,14 @@ void DrTerrorBringer::Turn()
 	Vector3 playerLen = m_player->GetPosition() - m_position;
 	float angle = atan2(playerLen.x, playerLen.z);
 	m_rotation.SetRotation(Vector3::AxisY, angle);
+}
+void DrTerrorBringer::Scream()
+{
+	if (m_screamflag == true)
+	{
+		m_status = Scream_state;
+	}
+	
 }
 void DrTerrorBringer::Attack()
 {
@@ -151,13 +159,19 @@ void DrTerrorBringer::Update()
 
 	//プレイヤーに近づく。
 	if (m_status != GetDamage_state) {
-		if (m_status != Attack_state && m_status != Die_state) {
+		Scream();
+		if (m_screamflag ==false && m_status != Attack_state && m_status != FlameAttack_state && m_status != Die_state) {
+			
 			Move();
 			Turn();
 		}
 
 		//距離が近づくと。
-		Attack();
+		if (m_screamflag == false)
+		{
+			FlameAttack();
+		}
+		
 	}
 	//体力がゼロになると
 	Die();
@@ -169,6 +183,20 @@ void DrTerrorBringer::Update()
 		break;
 	case Walk_state:
 		m_animState = TerrorBringerAnimInfo::enTe_Walk;
+		break;
+	case Run_state:
+		m_animState = TerrorBringerAnimInfo::enTe_Run;
+		break;
+	case Scream_state:
+		m_animState = TerrorBringerAnimInfo::enTe_Scream;
+		m_count++;
+		if (!m_skinModelRender->GetisAnimationPlaing())
+		{
+			m_screamflag = false;
+			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		
 		break;
 	case Attack_state:
 		m_animState = TerrorBringerAnimInfo::enTe_BasicAttack;

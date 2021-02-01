@@ -87,6 +87,7 @@ private:
 	SoulEaterAnimation* m_souleAnim = nullptr;           //アニメーションのロード。
 	std::vector<int>	soulcolor = { 1,2,3,4 };		//配色決定。
 	bool				m_isAttack = false;				//攻撃しているか。
+
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。
 	GhostObject			m_ghostObj;						//ゴースト。
