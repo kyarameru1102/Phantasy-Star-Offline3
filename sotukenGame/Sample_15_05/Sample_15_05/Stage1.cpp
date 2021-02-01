@@ -12,6 +12,13 @@ Stage1::Stage1()
 Stage1::~Stage1()
 {
 	DeleteGO(m_backGround);
+
+	QueryGOs<RecoveryItem>("recoveryItem", [](RecoveryItem* recoveryItem)->bool
+	{
+		DeleteGO(recoveryItem);
+		return true;
+	});
+	
 	QueryGOs<DrBoar>("dragon", [](DrBoar* drBoar)->bool
 	{
 		DeleteGO(drBoar);
@@ -30,7 +37,7 @@ bool Stage1::Start()
 	m_drBoar[2]->SetPosition({ -300.0f, 0.0f, -200.0f });
 
 	m_recoveryItem = NewGO<RecoveryItem>(0, "recoveryItem");
-	m_recoveryItem->SetPosition({0.0f, 0.0f, 300.0f});
+	m_recoveryItem->SetPosition({1000.0f, 0.0f, -2500.0f});
 
 	//ゴーストオブジェクトの作成。
 	m_ghostObject.CreateBox(m_ghostPosition, m_ghostRotation, m_ghostScale);

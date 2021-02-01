@@ -4,8 +4,6 @@
 /// <summary>
 /// プレイヤーのHPを回復するアイテムクラス。
 /// </summary>
-
-class Player;
 class RecoveryItem : public IGameObject
 {
 public:
@@ -52,7 +50,7 @@ private:
 	Quaternion m_rotation = Quaternion::Identity;		//回転。
 	Vector3 m_scale = Vector3::One;						//拡大率。
 
-	Player* m_player = nullptr;		//プレイヤーのインスタンス。
-	GhostObject m_ghostObject;		//ゴーストオブジェクト。
+	GhostObject m_ghostObject;							//ゴーストオブジェクト。
+	Vector3 m_ghostScale = { 50.0f, 50.0f, 50.0f };		//ゴーストオブジェクトの拡大率。
 };
 
