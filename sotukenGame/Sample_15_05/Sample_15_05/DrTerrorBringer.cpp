@@ -47,7 +47,23 @@ bool DrTerrorBringer::Start()
 
 void DrTerrorBringer::Move()
 {
-	m_status = Run_state;
+	if (m_FlyFlag == true)
+	{
+		m_status = Fly_state;
+	}
+	if (m_SetFly == true)
+	{
+		m_status = FlyMove_state;
+	}
+	if (m_LandFlag == true)
+	{
+		m_status = FlyLand_state;
+	}
+	else if(m_FlyFlag == false && m_SetFly == false && m_LandFlag == false)
+	{
+		m_status = Run_state;
+	}
+
 	Vector3 playerLen = m_toPlayer;
 	playerLen.Normalize();
 	m_movespeed = playerLen * 1.2f;
@@ -160,7 +176,7 @@ void DrTerrorBringer::Update()
 	//プレイヤーに近づく。
 	if (m_status != GetDamage_state) {
 		Scream();
-		if (m_screamflag ==false && m_status != Attack_state && m_status != FlameAttack_state && m_status != Die_state) {
+		if (m_screamflag ==false && m_status != Attack_state && m_status != WingClawAttack_state && m_status != FlameAttack_state && m_status != Die_state) {
 			
 			Move();
 			Turn();
@@ -216,6 +232,33 @@ void DrTerrorBringer::Update()
 	case Run_state:
 		m_animState = TerrorBringerAnimInfo::enTe_Run;
 		break;
+	case Fly_state:
+		//離陸
+		m_animState = TerrorBringerAnimInfo::enTe_Takeoff;
+		if (!m_skinModelRender->GetisAnimationPlaing())
+		{
+			m_SetFly = true;
+			m_FlyFlag = false;
+		}
+		break;
+	case FlyMove_state:
+		m_animState = TerrorBringerAnimInfo::enTe_FlyForward;
+		if (!m_skinModelRender->GetisAnimationPlaing())
+		{
+			m_LandFlag = true;
+			m_SetFly = false;
+		}
+		break;
+	case FlyLand_state:
+		m_animState = TerrorBringerAnimInfo::enTe_Land;
+		if (!m_skinModelRender->GetisAnimationPlaing())
+		{
+			m_LandFlag = false;
+			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		break;
+
 	case Scream_state:
 		m_animState = TerrorBringerAnimInfo::enTe_Scream;
 		
@@ -225,7 +268,6 @@ void DrTerrorBringer::Update()
 			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
-		
 		break;
 	case Attack_state:
 		m_animState = TerrorBringerAnimInfo::enTe_BasicAttack;

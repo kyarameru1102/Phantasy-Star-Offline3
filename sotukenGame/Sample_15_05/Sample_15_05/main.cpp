@@ -4,6 +4,7 @@
 #include "util/stopwatch.h"
 #include "Physics/Physics.h"
 #include "Title.h"
+#include "sound/SoundEngine.h"
 #include "EnBehaviorTest.h"
 //関数宣言
 void InitRootSignature(RootSignature& rs);
@@ -50,6 +51,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	auto& renderContext = g_graphicsEngine->GetRenderContext();
 
+	CSoundEngine soundEngine;
+	soundEngine.Init();
+
 	Stopwatch sw;
 	NewGO<Title>(0, "Title");
 
@@ -63,6 +67,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_physics.Update();
 		//GemeObjectManagerのUpdate関数。
 		gameObjectManager().Update();
+
+		//サウンドエンジン更新。
+		soundEngine.Update();
 
 		//レンダリング終了。
 		g_engine->EndFrame();

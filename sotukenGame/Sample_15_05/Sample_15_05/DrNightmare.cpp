@@ -46,6 +46,7 @@ bool DrNightmare::Start()
 
 void DrNightmare::Move()
 {
+	
 	Vector3 playerLen = m_toPlayer;
 	playerLen.Normalize();
 	if (m_toPlayer.Length() <= 500.0f)

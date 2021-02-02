@@ -79,6 +79,9 @@ private:
 		Idle_state,
 		Walk_state,
 		Run_state,
+		Fly_state,
+		FlyMove_state,
+		FlyLand_state,
 		Scream_state,
 		Attack_state,
 		FlyAttack_state,
@@ -102,6 +105,9 @@ private:
 	bool                m_isFangATK = true;             //噛みつき攻撃をするフラグ
 	bool                m_isClawATK = false;            //爪攻撃をするフラグ
 	bool                m_isFlameATK = false;           //火炎攻撃をするフラグ
+	bool                m_FlyFlag = true;              //飛行フラグ
+	bool                m_SetFly = false;               //飛行設定
+	bool                m_LandFlag = false;             //着陸フラグ
 	int                 m_FangATKCount = 0;             //噛みつき攻撃のカウント
 	int                 m_ClawATKCont = 0;              //爪攻撃のカウント
 	int                 m_FlameATKCount = 0;            //火炎攻撃のカウント
