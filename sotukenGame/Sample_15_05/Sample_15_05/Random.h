@@ -1,5 +1,5 @@
 #pragma once
-class Random
+class Random : public IGameObject
 {
 public:
 	/// <summary>
@@ -14,7 +14,7 @@ public:
 	 * @brief	乱数を初期化。
 	 *@param[in]	seed		ランダムシード。
 	 */
-	void Init(unsigned long seed);
+	void Init(unsigned long seed = 0xffffff);
 
 	/*!
 	 *@brief	符号なし整数型のランダム値を取得。
@@ -73,6 +73,17 @@ public:
 	__inline double GetRandDouble()
 	{
 		return GetRandInt() * (1.0 / 4294967295.0);
+	}
+	/// <summary>
+	/// 設定した範囲ないの数値を出す。
+	/// </summary>
+	/// <param name="rate">0～1の乱数。</param>
+	/// <param name="t0">最小値。</param>
+	/// <param name="t1">最大値。</param>
+	/// <returns></returns>
+	float Lerp(float rate, float t0, float t1)
+	{
+		return t0 + (t1 - t0) * rate;
 	}
 private:
 	static const unsigned long N = 624;
