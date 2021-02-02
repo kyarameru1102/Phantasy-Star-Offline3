@@ -3,6 +3,7 @@
 
 
 class DrNightmare;
+class Game;
 class Stage3 : public IStage
 {
 public:
