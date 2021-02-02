@@ -301,6 +301,9 @@
     <ClCompile Include="sound\WaveFileBank.cpp">
       <Filter>Engine\sound</Filter>
     </ClCompile>
+    <ClCompile Include="StageWave.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -632,6 +635,9 @@
     </ClInclude>
     <ClInclude Include="sound\WaveFileBank.h">
       <Filter>Engine\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="StageWave.h">
+      <Filter>ソースファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

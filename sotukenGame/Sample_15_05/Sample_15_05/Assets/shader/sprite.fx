@@ -2,6 +2,8 @@
 cbuffer cb : register(b0){
 	float4x4 mvp;	
 	float4 mulColor;
+	float alpha;
+
 };
 
 cbuffer DirectionLight : register(b1){
@@ -56,6 +58,8 @@ float4 PSMain( PSInput In ) : SV_Target0
 	
 	float4 finalColor = albedo;
 	finalColor = finalColor * mulColor;
+	//半透明合成の計算。
+	finalColor.a *= alpha;
 	//finalColor.xyz *= lig;
 	return finalColor;
 }

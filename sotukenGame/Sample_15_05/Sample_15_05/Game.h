@@ -36,6 +36,22 @@ public:
 	/// 更新関数。
 	/// </summary>
 	void Update() override;
+
+	/// <summary>
+	/// Wave中なのを設定する関数。
+	/// </summary>
+	void SetIsWave(const bool flag)
+	{
+		m_isWave = flag;
+	}
+	/// <summary>
+	/// Wave中ですか？
+	/// </summary>
+	bool GetIsWave() const
+	{
+		return m_isWave;
+	}
+
 private:
 	SkinModelRender* m_ladySkinModelRender = nullptr;
 	Player* m_player = nullptr;
@@ -44,6 +60,7 @@ private:
 	PlayerStatusUI* m_playerStatusUI = nullptr;
 	//DrBoar* m_drBoar[3];
 	Menu* m_menu = nullptr;				//メニューのインスタンス。
+	bool m_isWave = false;				//ウェイブ中かどうか判定。
 
 	Stage1* m_stage1 = nullptr;
 	Stage2* m_stage2 = nullptr;

@@ -139,7 +139,10 @@ private:
 	/// </summary>
 	/// <param name="initData"></param>
 	void InitConstantBuffer(const SpriteInitData& initData);
-
+	/// <summary>
+	/// ブレンドステートの初期化
+	/// </summary>
+	void InitTranslucentBlendState();
 private:
 	IndexBuffer m_indexBuffer;			//インデックスバッファ。
 	VertexBuffer m_vertexBuffer;		//頂点バッファ。
@@ -156,6 +159,7 @@ private:
 	struct LocalConstantBuffer {
 		Matrix mvp;
 		Vector4 mulColor;
+		float alpha;		//α値。
 		Vector4 screenParam;
 	};
 	LocalConstantBuffer m_constantBufferCPU;	//CPU側の定数バッファ。
@@ -167,4 +171,5 @@ private:
 	PipelineState		m_pipelineState;		//パイプラインステート。
 	Shader				m_vs;					//頂点シェーダー。
 	Shader				m_ps;					//ピクセルシェーダー。
+	CD3DX12_BLEND_DESC	blendDesc;				//ブレンドステートの情報。
 };
