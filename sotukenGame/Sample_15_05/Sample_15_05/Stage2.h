@@ -6,6 +6,7 @@
 /// </summary>
 
 class DrUsurper;
+class Game;
 class Stage2 : public IStage
 {
 public:
@@ -23,10 +24,11 @@ public:
 	/// </summary>
 	void Update()override;
 private:
-	enum {
-		ENEMY_NUM = 2		//エネミーの数。
-	};
-	
-	DrUsurper* m_drUsurper[ENEMY_NUM] = { nullptr }; 
+	int ENEMY_NUM = 2;		//エネミーの数。
+	//enum {
+	//	ENEMY_NUM = 2		//エネミーの数。
+	//};
+	//
+	//DrUsurper* m_drUsurper[ENEMY_NUM] = { nullptr }; 
 };
 
