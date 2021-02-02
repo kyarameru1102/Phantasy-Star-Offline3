@@ -37,6 +37,10 @@ public:
 	/// </summary>
 	void Turn();
 	/// <summary>
+	/// 咆哮関数
+	/// </summary>
+	void Scream();
+	/// <summary>
 	/// 攻撃関数。
 	/// </summary>
 	void Attack();
@@ -71,6 +75,7 @@ private:
 		Idle_state,
 		Walk_state,
 		Run_state,
+		Scream_state,
 		Attack_state,
 		ClawAttack_state,
 		HornAttack_state,
@@ -92,6 +97,7 @@ private:
 	bool                m_isHornATK = false;            //角攻撃
 	int                 m_isATKcount = 0;               //攻撃した回数のカウント
 	int					m_count = 0;					//攻撃が入るまでのカウント。
+	bool                m_screamflag = true;            //咆哮フラグ
 	GhostObject			m_ghostObj;						//ゴースト。
 	int					m_deathCount = 0;				//死んだときのカウント。
 	

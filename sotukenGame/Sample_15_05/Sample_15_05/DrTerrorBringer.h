@@ -38,6 +38,10 @@ public:
 	/// </summary>
 	void Turn();
 	/// <summary>
+	/// 咆哮関数
+	/// </summary>
+	void Scream();
+	/// <summary>
 	/// 攻撃関数。
 	/// </summary>
 	void Attack();
@@ -75,6 +79,7 @@ private:
 		Idle_state,
 		Walk_state,
 		Run_state,
+		Scream_state,
 		Attack_state,
 		FlyAttack_state,
 		WingClawAttack_state,
@@ -93,6 +98,13 @@ private:
 	bool				m_isAttack = false;				//攻撃しているか。
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。
+	bool                m_screamflag = true;            //咆哮フラグ
+	bool                m_isFangATK = true;             //噛みつき攻撃をするフラグ
+	bool                m_isClawATK = false;            //爪攻撃をするフラグ
+	bool                m_isFlameATK = false;           //火炎攻撃をするフラグ
+	int                 m_FangATKCount = 0;             //噛みつき攻撃のカウント
+	int                 m_ClawATKCont = 0;              //爪攻撃のカウント
+	int                 m_FlameATKCount = 0;            //火炎攻撃のカウント
 	GhostObject			m_ghostObj;						//ゴースト。
 	int					m_deathCount = 0;				//死んだときのカウント。
 };

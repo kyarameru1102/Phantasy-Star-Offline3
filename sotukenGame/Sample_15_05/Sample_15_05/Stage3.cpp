@@ -18,6 +18,7 @@ bool Stage3::Start()
 	m_backGround = NewGO<BackGround>(0);
 	m_drNight = NewGO<DrNightmare>(0, "dragon");
 	m_drNight->SetPosition({ 1000.0f, 0.0f, 500.0f });
+	m_drNight->SetHp(350);
 	
     return true;
 }

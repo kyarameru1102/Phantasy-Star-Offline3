@@ -38,7 +38,7 @@ bool SoulEaterAnimation::Start()
 	//™ôšK
 	animClip[SoulEaterAnimInfo::enSo_Scream].Load("Assets/animData/DragonSoulEater/SoEa_scream.tka");
 	//UŒ‚
-	animClip[SoulEaterAnimInfo::enSo_BasicAttack].Load("Assets/animData/DragonSoulEater/SoEa_basic_ attack.tka");
+	animClip[SoulEaterAnimInfo::enSo_BasicAttack].Load("Assets/animData/DragonSoulEater/SoEa_basic_attack.tka");
 	//K”öUŒ‚
 	animClip[SoulEaterAnimInfo::enSo_TailAttack].Load("Assets/animData/DragonSoulEater/SoEa_tail_attack.tka");
 	//‰Î‰ŠUŒ‚

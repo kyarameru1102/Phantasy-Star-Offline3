@@ -39,6 +39,10 @@ public:
 	/// </summary>
 	void Turn();
 	/// <summary>
+	/// 咆哮関数
+	/// </summary>
+	void Scream();
+	/// <summary>
 	/// 腕攻撃関数。
 	/// </summary>
 	void HandAttack();
@@ -67,6 +71,7 @@ private:
 		Idle_state,
 		Walk_state,
 		Run_state,
+		Scream_state,
 		HandAttack_state,
 		MouthAttack_state,
 		FlameAttack_state,
@@ -85,6 +90,7 @@ private:
 	bool				m_isAttack = false;				//攻撃しているか。
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。
+	bool                m_screamflag = true;
 	GhostObject			m_ghostObj;						//ゴースト。
 	int					m_deathCount = 0;				//死んだときのカウント。
 };

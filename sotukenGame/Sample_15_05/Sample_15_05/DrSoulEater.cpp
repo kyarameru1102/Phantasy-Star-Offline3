@@ -60,7 +60,13 @@ void DrSoulEater::Turn()
 	float angle = atan2(playerLen.x, playerLen.z);
 	m_rotation.SetRotation(Vector3::AxisY, angle);
 }
-
+void DrSoulEater::Scream()
+{
+	if (m_screamflag == true)
+	{
+		m_status = Scream_state;
+	}
+}
 void DrSoulEater::Attack()
 {
 	if (m_toPlayer.Length() <= 200.0f)
@@ -142,6 +148,7 @@ void DrSoulEater::Update()
 
 	//プレイヤーに近づく。
 	if (m_status != GetDamage_state) {
+		Scream();
 		if (m_status != Attack_state && m_status != Die_state) {
 			Move();
 			Turn();
@@ -160,6 +167,17 @@ void DrSoulEater::Update()
 		break;
 	case Walk_state:
 		m_animState = SoulEaterAnimInfo::enSo_Walk;
+		break;
+	case Scream_state:
+		m_animState = SoulEaterAnimInfo::enSo_Scream;
+		
+		if (!m_skinModelRender->GetisAnimationPlaing())
+		{
+			m_screamflag = false;
+			m_animState = SoulEaterAnimInfo::enSo_Idle;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+
 		break;
 	case Attack_state:
 		m_animState = SoulEaterAnimInfo::enSo_BasicAttack;

@@ -62,6 +62,13 @@ void DrUsurper::Turn()
 	float angle = atan2(playerLen.x, playerLen.z);
 	m_rotation.SetRotation(Vector3::AxisY, angle);
 }
+void DrUsurper::Scream()
+{
+	if (m_screamflag == true)
+	{
+		m_status = Scream_state;
+	}
+}
 void DrUsurper::HandAttack()
 {
 	if (m_toPlayer.Length() <= 200.0f)
@@ -163,6 +170,7 @@ void DrUsurper::Update()
 
 	//プレイヤーに近づく。
 	if (m_status != GetDamage_state) {
+		Scream();
 		if (m_status != HandAttack_state && m_status != Die_state) {
 			Move();
 			Turn();
@@ -181,6 +189,16 @@ void DrUsurper::Update()
 		break;
 	case Walk_state:
 		m_animState = UsurperAnimInfo::enUs_Walk;
+		break;
+	case Scream_state:
+		m_animState = UsurperAnimInfo::enUs_Scream;
+		
+		if (!m_skinModelRender->GetisAnimationPlaing())
+		{
+			m_screamflag = false;
+			m_animState = UsurperAnimInfo::enUs_Idle01;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
 		break;
 	case HandAttack_state:
 		m_animState = UsurperAnimInfo::enUs_HandAttack;
