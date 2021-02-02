@@ -95,7 +95,7 @@ private:
 	int m_accumulateTimer = 0; //溜めるタイマー。
 	int m_accumulateTime = 60; //溜める時間。
 	int m_magnification = 1; //倍率。
-	int m_baseAttackPow = 0;//元になる攻撃力。
+	float m_baseAttackPow = 0.0f;//元になる攻撃力。
 	bool m_setPowerFlag = false;//攻撃力設定するとき使うフラグ。
 	bool m_swordSpecialAttackAnim2Or3 = false;//ソード状態の特殊攻撃で、
 	                                           //2のアニメーションならfalse,

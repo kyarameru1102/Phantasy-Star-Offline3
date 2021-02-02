@@ -134,7 +134,7 @@ void PlayerAttackAnimation::SpecialAttackStateBlad()
 				m_player->SetSpecialAttackFlag(true);
 				//攻撃力に倍率をかける。
 				m_baseAttackPow = m_player->GetmAtaackPow();
-				int attackPower = m_baseAttackPow;
+				float attackPower = m_baseAttackPow;
 				attackPower *= m_magnification;
 				m_player->SetAtaackPow(attackPower);
 				//タイマーとためる時間をリセット。
@@ -146,7 +146,7 @@ void PlayerAttackAnimation::SpecialAttackStateBlad()
 			m_player->SetSpecialAttackFlag(true);
 			//攻撃力に倍率をかける。
 			m_baseAttackPow = m_player->GetmAtaackPow();
-			int attackPower = m_baseAttackPow;
+			float attackPower = m_baseAttackPow;
 			attackPower *= m_magnification;
 			m_player->SetAtaackPow(attackPower);
 			//タイマーとためる時間をリセット。
@@ -181,7 +181,7 @@ void PlayerAttackAnimation::SpecialAttackStateSword()
 	if (m_setPowerFlag != true) {
 		//攻撃力をさげる。
 		m_baseAttackPow = m_player->GetmAtaackPow();
-		int attackPower = m_baseAttackPow;
+		float attackPower = m_baseAttackPow;
 		attackPower /= 10;
 		m_player->SetAtaackPow(attackPower);
 		m_setPowerFlag = true;
