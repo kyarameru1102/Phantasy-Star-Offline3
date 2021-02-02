@@ -45,6 +45,8 @@ void Player::GetExperiencePoint(const float experiencePoint)
 		m_playerLevel++;
 		//UŒ‚—Í‘‰ÁB
 		m_ataackPow++;
+		//HP‘‰ÁB
+		m_maxPlayerHP += 2.0f;
 		//HP‚ğÅ‘å‚Ü‚Å‰ñ•œB
 		m_playerHP = m_maxPlayerHP;
 		m_beforeHp = m_playerHP;
