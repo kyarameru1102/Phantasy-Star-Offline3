@@ -41,12 +41,19 @@ bool DrTerrorBringer::Start()
 	m_ghostObj.CreateBox(ghostPos, m_rotation, Vector3(50.0f, 50.0f, 50.0f));
 
 	m_player = FindGO<Player>("player");
-	m_hp = 100;
+	//攻撃力を初期化。
+	m_attackPower = 10.0f;
+	m_attackPower *= m_magnificationAP;
+	//HPを初期化。
+	m_hp = 200.0f;
+	m_hp *= m_magnificationHP;
 	return true;
 }
 
 void DrTerrorBringer::Move()
 {
+	Vector3 playerLen = m_toPlayer;
+	playerLen.Normalize();
 	if (m_FlyFlag == true)
 	{
 		m_status = Fly_state;
@@ -54,6 +61,7 @@ void DrTerrorBringer::Move()
 	if (m_SetFly == true)
 	{
 		m_status = FlyMove_state;
+		m_movespeed = playerLen * -2.0;
 	}
 	if (m_LandFlag == true)
 	{
@@ -62,12 +70,11 @@ void DrTerrorBringer::Move()
 	else if(m_FlyFlag == false && m_SetFly == false && m_LandFlag == false)
 	{
 		m_status = Run_state;
+		m_movespeed = playerLen * 1.4f;
+		m_movespeed.y = m_speedY;
 	}
 
-	Vector3 playerLen = m_toPlayer;
-	playerLen.Normalize();
-	m_movespeed = playerLen * 1.2f;
-	m_movespeed.y = m_speedY;
+	
 	m_position = m_charaCon.Execute(1.0f, m_movespeed);
 }
 void DrTerrorBringer::Turn()
@@ -175,7 +182,11 @@ void DrTerrorBringer::Update()
 
 	//プレイヤーに近づく。
 	if (m_status != GetDamage_state) {
-		Scream();
+		
+		if (m_screamflag == true)
+		{
+			Scream();
+		}
 		if (m_screamflag ==false && m_status != Attack_state && m_status != WingClawAttack_state && m_status != FlameAttack_state && m_status != Die_state) {
 			
 			Move();
@@ -183,7 +194,8 @@ void DrTerrorBringer::Update()
 		}
 
 		//距離が近づくと。
-		if (m_screamflag == false)
+		//パターン１
+		if (m_screamflag == false && m_ATKOne == true)
 		{
 			//噛みつき攻撃
 			if (m_isFangATK == true)
@@ -212,8 +224,36 @@ void DrTerrorBringer::Update()
 			}
 			if (m_FlameATKCount == 1)
 			{
-				m_isFangATK = true;
+				m_screamflag = true;
 				m_FlameATKCount = 0;
+				m_ATKTwe = true;
+				m_ATKOne = false;
+			}
+		}
+		//パターン２
+		if (m_screamflag == false && m_ATKTwe == true)
+		{
+			//後ろに飛ぶ
+			if (m_TweStart == false)
+			{
+				m_FlyFlag = true;
+			}
+			
+
+			//火炎攻撃をする
+			if (m_TweStart == true && m_FlyFlag == false && m_SetFly == false && m_LandFlag == false)
+			{
+				m_isFlameATK = true;
+			}
+			
+			if (m_isFlameATK == true)
+			{
+				FlameAttack();
+			}
+			else
+			{
+				m_ATKOne = true;
+				m_ATKTwe = false;
 			}
 		}
 		
@@ -254,6 +294,7 @@ void DrTerrorBringer::Update()
 		if (!m_skinModelRender->GetisAnimationPlaing())
 		{
 			m_LandFlag = false;
+			m_TweStart = true;
 			m_animState = TerrorBringerAnimInfo::enTe_Idle01;
 			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
 		}
