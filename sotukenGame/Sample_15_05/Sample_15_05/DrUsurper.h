@@ -90,7 +90,11 @@ private:
 	bool				m_isAttack = false;				//攻撃しているか。
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。
-	bool                m_screamflag = true;
+	bool                m_screamflag = true;            //咆哮のフラグ
+	bool                m_isHandATK = true;             //腕攻撃をするフラグ
+	bool                m_isMouthATK = false;           //噛みつき攻撃をするフラグ
+	bool                m_isFlameATK = false;           //火炎攻撃をするフラグ
+
 	GhostObject			m_ghostObj;						//ゴースト。
 	int					m_deathCount = 0;				//死んだときのカウント。
 };
