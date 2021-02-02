@@ -289,6 +289,18 @@
     <ClCompile Include="RecoveryItem.cpp">
       <Filter>ソースファイル\Game\Item</Filter>
     </ClCompile>
+    <ClCompile Include="sound\SoundEngine.cpp">
+      <Filter>Engine\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\SoundSource.cpp">
+      <Filter>Engine\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\WaveFile.cpp">
+      <Filter>Engine\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\WaveFileBank.cpp">
+      <Filter>Engine\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -609,6 +621,18 @@
     <ClInclude Include="RecoveryItem.h">
       <Filter>ソースファイル\Game\Item</Filter>
     </ClInclude>
+    <ClInclude Include="sound\SoundEngine.h">
+      <Filter>Engine\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="sound\SoundSource.h">
+      <Filter>Engine\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="sound\WaveFile.h">
+      <Filter>Engine\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="sound\WaveFileBank.h">
+      <Filter>Engine\sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
@@ -703,6 +727,9 @@
     </Filter>
     <Filter Include="ソースファイル\Game\Item">
       <UniqueIdentifier>{b47c0b32-2c2b-4898-85b7-8baa765ef2b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\sound">
+      <UniqueIdentifier>{7e4e4e77-9916-46d2-91de-cb2987421e2f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

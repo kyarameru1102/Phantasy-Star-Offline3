@@ -10,6 +10,10 @@
 #include <fstream>
 #include <d3d12.h>
 
+#include <xaudio2.h>
+#include <x3daudio.h>
+#include <xaudio2fx.h>
+
 #include "MiniEngine.h"
 #include "GameObjectManager.h"
 #include "SkinModelRender.h"
