@@ -5,6 +5,8 @@
 #include "Player.h"
 #include "RecoveryItem.h"
 
+#include "StageWave.h"
+
 Stage1::Stage1()
 {
 }
@@ -29,6 +31,10 @@ Stage1::~Stage1()
 bool Stage1::Start()
 {
 	m_backGround = NewGO<BackGround>(0);
+
+	StageWave* wave = NewGO<StageWave>(0);
+	wave->SetWaveSprite(StageWave::Wave_One);
+
 	m_drBoar[0] = NewGO<DrBoar>(0, "dragon");
 	m_drBoar[0]->SetPosition({ 400.0f, 0.0f, -200.0f });
 	m_drBoar[1] = NewGO<DrBoar>(0, "dragon");

@@ -114,6 +114,39 @@
 		m_indexBuffer.Init(sizeof(indices), sizeof(indices[0]));
 		m_indexBuffer.Copy(indices);
 	}
+	void Sprite::InitTranslucentBlendState()
+	{
+		// ブレンドステートの初期化
+		CD3DX12_DEFAULT defaultSettings;
+		CD3DX12_BLEND_DESC InitblendDesc(defaultSettings);
+		//αブレンディングを有効にする。
+		InitblendDesc.RenderTarget[0].BlendEnable = true;
+
+		//ソースカラーのブレンディング方法を指定している。
+		//ソースカラーとはピクセルシェーダ―からの出力を指している。
+		//この指定では、ソースカラーをSRC(rgba)とすると、
+		//最終的なソースカラーは下記のように計算される。
+		//最終的なソースカラー = SRC.rgb × SRC.a
+		InitblendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
+
+		//ディスティネーションカラーのブレンディング方法を指定している。
+		//ディスティネーションカラーとは、
+		//すでに描き込まれているレンダリングターゲットのカラーを指している。
+		//この指定では、ディスティネーションカラーをDEST(rgba)、
+		//ソースカラーをSRC(RGBA)とすると、最終的なディスティネーションカラーは
+		//下記のように計算される。
+		//最終的なディスティネーションカラー = DEST.rgb × (1.0f - SRC.a)
+		InitblendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+
+		//最終的にレンダリングターゲットに描き込まれるカラーの計算方法を指定している。
+		//この指定だと、①＋②のカラーが書き込まれる。
+		//つまり、最終的にレンダリングターゲットに描き込まれるカラーは
+		//SRC.rgb × SRC.a + DEST.rgb × (1.0f - SRC.a)
+		//となる。
+		InitblendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
+
+		blendDesc = InitblendDesc;
+	}
 	void Sprite::InitPipelineState()
 	{
 		// 頂点レイアウトを定義する。
@@ -131,7 +164,7 @@
 		psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_ps.GetCompiledBlob());
 		psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 		psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK;
-		psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+		psoDesc.BlendState = blendDesc;
 		psoDesc.DepthStencilState.DepthEnable = FALSE;
 		psoDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ZERO;
 		psoDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS_EQUAL;
@@ -180,6 +213,8 @@
 
 		//シェーダーを初期化。
 		InitShader(initData);
+		//ブレンドステートの初期化。
+		InitTranslucentBlendState();
 		//パイプラインステートの初期化。
 		InitPipelineState();
 		//ディスクリプタヒープを初期化。
@@ -221,6 +256,7 @@
 		m_constantBufferCPU.mulColor.y = m_mulColor.y;
 		m_constantBufferCPU.mulColor.z = m_mulColor.z;
 		m_constantBufferCPU.mulColor.w = m_mulColor.w;
+		m_constantBufferCPU.alpha = m_alpha;
 		m_constantBufferCPU.screenParam.x = g_camera3D->GetNear();
 		m_constantBufferCPU.screenParam.y = g_camera3D->GetFar();
 		m_constantBufferCPU.screenParam.z = FRAME_BUFFER_W;
