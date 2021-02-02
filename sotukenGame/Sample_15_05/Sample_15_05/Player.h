@@ -164,7 +164,7 @@ public:
 	/// 攻撃力を設定する。
 	/// </summary>
 	/// <param name="power">攻撃力。</param>
-	void SetAtaackPow(const int power)
+	void SetAtaackPow(const float power)
 	{
 		m_ataackPow = power;
 	}
@@ -172,7 +172,7 @@ public:
 	/// 攻撃力を返す。
 	/// </summary>
 	/// <returns></returns>
-	const int GetmAtaackPow() const
+	const float GetmAtaackPow() const
 	{
 		return m_ataackPow;
 	}
@@ -384,7 +384,7 @@ private:
 	float m_beforeHp = 0.0f; //ダメージを受ける前のHP。
 	float m_playerSP = 100.0f;      //SP。
 	float m_maxPlayerSP = 100.0f; //プレイヤーの最大SP。
-	int m_ataackPow = 10; //攻撃力。
+	float m_ataackPow = 10.0f; //攻撃力。
 	Weapon* m_weapon[2] = { nullptr, nullptr };
 	bool m_attackAnimationFlag = false;
 	float m_angle = 0.0f;//回転角度。
