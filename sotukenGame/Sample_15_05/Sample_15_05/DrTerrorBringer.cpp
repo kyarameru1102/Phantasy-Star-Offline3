@@ -41,7 +41,12 @@ bool DrTerrorBringer::Start()
 	m_ghostObj.CreateBox(ghostPos, m_rotation, Vector3(50.0f, 50.0f, 50.0f));
 
 	m_player = FindGO<Player>("player");
-	m_hp = 100;
+	//UŒ‚—Í‚ğ‰Šú‰»B
+	m_attackPower = 10.0f;
+	m_attackPower *= m_magnificationAP;
+	//HP‚ğ‰Šú‰»B
+	m_hp = 200.0f;
+	m_hp *= m_magnificationHP;
 	return true;
 }
 
