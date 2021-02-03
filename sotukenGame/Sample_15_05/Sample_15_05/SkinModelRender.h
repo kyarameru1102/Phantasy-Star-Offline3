@@ -86,7 +86,7 @@ public:
 	/// アニメーションを再生する関数。
 	/// </summary>
 	/// <param name="animNo">アニメーションの番号</param>
-	/// <param name="interpolateTime">デルタタイム</param>
+	/// <param name="interpolateTime">補完時間</param>
 	void PlayAnimation(int animNo, float interpolateTime)
 	{
 		m_animation.Play(animNo, interpolateTime);

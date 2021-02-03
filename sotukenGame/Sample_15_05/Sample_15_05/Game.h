@@ -16,6 +16,7 @@ class Stage1;
 class Stage2;
 class Stage3;
 class PlayerStatusUI;
+class Random;
 class Game : public IGameObject
 {
 public:
@@ -51,14 +52,20 @@ public:
 	{
 		return m_isWave;
 	}
+	/// <summary>
+	/// 何回ステージ3をクリアしたかを返す。
+	/// </summary>
+	/// <returns></returns>
+	const int GetStage3ClearCount() const
+	{
+		return m_stage3ClearCount;
+	}
 
 private:
 	SkinModelRender* m_ladySkinModelRender = nullptr;
 	Player* m_player = nullptr;
 	GameCamera* m_gameCam = nullptr;
-	//BackGround* m_bg = nullptr;
 	PlayerStatusUI* m_playerStatusUI = nullptr;
-	//DrBoar* m_drBoar[3];
 	Menu* m_menu = nullptr;				//メニューのインスタンス。
 	bool m_isWave = false;				//ウェイブ中かどうか判定。
 
@@ -66,5 +73,7 @@ private:
 	Stage2* m_stage2 = nullptr;
 	Stage3* m_stage3 = nullptr;
 	FontNumber* m_test = nullptr;
+	Random* m_rand = nullptr;
+	int m_stage3ClearCount = 0; //stage3をクリアする度にカウントしていく。
 };
 

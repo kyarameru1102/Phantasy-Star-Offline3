@@ -4,9 +4,9 @@
 #include "BackGround.h"
 #include "Player.h"
 #include "RecoveryItem.h"
-
+#include "DrTerrorBringer.h"
 #include "StageWave.h"
-
+#include "Game.h"
 Stage1::Stage1()
 {
 }
@@ -35,12 +35,35 @@ bool Stage1::Start()
 	StageWave* wave = NewGO<StageWave>(0);
 	wave->SetWaveSprite(StageWave::Wave_One);
 
-	m_drBoar[0] = NewGO<DrBoar>(0, "dragon");
-	m_drBoar[0]->SetPosition({ 400.0f, 0.0f, -200.0f });
-	m_drBoar[1] = NewGO<DrBoar>(0, "dragon");
-	m_drBoar[1]->SetPosition({ 300.0f, 0.0f, 200.0f });
-	m_drBoar[2] = NewGO<DrBoar>(0, "dragon");
-	m_drBoar[2]->SetPosition({ -300.0f, 0.0f, -200.0f });
+	//Gameクラスを検索。
+	m_game = FindGO<Game>("Game");
+	//出現する敵の数を設定。
+	ENEMY_NUM += m_game->GetStage3ClearCount();
+	int a = ENEMY_NUM;
+	a--;
+	for (int i = 0; i < a; i++) {
+		//敵をNewGOする。
+		DrBoar* drB = NewGO<DrBoar>(0, "dragon");
+		//座標設定。
+		drB->SetPosition(InitEnemyPos());
+		//攻撃力の倍率を設定。
+		float mag = m_game->GetStage3ClearCount() * MAG_AP_INCREASE + 1.0f;
+		drB->SetMagnificationAP(mag);
+		//HPの倍率を設定。
+		drB->SetMagnificationHP(mag);
+		//リストに入れる。
+		m_enemyList.push_back(drB);
+	}
+	DrTerrorBringer* drB = NewGO<DrTerrorBringer>(0, "dragon");
+	//座標設定。
+	drB->SetPosition(InitEnemyPos());
+	//攻撃力の倍率を設定。
+	float mag = m_game->GetStage3ClearCount() * MAG_AP_INCREASE + 1.0f;
+	drB->SetMagnificationAP(mag);
+	//HPの倍率を設定。
+	drB->SetMagnificationHP(mag);
+	//リストに入れる。
+	m_enemyList.push_back(drB);
 
 	m_recoveryItem = NewGO<RecoveryItem>(0, "recoveryItem");
 	m_recoveryItem->SetPosition({1000.0f, 0.0f, -2500.0f});
@@ -59,10 +82,10 @@ void Stage1::Update()
 	}
 
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (m_drBoar[i] != nullptr) {
-			if (m_drBoar[i]->GetDeath()) {
+		if (m_enemyList[i] != nullptr) {
+			if (m_enemyList[i]->GetDeath()) {
 				m_downEnemy++;
-				m_drBoar[i] = nullptr;
+				m_enemyList[i] = nullptr;
 			}
 		}
 	}

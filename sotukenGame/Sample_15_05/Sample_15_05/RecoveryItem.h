@@ -4,6 +4,7 @@
 /// <summary>
 /// プレイヤーのHPを回復するアイテムクラス。
 /// </summary>
+class Player;
 class RecoveryItem : public IGameObject
 {
 public:
@@ -52,5 +53,7 @@ private:
 
 	GhostObject m_ghostObject;							//ゴーストオブジェクト。
 	Vector3 m_ghostScale = { 50.0f, 50.0f, 50.0f };		//ゴーストオブジェクトの拡大率。
+
+	Player* m_player = nullptr;							//プレイヤーのインスタンス。
 };
 

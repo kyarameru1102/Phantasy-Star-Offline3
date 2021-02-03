@@ -113,6 +113,22 @@ public:
 		m_playerHP -= damage;
 	}
 	/// <summary>
+	/// Å‘åHP‚ğİ’èB
+	/// </summary>
+	/// <param name="maxHp"></param>
+	void SetMaxHP(const float maxHp)
+	{
+		m_maxPlayerHP = maxHp;
+	}
+	/// <summary>
+	/// Å‘åHP‚ğ•Ô‚·B
+	/// </summary>
+	/// <returns></returns>
+	const float GetMaxHP() const
+	{
+		return m_maxPlayerHP;
+	}
+	/// <summary>
 	/// HP‚ğİ’èB
 	/// </summary>
 	/// <param name="hp">HP</param>
