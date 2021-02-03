@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "RecoveryItem.h"
 #include "Player.h"
+#include "sound/SoundSource.h"
 
 RecoveryItem::RecoveryItem()
 {
@@ -41,6 +42,10 @@ void RecoveryItem::RecoveryPlayerHP()
 		CharacterController& charaCon = *player->GetCharacterController();
 		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
 			if (m_ghostObject.IsSelf(collisionObject) == true) {
+				//SEを再生する。
+				CSoundSource* recoverySE = NewGO<CSoundSource>(0);
+				recoverySE->Init(L"Assets/sound/SE_Recovery.wav");
+				recoverySE->Play(false);
 				//当たったらプレイヤーのHPを回復する。
 				player->SetHP(m_player->GetMaxHP());
 				player->SetBeforeHp(player->GetHP());
