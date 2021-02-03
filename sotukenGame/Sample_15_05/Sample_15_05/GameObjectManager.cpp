@@ -35,6 +35,7 @@ void GameObjectManager::Update()
 
 	for (int i = 0; i < m_gameObjectListArray.size(); i++) {
 		for (auto go : m_gameObjectListArray[i]) {
+			OutputDebugStringA(m_debugNameMap[go].c_str());
 			if (go->GetStart() == false) {
 				if (go->Start())
 					go->StartCallEnd();

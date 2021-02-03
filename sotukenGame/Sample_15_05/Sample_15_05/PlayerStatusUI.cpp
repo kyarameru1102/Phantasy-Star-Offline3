@@ -27,22 +27,22 @@ bool PlayerStatusUI::Start()
 	m_spriteRender[en_playerUIStatus] = NewGO<SpriteRender>(0);
 	m_spriteRender[en_playerUIStatus]->Init("Assets/image/status.DDS", 151.0f, 404.0f);
 	//HPバー。
-	m_spriteRender[en_playerUIHPBer] = NewGO<SpriteRender>(1);
+	m_spriteRender[en_playerUIHPBer] = NewGO<SpriteRender>(1, "spriteRender");
 	m_spriteRender[en_playerUIHPBer]->Init("Assets/image/hp_pp_ber.DDS", 26.0f, 266.0f);
 	//SPバー。
-	m_spriteRender[en_playerUISPBer] = NewGO<SpriteRender>(1);
+	m_spriteRender[en_playerUISPBer] = NewGO<SpriteRender>(1, "spriteRender");
 	m_spriteRender[en_playerUISPBer]->Init("Assets/image/hp_pp_ber.DDS", 26.0f, 266.0f);
 	//HP。
 	m_spriteRender[en_playerUIHP] = NewGO<SpriteRender>(1, "Sprite");
 	m_spriteRender[en_playerUIHP]->Init("Assets/image/hp.DDS", 20.0f, 260.0f);
 	//SP。
-	m_spriteRender[en_playerUISP] = NewGO<SpriteRender>(1);
+	m_spriteRender[en_playerUISP] = NewGO<SpriteRender>(1, "spriteRender");
 	m_spriteRender[en_playerUISP]->Init("Assets/image/pp.DDS", 20.0f, 260.0f);
 	//HPのスラッシュ。
-	m_spriteRender[en_playerUIHPSlash] = NewGO<SpriteRender>(1);
+	m_spriteRender[en_playerUIHPSlash] = NewGO<SpriteRender>(1, "spriteRender");
 	m_spriteRender[en_playerUIHPSlash]->Init("Assets/image/slash.DDS", 20.0f, 10.0f);
 	//Levelテキスト。
-	m_spriteRender[en_playerUILevelText] = NewGO<SpriteRender>(1);
+	m_spriteRender[en_playerUILevelText] = NewGO<SpriteRender>(1, "spriteRender");
 	m_spriteRender[en_playerUILevelText]->Init("Assets/image/PlayerStatusLevelText.DDS", 50.0f, 60.0f);
 
 	//画像のピボットを設定。

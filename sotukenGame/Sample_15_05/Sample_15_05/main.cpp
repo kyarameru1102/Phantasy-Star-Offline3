@@ -4,6 +4,7 @@
 #include "util/stopwatch.h"
 #include "Physics/Physics.h"
 #include "Title.h"
+#include "TestTitle.h"
 #include "sound/SoundEngine.h"
 #include "EnBehaviorTest.h"
 //関数宣言
@@ -55,7 +56,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	soundEngine.Init();
 
 	Stopwatch sw;
-	NewGO<Title>(0, "Title");
+	NewGO<TestTitle>(0, "Title");
 
 	// ここからゲームループ。
 	while (DispatchWindowMessage())

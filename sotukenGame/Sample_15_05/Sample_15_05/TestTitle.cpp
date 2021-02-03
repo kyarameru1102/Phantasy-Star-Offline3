@@ -1,16 +1,10 @@
 #include "stdafx.h"
-#include "Title.h"
+#include "TestTitle.h"
 #include "Game.h"
 
 #include "Fade.h"
 
-
-Title::Title()
-{
-
-}
-
-Title::~Title()
+TestTitle::~TestTitle()
 {
 	//Spriteの削除。
 	for (int i = 0; i < Title_Num; i++) {
@@ -21,7 +15,7 @@ Title::~Title()
 
 }
 
-bool Title::Start()
+bool TestTitle::Start()
 {
 	//背景。
 	{
@@ -77,7 +71,30 @@ bool Title::Start()
 
 	return true;
 }
-void Title::TitleMoveBackGround()
+
+void TestTitle::Update()
+{
+
+	TitleMoveBackGround();
+	switch (m_titleState)
+	{
+	case Title_FadeIn:
+		TitleFadeIn();	//フェードイン。
+		break;
+	case Title_Font:
+		TitleFont();	//タイトル名、ボタンの表示。
+		break;
+	case Title_Select:
+		TitleSelect();	//ボタン選択。
+		break;
+	case Title_FadeOut:
+		TitleFadeOut();	//フェードアウト。
+		break;
+	}
+
+}
+
+void TestTitle::TitleMoveBackGround()
 {
 	//背景の移動処理。
 	m_backTexpos1 = m_spriteRender[Title_BackGround1]->GetPosition();
@@ -97,18 +114,23 @@ void Title::TitleMoveBackGround()
 
 	m_spriteRender[Title_BackGround1]->SetPosition(m_backTexpos1);
 	m_spriteRender[Title_BackGround2]->SetPosition(m_backTexpos2);
-
 }
 
-void Title::TitleFadeIn()
+void TestTitle::TitleFadeIn()
 {
 	//フェードイン。
-	Fade* fadein = NewGO<Fade>(0, "FadeIn");
-	fadein->FadeSet(m_spriteRender[Title_BackGround1], Fade::Fade_In, FADEIN_TIME);
-	fadein = NewGO<Fade>(0, "FadeIn");
-	fadein->FadeSet(m_spriteRender[Title_BackGround2], Fade::Fade_In, FADEIN_TIME);
-	fadein = NewGO<Fade>(0, "FadeIn");
-	fadein->FadeSet(m_spriteRender[Title_Player], Fade::Fade_In, FADEIN_TIME);
+	if (fadein[0] == nullptr) {
+		fadein[0] = NewGO<Fade>(0, "FadeIn");
+	}
+	fadein[0]->FadeSet(m_spriteRender[Title_BackGround1], Fade::Fade_In, FADEIN_TIME);
+	if (fadein[1] == nullptr) {
+		fadein[1] = NewGO<Fade>(0, "FadeIn");
+	}
+	fadein[1]->FadeSet(m_spriteRender[Title_BackGround2], Fade::Fade_In, FADEIN_TIME);
+	if (fadein[2] == nullptr) {
+		fadein[2] = NewGO<Fade>(0, "FadeIn");
+	}
+	fadein[2]->FadeSet(m_spriteRender[Title_Player], Fade::Fade_In, FADEIN_TIME);
 
 
 	m_spriteMulColor[Title_BackGround1] = m_spriteRender[Title_BackGround1]->GetMulColor();
@@ -119,14 +141,15 @@ void Title::TitleFadeIn()
 	if ((m_spriteMulColor[Title_BackGround1].x >= FADEIN_FINISHED.x && m_spriteMulColor[Title_BackGround1].y >= FADEIN_FINISHED.y &&
 		m_spriteMulColor[Title_BackGround1].z >= FADEIN_FINISHED.z) && (m_spriteMulColor[Title_BackGround2].x >= FADEIN_FINISHED.x &&
 			m_spriteMulColor[Title_BackGround2].y >= FADEIN_FINISHED.y && m_spriteMulColor[Title_BackGround2].z >= FADEIN_FINISHED.z) &&
-			(m_spriteMulColor[Title_Player].x >= FADEIN_FINISHED.x && m_spriteMulColor[Title_Player].y >= FADEIN_FINISHED.y &&
-				m_spriteMulColor[Title_Player].z >= FADEIN_FINISHED.z))
+		(m_spriteMulColor[Title_Player].x >= FADEIN_FINISHED.x && m_spriteMulColor[Title_Player].y >= FADEIN_FINISHED.y &&
+			m_spriteMulColor[Title_Player].z >= FADEIN_FINISHED.z))
 	{
 		//BGMの再生
 		m_titleState = Title_Font;
 	}
 }
-void Title::TitleFont()
+
+void TestTitle::TitleFont()
 {
 	//タイトル名、ボタンの表示。
 	m_spriteFontTimer++;
@@ -142,7 +165,8 @@ void Title::TitleFont()
 		m_titleState = Title_Select;
 	}
 }
-void Title::TitleSelect()
+
+void TestTitle::TitleSelect()
 {
 	//ボタン選択。
 	if (g_pad[0]->IsTrigger(enButtonStart)) {
@@ -167,23 +191,38 @@ void Title::TitleSelect()
 	m_spriteRender[Title_SelectIcon]->SetPosition(m_iconPos);		//選択アイコンの座標を設定。
 
 }
-void Title::TitleFadeOut()
+
+void TestTitle::TitleFadeOut()
 {
 	//フェードアウト。
-	Fade* fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_BackGround1], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_BackGround2], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_Player], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_Name], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_Start], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_End], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_SelectIcon], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[0] == nullptr) {
+		fadeout[0] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[0]->FadeSet(m_spriteRender[Title_BackGround1], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[1] == nullptr) {
+		fadeout[1] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[1]->FadeSet(m_spriteRender[Title_BackGround2], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[2] == nullptr) {
+		fadeout[2] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[2]->FadeSet(m_spriteRender[Title_Player], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[3] == nullptr) {
+		fadeout[3] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[3]->FadeSet(m_spriteRender[Title_Name], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[4] == nullptr) {
+		fadeout[4] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[4]->FadeSet(m_spriteRender[Title_Start], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[5] == nullptr) {
+		fadeout[5] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[5]->FadeSet(m_spriteRender[Title_End], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[6] == nullptr) {
+		fadeout[6] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[6]->FadeSet(m_spriteRender[Title_SelectIcon], Fade::Fade_Out, FADEOUT_TIME);
 
 	m_spriteMulColor[Title_BackGround1] = m_spriteRender[Title_BackGround1]->GetMulColor();
 	m_spriteMulColor[Title_BackGround2] = m_spriteRender[Title_BackGround2]->GetMulColor();
@@ -197,7 +236,7 @@ void Title::TitleFadeOut()
 	//フェードアウトが完了したので次へ。
 	if ((m_spriteMulColor[Title_BackGround1].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_BackGround1].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_BackGround1].z <= FADEOUT_FINISHED.z) &&
 		(m_spriteMulColor[Title_BackGround2].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_BackGround2].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_BackGround2].z <= FADEOUT_FINISHED.z) &&
-		(m_spriteMulColor[Title_Player].x <= FADEIN_FINISHED.x && m_spriteMulColor[Title_Player].y <= FADEIN_FINISHED.y && m_spriteMulColor[Title_Player].z <= FADEIN_FINISHED.z) &&
+		(m_spriteMulColor[Title_Player].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_Player].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_Player].z <= FADEOUT_FINISHED.z) &&
 		(m_spriteMulColor[Title_Name].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_Name].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_Name].z <= FADEOUT_FINISHED.z) &&
 		(m_spriteMulColor[Title_Start].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_Start].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_Start].z <= FADEOUT_FINISHED.z) &&
 		(m_spriteMulColor[Title_End].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_End].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_End].z <= FADEOUT_FINISHED.z) &&
@@ -207,27 +246,4 @@ void Title::TitleFadeOut()
 		DeleteGO(this);
 	}
 
-
 }
-void Title::Update()
-{
-	TitleMoveBackGround();
-	switch (m_titleState)
-	{
-	case Title::Title_FadeIn:
-		TitleFadeIn();	//フェードイン。
-		break;
-	case Title::Title_Font:
-		TitleFont();	//タイトル名、ボタンの表示。
-		break;
-	case Title::Title_Select:
-		TitleSelect();	//ボタン選択。
-		break;
-	case Title::Title_FadeOut:
-		TitleFadeOut();	//フェードアウト。
-		break;
-	}
-
-
-}
-

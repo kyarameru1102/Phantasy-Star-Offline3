@@ -2,7 +2,7 @@
 #include <vector>		//可変長配列。
 #include "GameObject.h"
 #include "Util.h"
-
+#include <sstream>
 /// <summary>
 /// ゲームオブジェクトを管理するクラス。
 /// </summary>
@@ -76,12 +76,23 @@ public:
 			unsigned int hash = MakeGameObjectNameKey(objectName);
 			NewObject->SetPriority(prio);
 			NewObject->SetNameKey(hash);
+
+			if (objectName == nullptr) {
+				m_debugNameMap.emplace(NewObject, "NoName\n");
+			}
+			else {
+				std::stringstream str;
+				str << objectName << std::endl;
+				m_debugNameMap.emplace(NewObject, str.str());
+			}
 			return NewObject;
 		}
 		else {
 			assert(1);
 		}
 	}
+
+
 	/// <summary>
 	/// ゲームオブジェクトの削除。
 	/// </summary>
@@ -133,6 +144,7 @@ public:
 		}
 	}
 private:
+	std::map<void*, std::string> m_debugNameMap;
 	std::vector<IGameObject*>			 m_gameObjectList;
 	typedef std::list<IGameObject*>		GameObjectList;
 	std::vector<GameObjectList>			m_gameObjectListArray;		//ゲームオブジェクトの優先度付きリスト

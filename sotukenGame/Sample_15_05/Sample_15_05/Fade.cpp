@@ -53,6 +53,7 @@ void Fade::FadeOut()
 	else {
 		m_fadeSprite->SetMulColor(m_mulColor);
 	}
+	
 }
 void Fade::DoNothing()
 {	
