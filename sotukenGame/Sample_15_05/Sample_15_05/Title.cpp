@@ -102,12 +102,18 @@ void Title::TitleMoveBackGround()
 void Title::TitleFadeIn()
 {
 	//フェードイン。
-	Fade* fadein = NewGO<Fade>(0, "FadeIn");
-	fadein->FadeSet(m_spriteRender[Title_BackGround1], Fade::Fade_In, FADEIN_TIME);
-	fadein = NewGO<Fade>(0, "FadeIn");
-	fadein->FadeSet(m_spriteRender[Title_BackGround2], Fade::Fade_In, FADEIN_TIME);
-	fadein = NewGO<Fade>(0, "FadeIn");
-	fadein->FadeSet(m_spriteRender[Title_Player], Fade::Fade_In, FADEIN_TIME);
+	if (fadein[0] == nullptr) {
+		fadein[0] = NewGO<Fade>(0, "FadeIn");
+	}
+	fadein[0]->FadeSet(m_spriteRender[Title_BackGround1], Fade::Fade_In, FADEIN_TIME);
+	if (fadein[1] == nullptr) {
+		fadein[1] = NewGO<Fade>(0, "FadeIn");
+	}
+	fadein[1]->FadeSet(m_spriteRender[Title_BackGround2], Fade::Fade_In, FADEIN_TIME);
+	if (fadein[2] == nullptr) {
+		fadein[2] = NewGO<Fade>(0, "FadeIn");
+	}
+	fadein[2]->FadeSet(m_spriteRender[Title_Player], Fade::Fade_In, FADEIN_TIME);
 
 
 	m_spriteMulColor[Title_BackGround1] = m_spriteRender[Title_BackGround1]->GetMulColor();
@@ -169,20 +175,34 @@ void Title::TitleSelect()
 void Title::TitleFadeOut()
 {
 	//フェードアウト。
-	Fade* fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_BackGround1], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_BackGround2], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_Player], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_Name], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_Start], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_End], Fade::Fade_Out, FADEOUT_TIME);
-	fadeout = NewGO<Fade>(0, "FadeOut");
-	fadeout->FadeSet(m_spriteRender[Title_SelectIcon], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[0] == nullptr) {
+		fadeout[0] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[0]->FadeSet(m_spriteRender[Title_BackGround1], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[1] == nullptr) {
+		fadeout[1] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[1]->FadeSet(m_spriteRender[Title_BackGround2], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[2] == nullptr) {
+		fadeout[2] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[2]->FadeSet(m_spriteRender[Title_Player], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[3] == nullptr) {
+		fadeout[3] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[3]->FadeSet(m_spriteRender[Title_Name], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[4] == nullptr) {
+		fadeout[4] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[4]->FadeSet(m_spriteRender[Title_Start], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[5] == nullptr) {
+		fadeout[5] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[5]->FadeSet(m_spriteRender[Title_End], Fade::Fade_Out, FADEOUT_TIME);
+	if (fadeout[6] == nullptr) {
+		fadeout[6] = NewGO<Fade>(0, "FadeOut");
+	}
+	fadeout[6]->FadeSet(m_spriteRender[Title_SelectIcon], Fade::Fade_Out, FADEOUT_TIME);
 
 	m_spriteMulColor[Title_BackGround1] = m_spriteRender[Title_BackGround1]->GetMulColor();
 	m_spriteMulColor[Title_BackGround2] = m_spriteRender[Title_BackGround2]->GetMulColor();
@@ -196,7 +216,7 @@ void Title::TitleFadeOut()
 	//フェードアウトが完了したので次へ。
 	if ((m_spriteMulColor[Title_BackGround1].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_BackGround1].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_BackGround1].z <= FADEOUT_FINISHED.z) &&
 		(m_spriteMulColor[Title_BackGround2].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_BackGround2].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_BackGround2].z <= FADEOUT_FINISHED.z) &&
-		(m_spriteMulColor[Title_Player].x <= FADEIN_FINISHED.x && m_spriteMulColor[Title_Player].y <= FADEIN_FINISHED.y && m_spriteMulColor[Title_Player].z <= FADEIN_FINISHED.z) &&
+		(m_spriteMulColor[Title_Player].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_Player].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_Player].z <= FADEOUT_FINISHED.z) &&
 		(m_spriteMulColor[Title_Name].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_Name].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_Name].z <= FADEOUT_FINISHED.z) &&
 		(m_spriteMulColor[Title_Start].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_Start].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_Start].z <= FADEOUT_FINISHED.z) &&
 		(m_spriteMulColor[Title_End].x <= FADEOUT_FINISHED.x && m_spriteMulColor[Title_End].y <= FADEOUT_FINISHED.y && m_spriteMulColor[Title_End].z <= FADEOUT_FINISHED.z) &&

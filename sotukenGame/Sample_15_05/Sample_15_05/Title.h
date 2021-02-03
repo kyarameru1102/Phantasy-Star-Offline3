@@ -2,6 +2,7 @@
 /// <summary>
 /// タイトルシーン。
 /// </summary>
+class Fade;
 class Title : public IGameObject
 {
 public:
@@ -79,7 +80,7 @@ private:
 	const float SET_ALPHA = 0.0f;								//初期透明度。
 
 	//background関連
-	const float FADEIN_TIME = 80.0f;					//フェードインさせる時間。単位：フレーム。
+	const float FADEIN_TIME = 1.0f;					//フェードインさせる時間。単位：フレーム。
 	const float m_backTexXPos = 1280.0f;				//二枚目のX座標の位置。
 	Vector3 m_backTexpos1 = Vector3::Zero;				//背景の座標1。
 	Vector3 m_backTexpos2 = Vector3::Zero;				//背景の座標2。
@@ -99,5 +100,7 @@ private:
 	const float BUTTON_NOT_SELECT = 0.3f;						//選択外のボタン。
 
 	//フェードアウト関連。
-	const float FADEOUT_TIME = 80.0f;							//フェードアウトさせる時間。単位：フレーム。
+	const float FADEOUT_TIME = 1.0f;							//フェードアウトさせる時間。単位：フレーム。
+	Fade* fadein[3] = { nullptr };
+	Fade* fadeout[7] = { nullptr };
 };
